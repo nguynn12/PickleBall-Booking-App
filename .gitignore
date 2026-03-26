@@ -19,6 +19,3 @@ Thumbs.db
 # Keystore (cực kỳ quan trọng)
 *.jks
 *.keystore
-
-# Google Services (nếu có key thật)
-google-services.json
