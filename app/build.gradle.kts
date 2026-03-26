@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -53,4 +54,9 @@ dependencies {
     // 2. Thư viện MVVM (ViewModel & LiveData) để quản lý dữ liệu
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
+
+    // Khai báo Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    // Khai báo thư viện Firestore (không cần số phiên bản vì đã có BoM quản lý)
+    implementation("com.google.firebase:firebase-firestore")
 }
