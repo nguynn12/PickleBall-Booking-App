@@ -59,4 +59,5 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     // Khai báo thư viện Firestore (không cần số phiên bản vì đã có BoM quản lý)
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-auth")
 }
