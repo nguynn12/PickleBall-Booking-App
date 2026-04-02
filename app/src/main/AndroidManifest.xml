@@ -28,9 +28,16 @@
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activity.AddCourtActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AdminDashboardActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
