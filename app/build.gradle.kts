@@ -50,6 +50,9 @@ dependencies {
 
     // 1. Thư viện Glide để load ảnh sân Pickleball từ link mạng
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+
+    implementation("de.hdodenhof:circleimageview:3.1.0")
 
     // 2. Thư viện MVVM (ViewModel & LiveData) để quản lý dữ liệu
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")

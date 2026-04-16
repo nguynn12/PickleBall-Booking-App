@@ -36,6 +36,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.CourtDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".activity.AddCourtActivity"
             android:exported="false" />
 
