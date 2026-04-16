@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                         // Chuyển về màn hình Trang chủ (MainActivity)
-                        Intent intent = new Intent(LoginActivity.this, com.example.pickleball.activity.AdminDashboardActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, com.example.pickleball.activity.HomeActivity.class);
                         startActivity(intent);
                         finish(); // Đóng màn hình Login lại để ấn nút Back không bị quay ngược ra đây
                     } else {

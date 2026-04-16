@@ -4,4 +4,23 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="alobo_green">#4CAF50</color>
+
+    <color name="pickle_green">#4CAF50</color>
+    <color name="pickle_green_light">#E8F5E9</color>
+
+    <color name="apple_near_black">#1D1D1F</color>
+    <color name="apple_light_gray">#F5F5F7</color>
+
+    <color name="pickle_green_dark">#1B5E20</color>
+    <color name="pickle_green_mid">#2E7D32</color>
+    <color name="pickle_green_soft">#A5D6A7</color>
+
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+
+    <color name="bg_main">#F5F5F5</color>
+    <color name="alobo_green_light">#C8E6C9</color>
+    <color name="text_sub">#9E9E9E</color>
+    <color name="text_title">#000000</color>
+    <color name="stroke_color">#E0E0E0</color>
 </resources>
