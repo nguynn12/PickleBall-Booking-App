@@ -14,19 +14,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PickleBall">
 
+        <!-- SPLASH: Main launcher screen -->
         <activity
-            android:name=".activity.LoginActivity"
-            android:exported="true">
+            android:name=".activity.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PickleBall.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <!-- AUTH screens -->
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="false" />
+
         <activity
             android:name=".activity.RegisterActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".activity.ForgotPasswordActivity"
+            android:exported="false" />
+
+        <!-- HOME screens (3 roles) -->
+        <activity
+            android:name=".activity.CustomerHomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.OwnerHomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.AdminHomeActivity"
+            android:exported="false" />
+
+        <!-- PROFILE -->
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="false" />
+
+        <!-- MAIN (test screen, keep for now) -->
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
