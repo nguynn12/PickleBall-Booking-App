@@ -17,11 +17,19 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(() -> {
+            // 1. Kiem tra da xem onboarding chua
+            if (!OnboardingActivity.isOnboardingDone(this)) {
+                startActivity(new Intent(this, OnboardingActivity.class));
+                finish();
+                return;
+            }
+
+            // 2. Kiem tra da dang nhap chua -> auto-login
             FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if (currentUser != null) {
                 checkRoleAndNavigate(currentUser.getUid());
             } else {
-                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                startActivity(new Intent(this, LoginActivity.class));
                 finish();
             }
         }, 2000);
@@ -39,7 +47,7 @@ public class SplashActivity extends AppCompatActivity {
             });
     }
 
-    /** Dung chung cho ca app (goi tu LoginActivity sau khi dang nhap) */
+    /** Dung chung cho ca app: chuyen trang theo role */
     public static void navigateByRole(android.content.Context context, String role) {
         Intent intent;
         if ("admin".equals(role)) {

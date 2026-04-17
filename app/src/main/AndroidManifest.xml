@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PickleBall">
 
-        <!-- SPLASH: Main launcher screen -->
+        <!-- SPLASH: Main launcher -->
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"
@@ -25,41 +25,26 @@
             </intent-filter>
         </activity>
 
-        <!-- AUTH screens -->
+        <!-- ONBOARDING (chi hien lan dau) -->
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.OnboardingActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".activity.RegisterActivity"
-            android:exported="false" />
+        <!-- AUTH -->
+        <activity android:name=".activity.LoginActivity"         android:exported="false" />
+        <activity android:name=".activity.RegisterActivity"      android:exported="false" />
+        <activity android:name=".activity.ForgotPasswordActivity" android:exported="false" />
 
-        <activity
-            android:name=".activity.ForgotPasswordActivity"
-            android:exported="false" />
-
-        <!-- HOME screens (3 roles) -->
-        <activity
-            android:name=".activity.CustomerHomeActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".activity.OwnerHomeActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".activity.AdminHomeActivity"
-            android:exported="false" />
+        <!-- HOME (3 roles) -->
+        <activity android:name=".activity.CustomerHomeActivity"  android:exported="false" />
+        <activity android:name=".activity.OwnerHomeActivity"     android:exported="false" />
+        <activity android:name=".activity.AdminHomeActivity"     android:exported="false" />
 
         <!-- PROFILE -->
-        <activity
-            android:name=".activity.ProfileActivity"
-            android:exported="false" />
+        <activity android:name=".activity.ProfileActivity"       android:exported="false" />
 
-        <!-- MAIN (test screen, keep for now) -->
-        <activity
-            android:name=".activity.MainActivity"
-            android:exported="false" />
+        <!-- TEST screen (giu lai de khong loi) -->
+        <activity android:name=".activity.MainActivity"          android:exported="false" />
 
     </application>
 

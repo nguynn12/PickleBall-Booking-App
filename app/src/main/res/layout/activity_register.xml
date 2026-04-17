@@ -15,7 +15,6 @@
         android:paddingTop="52dp"
         android:paddingBottom="40dp">
 
-        <!-- Title -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +60,6 @@
                     android:hint="Ho va ten"
                     style="@style/Widget.PickleBall.TextInput"
                     android:layout_marginBottom="12dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtFullName"
                         android:layout_width="match_parent"
@@ -84,7 +82,6 @@
                     android:hint="So dien thoai"
                     style="@style/Widget.PickleBall.TextInput"
                     android:layout_marginBottom="12dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtPhone"
                         android:layout_width="match_parent"
@@ -107,7 +104,6 @@
                     android:hint="Email"
                     style="@style/Widget.PickleBall.TextInput"
                     android:layout_marginBottom="12dp">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
@@ -131,7 +127,6 @@
                     style="@style/Widget.PickleBall.TextInput"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="@color/text_tertiary">
-
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtPassword"
                         android:layout_width="match_parent"
@@ -147,7 +142,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Role Selection Card -->
+        <!-- Role + Skill Level Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,14 +159,15 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+                <!-- Role label -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ban dang ky voi vai tro:"
-                    android:textSize="14sp"
+                    android:text="Vai tro cua ban:"
+                    android:textSize="13sp"
                     android:fontFamily="sans-serif"
                     android:textColor="@color/text_secondary"
-                    android:layout_marginBottom="12dp"/>
+                    android:layout_marginBottom="8dp"/>
 
                 <Spinner
                     android:id="@+id/spinnerRole"
@@ -180,13 +176,37 @@
                     android:background="@color/input_bg"
                     android:padding="12dp"
                     android:fontFamily="sans-serif"
-                    android:textSize="17sp"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="16dp"/>
+
+                <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                    android:background="@color/divider" android:layout_marginBottom="16dp"/>
+
+                <!-- Skill Level label (theo PDF) -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trinh do choi Pickleball:"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerSkill"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:background="@color/input_bg"
+                    android:padding="12dp"
+                    android:fontFamily="sans-serif"
+                    android:textSize="16sp"
                     android:textColor="@color/text_primary"/>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Register Button (Green Pill) -->
+        <!-- Register Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
