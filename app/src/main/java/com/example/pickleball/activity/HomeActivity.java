@@ -157,15 +157,15 @@ public class HomeActivity extends AppCompatActivity {
 
         if (btnFilterNearMe != null) {
             btnFilterNearMe.setBackgroundResource(R.drawable.bg_search_bar);
-            btnFilterNearMe.setTextColor(ContextCompat.getColor(this, R.color.text_title));
+            btnFilterNearMe.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }
         if (btnFilterAvailable != null) {
             btnFilterAvailable.setBackgroundResource(R.drawable.bg_search_bar);
-            btnFilterAvailable.setTextColor(ContextCompat.getColor(this, R.color.text_title));
+            btnFilterAvailable.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }
         if (btnFilterIndoor != null) {
             btnFilterIndoor.setBackgroundResource(R.drawable.bg_search_bar);
-            btnFilterIndoor.setTextColor(ContextCompat.getColor(this, R.color.text_title));
+            btnFilterIndoor.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }
     }
 
@@ -210,11 +210,11 @@ public class HomeActivity extends AppCompatActivity {
         }
         if (u1 != null) {
             u1.setBackgroundResource(R.drawable.bg_search_bar);
-            u1.setTextColor(ContextCompat.getColor(this, R.color.text_title));
+            u1.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }
         if (u2 != null) {
             u2.setBackgroundResource(R.drawable.bg_search_bar);
-            u2.setTextColor(ContextCompat.getColor(this, R.color.text_title));
+            u2.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }
     }
 

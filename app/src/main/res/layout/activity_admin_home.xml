@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--
+      Admin Home Screen - Apple-inspired, Green accent
+      System overview stats, user/court/booking management links
+    -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
+
+    <!-- Header (Dark for admin feel) -->
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/text_primary"
+    android:paddingTop="52dp"
+    android:paddingBottom="24dp"
+    android:paddingHorizontal="24dp">
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Quản trị hệ thống"
+    android:textSize="14sp"
+    android:fontFamily="sans-serif"
+    android:textColor="#99FFFFFF"/>
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginTop="4dp">
+
+<TextView
+android:id="@+id/tvAdminName"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:text="Admin"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/bg_white"
+    android:letterSpacing="-0.02"/>
+
+    <!-- Admin badge -->
+<com.google.android.material.card.MaterialCardView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="100dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/green_primary">
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="ADMIN"
+    android:textSize="11sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/bg_white"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="4dp"/>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    </LinearLayout>
+
+    <!-- Stats Grid -->
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="TỔNG QUAN HỆ THỐNG"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/text_secondary"
+    android:letterSpacing="0.08"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="12dp"/>
+
+    <!-- Row 1: Users + Courts -->
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:layout_marginBottom="8dp">
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/green_primary"
+    android:layout_marginEnd="8dp">
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="12dp">
+<TextView android:id="@+id/tvTotalUsers"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="0" android:textSize="28sp" android:fontFamily="sans-serif-medium"
+    android:textStyle="bold" android:textColor="@color/bg_white"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="Người dùng" android:textSize="12sp"
+    android:fontFamily="sans-serif" android:textColor="#CCFFFFFF"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white">
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="12dp">
+<TextView android:id="@+id/tvTotalCourtsAdmin"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="0" android:textSize="28sp" android:fontFamily="sans-serif-medium"
+    android:textStyle="bold" android:textColor="@color/text_primary"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="Tổng sân" android:textSize="12sp"
+    android:fontFamily="sans-serif" android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Row 2: Total Bookings + Pending -->
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white"
+    android:layout_marginEnd="8dp">
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="12dp">
+<TextView android:id="@+id/tvTotalBookings"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="0" android:textSize="28sp" android:fontFamily="sans-serif-medium"
+    android:textStyle="bold" android:textColor="@color/info_blue"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="Đặt sân" android:textSize="12sp"
+    android:fontFamily="sans-serif" android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white">
+
+<LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="12dp">
+<TextView android:id="@+id/tvPendingApproval"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="0" android:textSize="28sp" android:fontFamily="sans-serif-medium"
+    android:textStyle="bold" android:textColor="@color/warning_yellow"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="Chờ duyệt" android:textSize="12sp"
+    android:fontFamily="sans-serif" android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Management Menu -->
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="QUẢN LÝ"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/text_secondary"
+    android:letterSpacing="0.08"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="8dp"/>
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white"
+    android:layout_marginHorizontal="16dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<LinearLayout android:id="@+id/btnManageUsers"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content"
+    android:layout_weight="1" android:text="Quản lý người dùng"
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+<LinearLayout android:id="@+id/btnManageCourtsAdmin"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content"
+    android:layout_weight="1" android:text="Duyệt &amp; quản lý sân"
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+<LinearLayout android:id="@+id/btnManageBookingsAdmin"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content"
+    android:layout_weight="1" android:text="Tất cả đơn đặt sân"
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+<LinearLayout android:id="@+id/btnAdminProfile"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content"
+    android:layout_weight="1" android:text="Hồ sơ Admin"
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+<LinearLayout android:id="@+id/btnAdminLogout"
+    android:layout_width="match_parent" android:layout_height="56dp"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
+<TextView android:layout_width="0dp" android:layout_height="wrap_content"
+    android:layout_weight="1" android:text="Đăng xuất"
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/error_red"/>
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+    </ScrollView>
+    

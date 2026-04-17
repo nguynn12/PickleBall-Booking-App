@@ -3,37 +3,65 @@ package com.example.pickleball.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pickleball.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Ẩn thanh Action Bar để màn hình splash bao phủ toàn bộ
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
-
         setContentView(R.layout.activity_splash);
 
-        TextView tvSplashTitle = findViewById(R.id.tvSplashTitle);
+        new Handler().postDelayed(() -> {
+            // 1. Kiem tra da xem onboarding chua
+            if (!OnboardingActivity.isOnboardingDone(this)) {
+                startActivity(new Intent(this, OnboardingActivity.class));
+                finish();
+                return;
+            }
 
-        // Hiệu ứng: Chữ hiện dần (Fade-in) trong 1.2 giây
-        tvSplashTitle.animate()
-                .alpha(1f)
-                .setDuration(1200)
-                .start();
-
-        // Tự động chuyển sang LoginActivity sau 2500ms (2.5 giây)
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // Đóng SplashActivity để không quay lại được khi bấm Back
-        }, 2500);
+            // 2. Kiem tra da dang nhap chua -> auto-login
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                checkRoleAndNavigate(currentUser.getUid());
+            } else {
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+            }
+        }, 2000);
     }
+
+    private void checkRoleAndNavigate(String uid) {
+        FirebaseFirestore.getInstance().collection("Users").document(uid).get()
+                .addOnSuccessListener(doc -> {
+                    String role = doc.getString("role");
+                            navigateByRole(role);
+                })
+                .addOnFailureListener(e -> {
+                    startActivity(new Intent(this, LoginActivity.class));
+                    finish();
+                });
+    }
+
+    /** Dung chung cho ca app: chuyen trang theo role */
+    public static void navigateByRole(android.content.Context context, String role) {
+        Intent intent;
+        if ("admin".equals(role)) {
+        intent = new Intent(context, AdminHomeActivity.class);
+    } else if ("owner".equals(role)) {
+    intent = new Intent(context, OwnerHomeActivity.class);
+} else {
+intent = new Intent(context, CustomerHomeActivity.class);
+        }
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
+private void navigateByRole(String role) {
+    navigateByRole(this, role);
+}
 }

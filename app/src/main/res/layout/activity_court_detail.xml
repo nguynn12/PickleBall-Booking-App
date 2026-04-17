@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/apple_light_gray">
+    android:background="@color/bg_primary">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,14 +38,14 @@
                     android:text="Tên sân"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_title"/>
+                    android:textColor="@color/text_primary"/>
 
                 <TextView
                     android:id="@+id/tvDetailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="📍 Địa chỉ"
-                    android:textColor="@color/text_sub"
+                    android:textColor="@color/text_secondary"
                     android:layout_marginTop="8dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Giá mỗi giờ từ"
-                android:textColor="@color/text_sub"
+                android:textColor="@color/text_secondary"
                 android:textSize="13sp"/>
 
             <TextView
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0đ"
-                android:textColor="@color/alobo_green"
+                android:textColor="@color/green_dark"
                 android:textSize="22sp"
                 android:textStyle="bold"/>
         </LinearLayout>
