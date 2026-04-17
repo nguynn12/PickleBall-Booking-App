@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--
+      Fragment layout cho mỗi slide Onboarding
+      Icon lớn ở trên, tiêu đề + mô tả ở dưới
+    -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="20dp"
+    android:background="@color/bg_white">
+
+    <!-- Illustration / Icon (Green circle background) -->
+<com.google.android.material.card.MaterialCardView
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    app:cardCornerRadius="80dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/green_light"
+    android:layout_marginBottom="48dp">
+
+<ImageView
+android:id="@+id/imgOnboard"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_gravity="center"
+    android:tint="@color/green_primary"
+    android:scaleType="fitCenter"
+    android:contentDescription="Onboarding illustration"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Title -->
+<TextView
+android:id="@+id/tvOnboardTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Tieu de"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/text_primary"
+    android:gravity="center"
+    android:letterSpacing="-0.02"
+    android:lineSpacingMultiplier="1.14"
+    android:layout_marginBottom="16dp"/>
+
+    <!-- Subtitle -->
+<TextView
+android:id="@+id/tvOnboardSubtitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Mo ta"
+    android:textSize="17sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_secondary"
+    android:gravity="center"
+    android:lineSpacingMultiplier="1.47"
+    android:letterSpacing="-0.02"/>
+
+    </LinearLayout>

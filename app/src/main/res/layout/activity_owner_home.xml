@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!--
+      Owner Home Screen - Apple-inspired, Green accent
+      Dashboard stats, manage courts, pending bookings
+    -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_primary">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="40dp">
+
+    <!-- Header -->
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/bg_white"
+    android:paddingTop="52dp"
+    android:paddingBottom="20dp"
+    android:paddingHorizontal="24dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+
+<LinearLayout
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Quản lý sân"
+    android:textSize="14sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_secondary"/>
+
+<TextView
+android:id="@+id/tvOwnerName"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Chủ sân A"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/text_primary"
+    android:letterSpacing="-0.02"/>
+    </LinearLayout>
+
+    <!-- Profile -->
+<com.google.android.material.card.MaterialCardView
+android:id="@+id/cardOwnerProfile"
+    android:layout_width="44dp"
+    android:layout_height="44dp"
+    app:cardCornerRadius="22dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/green_primary">
+
+<TextView
+android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="C"
+    android:textSize="18sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/bg_white"
+    android:gravity="center"/>
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+    </LinearLayout>
+
+    <!-- Stats Row -->
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="THỐNG KÊ HÔM NAY"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/text_secondary"
+    android:letterSpacing="0.08"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="12dp"/>
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp">
+
+    <!-- Total Courts -->
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/green_primary"
+    android:layout_marginEnd="8dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp">
+
+<TextView
+android:id="@+id/tvTotalCourts"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="0"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/bg_white"/>
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Sân của tôi"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif"
+    android:textColor="#CCFFFFFF"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Pending Bookings -->
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white"
+    android:layout_marginEnd="8dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp">
+
+<TextView
+android:id="@+id/tvPendingCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="0"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/warning_yellow"/>
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Chờ duyệt"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Confirmed Today -->
+<com.google.android.material.card.MaterialCardView
+android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="90dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp">
+
+<TextView
+android:id="@+id/tvConfirmedCount"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="0"
+    android:textSize="28sp"
+    android:fontFamily="sans-serif-medium"
+    android:textStyle="bold"
+    android:textColor="@color/green_dark"/>
+
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Đã duyệt"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+    <!-- Quick Actions -->
+<TextView
+android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="QUẢN LÝ"
+    android:textSize="12sp"
+    android:fontFamily="sans-serif-medium"
+    android:textColor="@color/text_secondary"
+    android:letterSpacing="0.08"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="8dp"/>
+
+<com.google.android.material.card.MaterialCardView
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/divider"
+    app:strokeWidth="1dp"
+    app:cardBackgroundColor="@color/bg_white"
+    android:layout_marginHorizontal="16dp">
+
+<LinearLayout
+android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- Manage My Courts -->
+<LinearLayout
+android:id="@+id/btnManageCourts"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="20dp"
+    android:background="?attr/selectableItemBackground">
+
+<TextView
+android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Quản lý sân của tôi"
+    android:textSize="17sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_primary"/>
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+    <!-- Manage Bookings -->
+<LinearLayout
+android:id="@+id/btnManageBookings"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="20dp"
+    android:background="?attr/selectableItemBackground">
+
+<TextView
+android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Đơn đặt sân"
+    android:textSize="17sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_primary"/>
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+    <!-- Add Court -->
+<LinearLayout
+android:id="@+id/btnAddCourt"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="20dp"
+    android:background="?attr/selectableItemBackground">
+
+<TextView
+android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Thêm sân mới"
+    android:textSize="17sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/green_dark"/>
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+<View android:layout_width="match_parent" android:layout_height="0.5dp"
+    android:background="@color/divider" android:layout_marginStart="20dp"/>
+
+    <!-- Profile -->
+<LinearLayout
+android:id="@+id/btnOwnerProfile"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingHorizontal="20dp"
+    android:background="?attr/selectableItemBackground">
+
+<TextView
+android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:text="Hồ sơ cá nhân"
+    android:textSize="17sp"
+    android:fontFamily="sans-serif"
+    android:textColor="@color/text_primary"/>
+
+<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+    </LinearLayout>
+
+    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+    </ScrollView>
+    

@@ -13,7 +13,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
-        app:tint="@color/text_sub" />
+        app:tint="@color/icon_tint" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="80dp"
@@ -27,7 +27,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="12dp"
         android:text="Chào Khách,"
-        android:textColor="@color/text_title"
+        android:textColor="@color/text_primary"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="4dp"
         android:text="Bạn chưa đăng nhập vào hệ thống"
-        android:textColor="@color/text_sub"
+        android:textColor="@color/text_secondary"
         android:textSize="14sp" />
 
     <Button
@@ -47,23 +47,23 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/white"
         android:text="Đăng nhập / Đăng ký"
-        android:textColor="@color/alobo_green"
+        android:textColor="@color/green_primary"
         app:cornerRadius="25dp"
-        app:strokeColor="@color/stroke_color"
+        app:strokeColor="@color/input_stroke"
         app:strokeWidth="1dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginVertical="20dp"
-        android:background="@color/stroke_color" />
+        android:background="@color/divider" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
         android:text="➕  Thêm tài khoản khác"
-        android:textColor="@color/text_title"
+        android:textColor="@color/text_primary"
         android:textSize="16sp" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
         android:text="⚙️  Cài đặt ứng dụng"
-        android:textColor="@color/text_title"
+        android:textColor="@color/text_primary"
         android:textSize="16sp" />
 
 </LinearLayout>
