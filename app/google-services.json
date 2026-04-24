@@ -12,7 +12,20 @@
           "package_name": "com.example.pickleball"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "717685951388-7vkmpp4j0fjo0k2bfn9rs7a0kgs5klev.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pickleball",
+            "certificate_hash": "4ddc3f49cca27b6963c2a29ce6871e53e4c0b17b"
+          }
+        },
+        {
+          "client_id": "717685951388-fj4qvq1iisal0rj0epmqkubpu23umtm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQDxf0WZP0powHTv2VnHNICmeFOJ8NFqs"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717685951388-fj4qvq1iisal0rj0epmqkubpu23umtm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,204 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_primary"
     android:fillViewport="true">
 
-<LinearLayout
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="60dp"
-    android:paddingBottom="40dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="48dp"
+        android:paddingBottom="32dp">
 
-    <!-- App Icon -->
-<androidx.cardview.widget.CardView
-android:layout_width="64dp"
-    android:layout_height="64dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/green_primary"
-    android:layout_marginBottom="24dp">
-<ImageView
-android:layout_width="36dp"
-    android:layout_height="36dp"
-    android:layout_gravity="center"
-    android:src="@drawable/ic_launcher_foreground"
-    android:tint="@color/text_on_green"
-    android:contentDescription="App icon"/>
-    </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/green_primary"
+            android:layout_marginBottom="24dp">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_launcher_foreground"
+                app:tint="@color/text_on_green"
+                android:contentDescription="App icon"/>
+        </androidx.cardview.widget.CardView>
 
-    <!-- Heading -->
-<TextView
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Dang nhap"
-    android:textSize="34sp"
-    android:fontFamily="sans-serif-medium"
-    android:textStyle="bold"
-    android:textColor="@color/text_primary"
-    android:letterSpacing="-0.02"
-    android:layout_marginBottom="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-medium"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:letterSpacing="-0.02"
+            android:layout_marginBottom="8dp"/>
 
-<TextView
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Chao mung tro lai!"
-    android:textSize="17sp"
-    android:fontFamily="sans-serif"
-    android:textColor="@color/text_secondary"
-    android:letterSpacing="-0.02"
-    android:layout_marginBottom="32dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chào mừng bạn quay trở lại!"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="32dp"/>
 
-    <!-- Email/Password Form Card -->
-<com.google.android.material.card.MaterialCardView
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="0dp"
-    app:strokeColor="@color/divider"
-    app:strokeWidth="1dp"
-    app:cardBackgroundColor="@color/bg_white"
-    android:layout_marginBottom="16dp">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/divider"
+            app:strokeWidth="1dp"
+            app:cardBackgroundColor="@color/bg_white"
+            android:layout_marginBottom="16dp">
 
-<LinearLayout
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-    <!-- Email -->
-<com.google.android.material.textfield.TextInputLayout
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Email"
-    style="@style/Widget.PickleBall.TextInput"
-    android:layout_marginBottom="12dp">
-<com.google.android.material.textfield.TextInputEditText
-android:id="@+id/edtEmailLogin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="textEmailAddress"
-    android:fontFamily="sans-serif"
-    android:textSize="17sp"
-    android:textColor="@color/text_primary"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    style="@style/Widget.PickleBall.TextInput"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    android:layout_marginBottom="16dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtEmailLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:textSize="16sp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:textColor="@color/text_primary"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Password -->
-<com.google.android.material.textfield.TextInputLayout
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Mat khau"
-    style="@style/Widget.PickleBall.TextInput"
-    app:passwordToggleEnabled="true"
-    app:passwordToggleTint="@color/text_tertiary">
-<com.google.android.material.textfield.TextInputEditText
-android:id="@+id/edtPasswordLogin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="textPassword"
-    android:fontFamily="sans-serif"
-    android:textSize="17sp"
-    android:textColor="@color/text_primary"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mật khẩu"
+                    style="@style/Widget.PickleBall.TextInput"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@color/text_tertiary">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPasswordLogin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:textSize="16sp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="16dp"
+                        android:textColor="@color/text_primary"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    <!-- Forgot Password -->
-<TextView
-android:id="@+id/tvForgotPassword"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Quen mat khau?"
-    android:textSize="15sp"
-    android:fontFamily="sans-serif"
-    android:textColor="@color/green_dark"
-    android:layout_gravity="end"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:layout_marginBottom="20dp"/>
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quên mật khẩu?"
+            android:textSize="15sp"
+            android:textColor="@color/green_dark"
+            android:layout_gravity="end"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginBottom="24dp"/>
 
-    <!-- Login Button (Green Pill) -->
-<com.google.android.material.button.MaterialButton
-android:id="@+id/btnLogin"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:text="Dang Nhap"
-    style="@style/Widget.PickleBall.Button.Primary"
-    android:layout_marginBottom="16dp"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Đăng Nhập"
+            style="@style/Widget.PickleBall.Button.Primary"
+            app:cornerRadius="27dp"
+            android:textAllCaps="false"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="24dp"/>
 
-    <!-- Divider: hoac -->
-<LinearLayout
-android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:layout_marginBottom="16dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-<View
-android:layout_width="0dp"
-    android:layout_height="0.5dp"
-    android:layout_weight="1"
-    android:background="@color/divider"/>
-
-<TextView
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="  hoac  "
-    android:textSize="13sp"
-    android:fontFamily="sans-serif"
-    android:textColor="@color/text_tertiary"/>
-
-<View
-android:layout_width="0dp"
-    android:layout_height="0.5dp"
-    android:layout_weight="1"
-    android:background="@color/divider"/>
-    </LinearLayout>
-
-    <!-- Google Sign-In Button -->
-<com.google.android.material.button.MaterialButton
-android:id="@+id/btnGoogleSignIn"
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:text="Tiep tuc voi Google"
-    style="@style/Widget.PickleBall.Button.Outline"
-    android:layout_marginBottom="28dp"/>
-
-    <!-- Go to Register -->
-<LinearLayout
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
-
-<TextView
-android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Chua co tai khoan? "
-    android:textSize="15sp"
-    android:textColor="@color/text_secondary"
-    android:fontFamily="sans-serif"/>
-
-<TextView
-android:id="@+id/tvGoToRegister"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Dang ky ngay"
-    android:textSize="15sp"
-    android:textColor="@color/green_dark"
-    android:fontFamily="sans-serif-medium"
-    android:textStyle="bold"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa có tài khoản? "
+                android:textSize="15sp"
+                android:textColor="@color/text_secondary"/>
+            <TextView
+                android:id="@+id/tvGoToRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đăng ký ngay"
+                android:textSize="15sp"
+                android:textColor="@color/green_dark"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
     </LinearLayout>
-    </ScrollView>
+</androidx.core.widget.NestedScrollView>
