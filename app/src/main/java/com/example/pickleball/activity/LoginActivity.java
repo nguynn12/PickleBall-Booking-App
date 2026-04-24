@@ -55,20 +55,17 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPassword = findViewById(R.id.tvForgotPassword);
 
         // Cau hinh Google Sign-In
-        String webClientId = getString(R.string.default_web_client_id);
-        GoogleSignInOptions.Builder gsoBuilder = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail();
-        if (webClientId != null && !webClientId.trim().isEmpty() && !"CHANGE_ME".equals(webClientId)) {
-            gsoBuilder.requestIdToken(webClientId);
-        }
-        GoogleSignInOptions gso = gsoBuilder.build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id)) // lay tu google-services.json
+                .requestEmail()
+                .build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         btnLogin.setOnClickListener(v -> {
             String email = edtEmail.getText().toString().trim();
             String pass  = edtPassword.getText().toString().trim();
             if (email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Vui long nhap du thong tin!", Toast.LENGTH_SHORT).show();
                 return;
             }
             loginWithEmail(email, pass);
@@ -95,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                         fetchRoleAndNavigate(mAuth.getCurrentUser().getUid());
                     } else {
                         btnLogin.setEnabled(true);
-                        Toast.makeText(this, "Sai email hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Sai email hoac mat khau!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -107,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             firebaseAuthWithGoogle(account.getIdToken());
         } catch (ApiException e) {
-            Toast.makeText(this, "Google Sign-In thất bại: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Google Sign-In that bai: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -123,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else {
                         btnGoogleSignIn.setEnabled(true);
-                        Toast.makeText(this, "Xác thực Firebase thất bại!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Xac thuc Firebase that bai!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -137,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                         // Lan dau dang nhap Google → tao User moi voi role "user"
                         User newUser = new User(
                                 uid,
-                                firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "Người dùng",
+                                firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "Nguoi dung",
                                 firebaseUser.getEmail() != null ? firebaseUser.getEmail() : "",
                                 "",      // chua co phone
                                 "user",  // mac dinh la khach hang
@@ -146,12 +143,12 @@ public class LoginActivity extends AppCompatActivity {
                         FirebaseFirestore.getInstance()
                                 .collection("Users").document(uid).set(newUser)
                                         .addOnSuccessListener(v -> {
-                                            Toast.makeText(this, "Đăng nhập Google thành công!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(this, "Dang nhap Google thanh cong!", Toast.LENGTH_SHORT).show();
                                                     fetchRoleAndNavigate(uid);
                                         });
                     } else {
                         // Da co tai khoan → chuyen thang vao trang chu
-                        Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Dang nhap thanh cong!", Toast.LENGTH_SHORT).show();
                                 fetchRoleAndNavigate(uid);
                     }
                 });
@@ -167,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     btnLogin.setEnabled(true);
                     btnGoogleSignIn.setEnabled(true);
-                    Toast.makeText(this, "Lỗi lấy thông tin!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Loi lay thong tin!", Toast.LENGTH_SHORT).show();
                 });
     }
 }
