@@ -11,10 +11,10 @@ android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="60dp"
-    android:paddingBottom="40dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="32dp">
 
     <!-- App Icon -->
 <androidx.cardview.widget.CardView
@@ -37,32 +37,31 @@ android:layout_width="36dp"
 <TextView
 android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Dang nhap"
-    android:textSize="34sp"
+    android:text="Đăng nhập"
+    android:textSize="28sp"
     android:fontFamily="sans-serif-medium"
     android:textStyle="bold"
     android:textColor="@color/text_primary"
-    android:letterSpacing="-0.02"
-    android:layout_marginBottom="8dp"/>
+    android:letterSpacing="-0.01"
+    android:layout_marginBottom="6dp"/>
 
 <TextView
 android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Chao mung tro lai!"
-    android:textSize="17sp"
+    android:text="Chào mừng trở lại!"
+    android:textSize="15sp"
     android:fontFamily="sans-serif"
     android:textColor="@color/text_secondary"
-    android:letterSpacing="-0.02"
-    android:layout_marginBottom="32dp"/>
+    android:layout_marginBottom="24dp"/>
 
     <!-- Email/Password Form Card -->
 <com.google.android.material.card.MaterialCardView
 android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="20dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
     app:strokeColor="@color/divider"
-    app:strokeWidth="1dp"
+    app:strokeWidth="0.5dp"
     app:cardBackgroundColor="@color/bg_white"
     android:layout_marginBottom="16dp">
 
@@ -70,11 +69,12 @@ android:layout_width="match_parent"
 android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="16dp">
 
     <!-- Email -->
 <com.google.android.material.textfield.TextInputLayout
-android:layout_width="match_parent"
+android:id="@+id/tilEmailLogin"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Email"
     style="@style/Widget.PickleBall.TextInput"
@@ -93,9 +93,10 @@ android:id="@+id/edtEmailLogin"
 
     <!-- Password -->
 <com.google.android.material.textfield.TextInputLayout
-android:layout_width="match_parent"
+android:id="@+id/tilPasswordLogin"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Mat khau"
+    android:hint="Mật khẩu"
     style="@style/Widget.PickleBall.TextInput"
     app:passwordToggleEnabled="true"
     app:passwordToggleTint="@color/text_tertiary">
@@ -118,7 +119,7 @@ android:id="@+id/edtPasswordLogin"
 android:id="@+id/tvForgotPassword"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Quen mat khau?"
+    android:text="Quên mật khẩu?"
     android:textSize="15sp"
     android:fontFamily="sans-serif"
     android:textColor="@color/green_dark"
@@ -132,7 +133,11 @@ android:id="@+id/tvForgotPassword"
 android:id="@+id/btnLogin"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:text="Dang Nhap"
+    android:text="Đăng nhập"
+    android:textAllCaps="false"
+    android:textSize="16sp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     style="@style/Widget.PickleBall.Button.Primary"
     android:layout_marginBottom="16dp"/>
 
@@ -170,7 +175,11 @@ android:layout_width="0dp"
 android:id="@+id/btnGoogleSignIn"
     android:layout_width="match_parent"
     android:layout_height="56dp"
-    android:text="Tiep tuc voi Google"
+    android:text="Tiếp tục với Google"
+    android:textAllCaps="false"
+    android:textSize="16sp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
     style="@style/Widget.PickleBall.Button.Outline"
     android:layout_marginBottom="28dp"/>
 
@@ -184,7 +193,7 @@ android:layout_width="wrap_content"
 <TextView
 android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Chua co tai khoan? "
+    android:text="Chưa có tài khoản? "
     android:textSize="15sp"
     android:textColor="@color/text_secondary"
     android:fontFamily="sans-serif"/>
@@ -193,7 +202,7 @@ android:layout_width="wrap_content"
 android:id="@+id/tvGoToRegister"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Dang ky ngay"
+    android:text="Đăng ký ngay"
     android:textSize="15sp"
     android:textColor="@color/green_dark"
     android:fontFamily="sans-serif-medium"

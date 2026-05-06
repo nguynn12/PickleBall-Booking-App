@@ -1,4 +1,4 @@
-package com.example.pickleball.activity;
+package com.example.pickleball.activity.auth;
 
 import android.content.Intent;
 import android.os.Bundle;

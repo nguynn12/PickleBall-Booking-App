@@ -1,4 +1,4 @@
-package com.example.pickleball.activity;
+package com.example.pickleball.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pickleball.R;
+import com.example.pickleball.activity.auth.LoginActivity;
+import com.example.pickleball.activity.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 

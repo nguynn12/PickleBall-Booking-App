@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pickleball.R;
+import com.example.pickleball.activity.auth.LoginActivity;
+import com.example.pickleball.activity.court.CourtDetailActivity;
 import com.example.pickleball.adapter.CourtAdapter;
 import com.example.pickleball.model.Court;
 import com.example.pickleball.utils.FirebaseHelper;

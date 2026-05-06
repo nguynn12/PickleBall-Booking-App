@@ -1,10 +1,14 @@
-package com.example.pickleball.activity;
+package com.example.pickleball.activity.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pickleball.R;
+import com.example.pickleball.activity.home.AdminHomeActivity;
+import com.example.pickleball.activity.home.CustomerHomeActivity;
+import com.example.pickleball.activity.home.OwnerHomeActivity;
+import com.example.pickleball.activity.profile.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -14,6 +18,10 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Apply saved dark mode setting
+        SettingsActivity.applySavedDarkMode(this);
+
         setContentView(R.layout.activity_splash);
 
         new Handler().postDelayed(() -> {

@@ -1,4 +1,4 @@
-package com.example.pickleball.activity;
+package com.example.pickleball.activity.court;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.pickleball.R;
 import com.example.pickleball.model.Court;
+
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class CourtDetailActivity extends AppCompatActivity {
 
@@ -32,11 +35,16 @@ public class CourtDetailActivity extends AppCompatActivity {
 
         tvName.setText(court.getCourtName());
         tvAddress.setText("📍 " + court.getAddress());
-        tvPrice.setText(HomeActivity.formatVnd(court.getPricePerHour()));
+        tvPrice.setText(formatVnd(court.getPricePerHour()));
 
         Glide.with(this)
                 .load(court.getImageUrl())
                 .centerCrop()
                 .into(imgCover);
+    }
+
+    private String formatVnd(double amount) {
+        NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+        return formatter.format(amount) + "đ/giờ";
     }
 }

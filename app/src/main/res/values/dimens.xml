@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Spacing System (Apple-style) -->
+    <dimen name="spacing_4">4dp</dimen>
+    <dimen name="spacing_8">8dp</dimen>
+    <dimen name="spacing_12">12dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_20">20dp</dimen>
+    <dimen name="spacing_24">24dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
+    <dimen name="spacing_40">40dp</dimen>
+
+    <!-- Border Radius -->
+    <dimen name="radius_8">8dp</dimen>
+    <dimen name="radius_12">12dp</dimen>
+    <dimen name="radius_16">16dp</dimen>
+    <dimen name="radius_20">20dp</dimen>
+    <dimen name="radius_24">24dp</dimen>
+
+    <!-- Text Sizes (Apple-style Typography) -->
+    <!-- Caption 2 -->
+    <dimen name="text_size_caption2">12sp</dimen>
+    <!-- Caption 1 -->
+    <dimen name="text_size_caption1">13sp</dimen>
+    <!-- Footnote -->
+    <dimen name="text_size_footnote">14sp</dimen>
+    <!-- Subheadline -->
+    <dimen name="text_size_subheadline">15sp</dimen>
+    <!-- Body / Callout -->
+    <dimen name="text_size_body">17sp</dimen>
+    <!-- Title 3 -->
+    <dimen name="text_size_title3">21sp</dimen>
+    <!-- Title 2 -->
+    <dimen name="text_size_title2">28sp</dimen>
+    <!-- Title 1 / Large Title -->
+    <dimen name="text_size_title1">34sp</dimen>
+
+    <!-- Button Heights -->
+    <dimen name="button_height_small">36dp</dimen>
+    <dimen name="button_height_medium">44dp</dimen>
+    <dimen name="button_height_large">50dp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_size_small">16dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+    <dimen name="icon_size_xlarge">40dp</dimen>
+
+    <!-- Input Field Height -->
+    <dimen name="input_height">48dp</dimen>
+    <dimen name="input_height_large">56dp</dimen>
+
+    <!-- Card Elevation (for Material components) -->
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_elevation_pressed">8dp</dimen>
+
+</resources>

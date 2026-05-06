@@ -1,4 +1,4 @@
-package com.example.pickleball.activity;
+package com.example.pickleball.activity.court;
 
 import android.os.Bundle;
 import android.widget.Button;

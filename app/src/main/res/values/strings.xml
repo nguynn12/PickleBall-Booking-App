@@ -1,4 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Name -->
     <string name="app_name">PickleBook</string>
+    <string name="app_tagline">Đặt sân Pickleball dễ dàng</string>
+
+    <!-- Google Sign-In (From google-services.json) -->
     <string name="default_web_client_id">CHANGE_ME</string>
+
+    <!-- ==================== AUTHENTICATION ==================== -->
+    <!-- Login -->
+    <string name="login_title">Đăng nhập</string>
+    <string name="login_welcome">Chào mừng trở lại!</string>
+    <string name="login_subtitle">Đăng nhập để tiếp tục</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Mật khẩu</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_google_signin">Đăng nhập bằng Google</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="no_account">Chưa có tài khoản?</string>
+    <string name="go_register">Đăng ký ngay</string>
+
+    <!-- Register -->
+    <string name="register_title">Đăng ký tài khoản</string>
+    <string name="register_subtitle">Tạo tài khoản mới</string>
+    <string name="full_name_hint">Họ và tên</string>
+    <string name="phone_hint">Số điện thoại</string>
+    <string name="confirm_password_hint">Xác nhận mật khẩu</string>
+    <string name="select_role">Chọn vai trò</string>
+    <string name="select_skill">Trình độ</string>
+    <string name="btn_register">Đăng ký</string>
+    <string name="have_account">Đã có tài khoản?</string>
+    <string name="go_login">Đăng nhập</string>
+
+    <!-- Forgot Password -->
+    <string name="forgot_password_title">Quên mật khẩu</string>
+    <string name="forgot_password_subtitle">Nhập email để nhận link đặt lại mật khẩu</string>
+    <string name="btn_send_reset">Gửi link</string>
+    <string name="back_to_login">Quay lại đăng nhập</string>
+
+    <!-- ==================== ROLES ==================== -->
+    <string name="role_customer">Khách hàng</string>
+    <string name="role_owner">Chủ sân</string>
+    <string name="role_admin">Quản trị viên</string>
+
+    <!-- ==================== SKILL LEVELS ==================== -->
+    <string name="skill_beginner">Người mới bắt đầu</string>
+    <string name="skill_intermediate">Trung bình</string>
+    <string name="skill_pro">Chuyên nghiệp</string>
+
+    <!-- ==================== VALIDATION MESSAGES ==================== -->
+    <string name="error_empty_fields">Vui lòng nhập đủ thông tin!</string>
+    <string name="error_invalid_email">Email không hợp lệ!</string>
+    <string name="error_invalid_phone">Số điện thoại không hợp lệ (10–11 số)!</string>
+    <string name="error_password_too_short">Mật khẩu phải có ít nhất 6 ký tự!</string>
+    <string name="error_password_not_match">Mật khẩu không khớp!</string>
+    <string name="error_invalid_name">Tên phải có ít nhất 2 ký tự!</string>
+    <string name="error_network">Lỗi kết nối mạng!</string>
+    <string name="error_unknown">Đã xảy ra lỗi không xác định!</string>
+    <string name="error_auth_failed">Đăng nhập thất bại!</string>
+    <string name="error_register_failed">Đăng ký thất bại!</string>
+    <string name="error_wrong_credentials">Sai email hoặc mật khẩu!</string>
+
+    <!-- ==================== SUCCESS MESSAGES ==================== -->
+    <string name="success_register">Đăng ký thành công!</string>
+    <string name="success_login">Đăng nhập thành công!</string>
+    <string name="success_logout">Đăng xuất thành công!</string>
+    <string name="success_update">Cập nhật thành công!</string>
+    <string name="success_upload">Tải lên thành công!</string>
+    <string name="success_password_changed">Đổi mật khẩu thành công!</string>
+    <string name="success_reset_sent">Đã gửi link đặt lại mật khẩu!</string>
+
+    <!-- ==================== PROFILE ==================== -->
+    <string name="profile_title">Hồ sơ cá nhân</string>
+    <string name="edit_profile">Chỉnh sửa hồ sơ</string>
+    <string name="btn_save_profile">Lưu thay đổi</string>
+    <string name="btn_change_password">Đổi mật khẩu</string>
+    <string name="btn_change_avatar">Đổi ảnh đại diện</string>
+    <string name="btn_logout">Đăng xuất</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="change_password_title">Đổi mật khẩu</string>
+    <string name="change_password_note">Mật khẩu mới phải có ít nhất 6 ký tự</string>
+    <string name="need_reauth">Cần đăng nhập lại để đổi mật khẩu!</string>
+
+    <!-- ==================== ONBOARDING ==================== -->
+    <string name="onboarding_skip">Bỏ qua</string>
+    <string name="onboarding_next">Tiếp theo</string>
+    <string name="onboarding_start">Bắt đầu ngay!</string>
+
+    <string name="onboarding_title_1">Tìm sân gần bạn</string>
+    <string name="onboarding_desc_1">Khám phá hàng trăm sân pickleball chất lượng trong khu vực của bạn</string>
+
+    <string name="onboarding_title_2">Đặt sân dễ dàng</string>
+    <string name="onboarding_desc_2">Chỉ với vài thao tác đơn giản, bạn đã có thể đặt sân yêu thích</string>
+
+    <string name="onboarding_title_3">Quản lý lịch đặt</string>
+    <string name="onboarding_desc_3">Theo dõi và quản lý tất cả lịch đặt sân của bạn một cách dễ dàng</string>
+
+    <!-- ==================== HOME / DASHBOARD ==================== -->
+    <string name="home_greeting">Xin chào</string>
+    <string name="home_find_court">Tìm sân</string>
+    <string name="home_my_bookings">Lịch đặt sân</string>
+    <string name="home_court_list">Danh sách sân</string>
+    <string name="home_profile">Hồ sơ</string>
+    <string name="home_upcoming_booking">Lịch sắp tới</string>
+    <string name="home_no_booking">Chưa có lịch đặt sân</string>
+
+    <!-- ==================== SETTINGS ==================== -->
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_account">Tài khoản</string>
+    <string name="settings_notifications">Thông báo</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_dark_mode">Chế độ tối</string>
+    <string name="settings_about">Về ứng dụng</string>
+    <string name="settings_version">Phiên bản</string>
+    <string name="settings_privacy">Chính sách bảo mật</string>
+    <string name="settings_terms">Điều khoản sử dụng</string>
+
+    <!-- ==================== COMMON ==================== -->
+    <string name="confirm">Xác nhận</string>
+    <string name="cancel">Hủy</string>
+    <string name="save">Lưu</string>
+    <string name="edit">Chỉnh sửa</string>
+    <string name="delete">Xóa</string>
+    <string name="close">Đóng</string>
+    <string name="ok">OK</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="loading">Đang tải...</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="filter">Lọc</string>
+    <string name="sort">Sắp xếp</string>
+
+    <!-- ==================== UPLOAD ==================== -->
+    <string name="upload_choose_source">Chọn nguồn</string>
+    <string name="upload_camera">Chụp ảnh</string>
+    <string name="upload_gallery">Thư viện</string>
+    <string name="upload_processing">Đang xử lý...</string>
+    <string name="upload_error">Lỗi tải ảnh!</string>
+    <string name="upload_size_limit">Kích thước ảnh không được vượt quá 5MB!</string>
+
+    <!-- ==================== COMING SOON ==================== -->
+    <string name="coming_soon">Tính năng đang phát triển!</string>
+
+    <!-- ==================== DIALOGS ==================== -->
+    <string name="logout_confirm_title">Xác nhận đăng xuất</string>
+    <string name="logout_confirm_message">Bạn có chắc chắn muốn đăng xuất?</string>
+
+    <!-- ==================== IMAGE PICKER ==================== -->
+    <string name="pick_image">Chọn ảnh</string>
+    <string name="take_photo">Chụp ảnh</string>
+    <string name="choose_from_gallery">Chọn từ thư viện</string>
+
+    <!-- ==================== PASSWORD STRENGTH ==================== -->
+    <string name="password_weak">Yếu</string>
+    <string name="password_medium">Trung bình</string>
+    <string name="password_strong">Mạnh</string>
+    <string name="password_strength_label">Độ mạnh mật khẩu:</string>
+
 </resources>

@@ -1,17 +1,33 @@
-<resources>
-    <!-- Night mode: re-use day theme (simple dark adaptation) -->
-    <style name="Theme.PickleBall" parent="Theme.MaterialComponents.Light.NoActionBar">
-    <item name="colorPrimary">@color/green_primary</item>
-<item name="colorPrimaryVariant">@color/green_dark</item>
-<item name="colorOnPrimary">@color/text_on_green</item>
-
-        <item name="android:fontFamily">@font/sf_pro_text</item>
-        <item name="fontFamily">@font/sf_pro_text</item>
-
-        <item name="colorSurface">@color/bg_white</item>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Dark Mode Theme -->
+    <style name="Theme.PickleBall" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/green_primary</item>
+        <item name="colorPrimaryVariant">@color/green_dark</item>
+        <item name="colorOnPrimary">@color/text_on_green</item>
+        <item name="colorSurface">@color/bg_card</item>
         <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:colorBackground">@color/bg_primary</item>
         <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:fontFamily">@font/sf_pro_text</item>
+        <item name="fontFamily">@font/sf_pro_text</item>
+
+        <!-- Material Components Dark Colors -->
+        <item name="colorSecondary">@color/green_primary</item>
+        <item name="colorSecondaryVariant">@color/green_dark</item>
+        <item name="colorOnSecondary">@color/text_on_green</item>
+
+        <!-- Text colors -->
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="android:textColorTertiary">@color/text_tertiary</item>
+    </style>
+
+    <!-- Splash Screen Dark -->
+    <style name="Theme.PickleBall.Splash" parent="Theme.PickleBall">
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="android:colorBackground">@color/bg_primary</item>
     </style>
 </resources>
-    

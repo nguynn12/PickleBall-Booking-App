@@ -59,8 +59,13 @@ dependencies {
     // Khai báo thư viện Firestore (không cần số phiên bản vì đã có BoM quản lý)
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-storage")
     // 3. Google Sign-In
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     // 4. ViewPager2 cho Onboarding
     implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    // 5. Google Maps SDK (Module 2)
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.1.0")
 }

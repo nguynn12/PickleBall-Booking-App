@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Green (slightly brighter for dark mode) -->
+    <color name="green_primary">#32D74B</color>
+    <color name="green_dark">#30D158</color>
+    <color name="green_light">#1C3A25</color>
+    <color name="green_tint">#1A2E1F</color>
+
+    <!-- Backgrounds (Dark) -->
+    <color name="bg_primary">#000000</color>
+    <color name="bg_white">#1C1C1E</color>
+    <color name="bg_card">#2C2C2E</color>
+
+    <!-- Text (Light on dark) -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#EBEBF5</color>
+    <color name="text_tertiary">#8E8E93</color>
+    <color name="text_on_green">#000000</color>
+
+    <!-- UI Elements -->
+    <color name="divider">#38383A</color>
+    <color name="input_bg">#1C1C1E</color>
+    <color name="input_stroke">#38383A</color>
+    <color name="icon_tint">#8E8E93</color>
+
+    <!-- Status Colors (vibrant for dark mode) -->
+    <color name="error_red">#FF453A</color>
+    <color name="warning_yellow">#FFD60A</color>
+    <color name="info_blue">#0A84FF</color>
+
+    <!-- Legacy keep -->
+    <color name="black">#FFFFFFFF</color>
+    <color name="white">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>
