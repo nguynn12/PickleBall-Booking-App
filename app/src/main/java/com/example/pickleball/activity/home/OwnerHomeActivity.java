@@ -6,6 +6,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.example.pickleball.R;
 import com.example.pickleball.activity.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +20,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owner_home);
 

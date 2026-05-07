@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -207,10 +209,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void updateFilterUI(TextView selected, TextView u1, TextView u2) {
         if (selected != null) {
+            // Khi chọn: Cho nền màu xanh (đã có trong drawable của bạn), chữ màu trắng
             selected.setBackgroundResource(R.drawable.bg_button_primary);
-            selected.setTextColor(ContextCompat.getColor(this, R.color.white));
+            selected.setTextColor(ContextCompat.getColor(this, android.R.color.white));
         }
         if (u1 != null) {
+            // Khi không chọn: Nền trắng xám, chữ màu đen/xám đậm
             u1.setBackgroundResource(R.drawable.bg_search_bar);
             u1.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
         }

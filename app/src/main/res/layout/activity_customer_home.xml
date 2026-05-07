@@ -107,23 +107,23 @@ android:layout_width="wrap_content"
     android:textColor="#CCFFFFFF"
     android:layout_marginBottom="16dp"/>
 
-<com.google.android.material.button.MaterialButton
-android:id="@+id/btnFindCourt"
-    android:layout_width="wrap_content"
-    android:layout_height="48dp"
-    android:text="Đặt sân ngay"
-    android:textColor="@color/green_primary"
-    android:textSize="15sp"
-    android:textAllCaps="false"
-    android:fontFamily="sans-serif-medium"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="12dp"
-    android:paddingBottom="12dp"
-    app:backgroundTint="@color/bg_white"
-    app:cornerRadius="100dp"
-    android:elevation="0dp"
-    app:strokeWidth="0dp"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFindCourt"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="24dp"
+        android:paddingTop="12dp"
+        android:paddingRight="24dp"
+        android:paddingBottom="12dp"
+        android:text="Đặt sân ngay"
+        android:textAllCaps="false"
+        android:textColor="@color/green_primary"
+        android:textSize="15sp"
+        app:backgroundTint="@color/bg_white"
+        app:cornerRadius="100dp"
+        app:strokeWidth="0dp" />
     </LinearLayout>
 
     <!-- Section: Quick Actions -->
