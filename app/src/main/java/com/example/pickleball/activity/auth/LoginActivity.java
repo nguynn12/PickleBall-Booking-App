@@ -195,14 +195,34 @@ public class LoginActivity extends AppCompatActivity {
     private void fetchRoleAndNavigate(String uid) {
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(uid).get()
                 .addOnSuccessListener(doc -> {
-                    String role = doc.getString("role");
-                            SplashActivity.navigateByRole(this, role);
+                    if (doc.exists()) {
+                        // Kiểm tra trạng thái blocked (mặc định là false nếu không tồn tại field)
+                        Boolean isBlocked = doc.getBoolean("blocked");
+
+                        if (isBlocked != null && isBlocked) {
+                            // Nếu bị khóa -> Đăng xuất ngay lập tức khỏi Firebase Auth
+                            mAuth.signOut();
+
+                            // Thông báo cho người dùng
+                            Toast.makeText(this, "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ Admin!", Toast.LENGTH_LONG).show();
+
+                            // Reset lại trạng thái các nút bấm để người dùng có thể thử tài khoản khác
+                            btnLogin.setEnabled(true);
+                            btnLogin.setText(R.string.btn_login);
+                            btnGoogleSignIn.setEnabled(true);
+                            return; // Kết thúc hàm, không chạy lệnh navigate bên dưới
+                        }
+
+                        // Nếu không bị khóa -> Tiếp tục điều hướng theo Role
+                        String role = doc.getString("role");
+                        SplashActivity.navigateByRole(this, role);
+                    }
                 })
                 .addOnFailureListener(e -> {
                     btnLogin.setEnabled(true);
                     btnLogin.setText(R.string.btn_login);
                     btnGoogleSignIn.setEnabled(true);
-                    Toast.makeText(this, "Lỗi lấy thông tin!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Lỗi lấy thông tin người dùng!", Toast.LENGTH_SHORT).show();
                 });
     }
 }

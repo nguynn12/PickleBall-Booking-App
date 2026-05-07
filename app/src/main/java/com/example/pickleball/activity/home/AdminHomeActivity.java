@@ -11,6 +11,7 @@ import com.example.pickleball.activity.auth.LoginActivity;
 import com.example.pickleball.activity.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.example.pickleball.activity.admin.AdminUserListActivity;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
@@ -38,13 +39,13 @@ public class AdminHomeActivity extends AppCompatActivity {
         loadSystemStats();
 
         btnManageUsers.setOnClickListener(v ->
-                Toast.makeText(this, "Quan ly nguoi dung - Coming soon!", Toast.LENGTH_SHORT).show());
-                        btnManageCourtsAdmin.setOnClickListener(v ->
-                                Toast.makeText(this, "Duyet & quan ly san - Coming soon!", Toast.LENGTH_SHORT).show());
-                                        btnManageBookingsAdmin.setOnClickListener(v ->
-                                                Toast.makeText(this, "Tat ca don dat san - Coming soon!", Toast.LENGTH_SHORT).show());
-                                                        btnAdminProfile.setOnClickListener(v ->
-                                                                startActivity(new Intent(this, ProfileActivity.class)));
+                startActivity(new Intent(this, AdminUserListActivity.class)));
+        btnManageCourtsAdmin.setOnClickListener(v ->
+                Toast.makeText(this, "Duyet & quan ly san - Coming soon!", Toast.LENGTH_SHORT).show());
+        btnManageBookingsAdmin.setOnClickListener(v ->
+                Toast.makeText(this, "Tat ca don dat san - Coming soon!", Toast.LENGTH_SHORT).show());
+        btnAdminProfile.setOnClickListener(v ->
+                startActivity(new Intent(this, ProfileActivity.class)));
         btnAdminLogout.setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(this, LoginActivity.class);
