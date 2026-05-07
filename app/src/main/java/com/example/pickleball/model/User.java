@@ -10,7 +10,7 @@ public class User implements Serializable {
     private String role;        // "admin" | "owner" | "user"
     private String skillLevel;  // "beginner" | "intermediate" | "pro"
     private String avatarUrl;   // URL anh dai dien (Firebase Storage)
-
+    private boolean blocked;
     // Firebase yeu cau constructor rong
     public User() {}
 
@@ -22,6 +22,7 @@ public class User implements Serializable {
         this.role = role;
         this.skillLevel = "beginner"; // mac dinh
         this.avatarUrl = "";
+        this.blocked = false;
     }
 
     public User(String userId, String fullName, String email, String phone,
@@ -56,4 +57,11 @@ public class User implements Serializable {
 
     public String getAvatarUrl() { return avatarUrl; }
     public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+
+    public boolean isBlocked() {
+        return blocked;
+    }
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
 }

@@ -51,6 +51,10 @@ android:name=".activity.auth.OnboardingActivity"
     <!-- TEST screen (giu lai de khong loi) -->
 <activity android:name=".activity.MainActivity"          android:exported="false" />
 
-    </application>
+    <!-- ADMIN -->
+<activity android:name=".activity.admin.AdminUserListActivity" android:exported="false" />
+
+
+</application>
 
     </manifest>
