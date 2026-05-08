@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.pickleball.R;
-import com.example.pickleball.activity.HomeActivity;
 import com.example.pickleball.model.Court;
 
 import java.util.List;
@@ -45,28 +44,41 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
     public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
         Court court = courtList.get(position);
 
-        holder.tvCourtNameItem.setText(court.getCourtName());
-        holder.tvPriceItem.setText(HomeActivity.formatVnd(court.getPricePerHour()) + "/h");
-        holder.tvLocationItem.setText("📍 " + court.getAddress());
+        // Handle null safely
+        String name = court.getCourtName();
+        String address = court.getAddress();
+        double price = court.getPricePerHour();
+        String imageUrl = court.getImageUrl();
 
-        Glide.with(context)
-                .load(court.getImageUrl())
-                .placeholder(android.R.color.darker_gray)
-                .error(android.R.drawable.ic_menu_gallery)
-                .centerCrop()
-                .into(holder.imgCourtItem);
+        holder.tvCourtNameItem.setText(name != null && !name.isEmpty() ? name : "Sân Pickleball");
+        holder.tvLocationItem.setText("📍 " + (address != null && !address.isEmpty() ? address : "Chưa có địa chỉ"));
+        holder.tvPriceItem.setText(formatPrice(price));
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_nav_court)
+                    .error(R.drawable.ic_nav_court)
+                    .centerCrop()
+                    .into(holder.imgCourtItem);
+        } else {
+            holder.imgCourtItem.setImageResource(R.drawable.ic_nav_court);
+            holder.imgCourtItem.setBackgroundColor(
+                    context.getResources().getColor(R.color.green_light, null));
+        }
 
         holder.btnBookItem.setOnClickListener(v -> {
-            if (clickListener != null) {
-                clickListener.onCourtClick(court);
-            }
+            if (clickListener != null) clickListener.onCourtClick(court);
         });
-
         holder.itemView.setOnClickListener(v -> {
-            if (clickListener != null) {
-                clickListener.onCourtClick(court);
-            }
+            if (clickListener != null) clickListener.onCourtClick(court);
         });
+    }
+
+    private String formatPrice(double price) {
+        if (price <= 0) return "Liên hệ";
+        java.text.NumberFormat fmt = java.text.NumberFormat.getInstance(new java.util.Locale("vi", "VN"));
+        return fmt.format(price) + "đ/h";
     }
 
     @Override

@@ -69,9 +69,9 @@ public class SettingsActivity extends AppCompatActivity {
         switchNotifications = findViewById(R.id.switchNotifications);
         tvNotificationStatus = findViewById(R.id.tvNotificationStatus);
 
-        // Language
-        btnLanguage = findViewById(R.id.btnLanguage);
-        tvLanguageValue = findViewById(R.id.tvLanguageValue);
+        // Language - đã bỏ khỏi layout, set null để tránh crash
+        btnLanguage = null;
+        tvLanguageValue = null;
 
         // Dark Mode
         btnDarkMode = findViewById(R.id.btnDarkMode);
@@ -103,9 +103,9 @@ public class SettingsActivity extends AppCompatActivity {
         switchNotifications.setChecked(notificationsEnabled);
         updateNotificationStatus(notificationsEnabled);
 
-        // Load language setting
-        String language = prefs.getString(KEY_LANGUAGE, "vi");
-        updateLanguageDisplay(language);
+        // Load language setting - đã bỏ
+        // String language = prefs.getString(KEY_LANGUAGE, "vi");
+        // updateLanguageDisplay(language);
 
         // Load dark mode setting
         boolean darkModeEnabled = prefs.getBoolean(KEY_DARK_MODE, false);
@@ -140,8 +140,8 @@ public class SettingsActivity extends AppCompatActivity {
             switchNotifications.setChecked(!switchNotifications.isChecked());
         });
 
-        // Language selection
-        btnLanguage.setOnClickListener(v -> showLanguageDialog());
+        // Language selection - đã bỏ
+        // btnLanguage.setOnClickListener(v -> showLanguageDialog());
 
         // Dark Mode toggle
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {

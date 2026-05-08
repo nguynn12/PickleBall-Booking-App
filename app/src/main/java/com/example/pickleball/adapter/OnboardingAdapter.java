@@ -14,15 +14,15 @@ public class OnboardingAdapter extends FragmentStateAdapter {
             android.R.drawable.ic_menu_today
     };
     private static final String[] TITLES   = {
-        "Tim san Pickleball",
-                "Dat san de dang",
-                "Ket noi nguoi choi"
-};
-private static final String[] SUBTITLES = {
-        "Kham pha hang tram san Pickleball gan ban, xem gia va tien ich mot cach nhanh chong.",
-                "Chon ngay, chon gio trong vai cham. Xac nhan tuc thi, khong can goi dien hoi.",
-                "Tim doi thu, lap nhom choi. Trai nghiem Pickleball vui hon bao gio het!"
-                };
+        "Tìm sân Pickleball",
+        "Đặt sân dễ dàng",
+        "Kết nối người chơi"
+    };
+    private static final String[] SUBTITLES = {
+        "Khám phá hàng trăm sân Pickleball gần bạn, xem giá và tiện ích một cách nhanh chóng.",
+        "Chọn ngày, chọn giờ trong vài chạm. Xác nhận tức thì, không cần gọi điện hỏi.",
+        "Tìm đối thủ, lập nhóm chơi. Trải nghiệm Pickleball vui hơn bao giờ hết!"
+    };
 
 public OnboardingAdapter(@NonNull FragmentActivity activity) {
     super(activity);

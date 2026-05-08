@@ -62,11 +62,11 @@ public class OnboardingActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == adapter.getItemCount() - 1) {
-                    btnNext.setText("Bat dau ngay!");
-                            tvSkip.setVisibility(View.GONE);
+                    btnNext.setText("Bắt đầu ngay!");
+                    tvSkip.setVisibility(View.GONE);
                 } else {
-                    btnNext.setText("Tiep theo");
-                            tvSkip.setVisibility(View.VISIBLE);
+                    btnNext.setText("Tiếp theo");
+                    tvSkip.setVisibility(View.VISIBLE);
                 }
             }
         });

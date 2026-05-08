@@ -120,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         tilPassword.setError(null);
     }
 
-    // ─── DANG NHAP BANG EMAIL ────────────────────────────────────────────────
+    // ─── ĐĂNG NHẬP BẰNG EMAIL ────────────────────────────────────────────────
     private void loginWithEmail(String email, String pass) {
         btnLogin.setEnabled(false);
         btnLogin.setText(R.string.loading);
@@ -137,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    // ─── XU LY KET QUA GOOGLE SIGN-IN ───────────────────────────────────────
+    // ─── XỬ LÝ KẾT QUẢ GOOGLE SIGN-IN ───────────────────────────────────────
     private void handleGoogleSignInResult(ActivityResult result) {
         Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
         try {
@@ -165,19 +165,19 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    /** Neu la nguoi dung moi (dang nhap Google lan dau) → luu vao Firestore */
+    /** Nếu là người dùng mới (đăng nhập Google lần đầu) → lưu vào Firestore */
     private void saveGoogleUserIfNew(FirebaseUser firebaseUser) {
         String uid = firebaseUser.getUid();
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(uid).get()
                 .addOnSuccessListener(doc -> {
                     if (!doc.exists()) {
-                        // Lan dau dang nhap Google → tao User moi voi role "user"
+                        // Lần đầu đăng nhập Google → tạo User mới với role "user"
                         User newUser = new User(
                                 uid,
                                 firebaseUser.getDisplayName() != null ? firebaseUser.getDisplayName() : "Người dùng",
                                 firebaseUser.getEmail() != null ? firebaseUser.getEmail() : "",
-                                "",      // chua co phone
-                                Constants.ROLE_CUSTOMER,  // mac dinh la khach hang
+                                "",      // chưa có phone
+                                Constants.ROLE_CUSTOMER,  // mặc định là khách hàng
                                 Constants.SKILL_BEGINNER
                         );
                         FirebaseFirestore.getInstance()
@@ -187,14 +187,14 @@ public class LoginActivity extends AppCompatActivity {
                                             fetchRoleAndNavigate(uid);
                                         });
                     } else {
-                        // Da co tai khoan → chuyen thang vao trang chu
+                        // Đã có tài khoản → chuyển thẳng vào trang chủ
                         Toast.makeText(this, Constants.SUCCESS_LOGIN, Toast.LENGTH_SHORT).show();
                         fetchRoleAndNavigate(uid);
                     }
                 });
     }
 
-    // ─── LAY ROLE VA CHUYEN TRANG ────────────────────────────────────────────
+    // ─── LẤY ROLE VÀ CHUYỂN TRANG ────────────────────────────────────────────
     private void fetchRoleAndNavigate(String uid) {
         FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS).document(uid).get()
                 .addOnSuccessListener(doc -> {

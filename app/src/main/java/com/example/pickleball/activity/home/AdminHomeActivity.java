@@ -44,9 +44,9 @@ public class AdminHomeActivity extends AppCompatActivity {
         btnManageUsers.setOnClickListener(v ->
                 startActivity(new Intent(this, AdminUserListActivity.class)));
         btnManageCourtsAdmin.setOnClickListener(v ->
-                Toast.makeText(this, "Duyet & quan ly san - Coming soon!", Toast.LENGTH_SHORT).show());
+                Toast.makeText(this, "Duyệt & quản lý sân - Đang phát triển!", Toast.LENGTH_SHORT).show());
         btnManageBookingsAdmin.setOnClickListener(v ->
-                Toast.makeText(this, "Tat ca don dat san - Coming soon!", Toast.LENGTH_SHORT).show());
+                Toast.makeText(this, "Tất cả đơn đặt sân - Đang phát triển!", Toast.LENGTH_SHORT).show());
         btnAdminProfile.setOnClickListener(v ->
                 startActivity(new Intent(this, ProfileActivity.class)));
         btnAdminLogout.setOnClickListener(v -> {

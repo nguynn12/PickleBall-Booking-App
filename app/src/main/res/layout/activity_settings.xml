@@ -157,50 +157,6 @@
                         android:background="@color/divider"
                         android:layout_marginLeft="20dp"/>
 
-                    <!-- Language -->
-                    <LinearLayout
-                        android:id="@+id/btnLanguage"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:background="?attr/selectableItemBackground">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/settings_language"
-                            android:textSize="17sp"
-                            android:fontFamily="sans-serif"
-                            android:textColor="@color/text_primary"/>
-
-                        <TextView
-                            android:id="@+id/tvLanguageValue"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tiếng Việt"
-                            android:textSize="15sp"
-                            android:fontFamily="sans-serif"
-                            android:textColor="@color/text_secondary"
-                            android:layout_marginRight="8dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=">"
-                            android:textSize="20sp"
-                            android:textColor="@color/text_tertiary"/>
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/divider"
-                        android:layout_marginLeft="20dp"/>
-
                     <!-- Dark Mode -->
                     <LinearLayout
                         android:id="@+id/btnDarkMode"

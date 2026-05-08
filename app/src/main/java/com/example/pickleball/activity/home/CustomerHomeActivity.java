@@ -37,9 +37,8 @@ public class CustomerHomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // Các nút khác giữ nguyên hoặc cập nhật tương tự
         findViewById(R.id.cardMyBookings).setOnClickListener(v ->
-                android.widget.Toast.makeText(this, "Lịch đặt sân - Coming soon!", android.widget.Toast.LENGTH_SHORT).show());
+                startActivity(new Intent(this, ProfileActivity.class))); // placeholder - user dùng bottom nav
 
         findViewById(R.id.cardProfile).setOnClickListener(v ->
                 startActivity(new Intent(this, ProfileActivity.class)));

@@ -37,11 +37,11 @@ public class OwnerHomeActivity extends AppCompatActivity {
         loadStats();
 
         btnManageCourts.setOnClickListener(v ->
-                Toast.makeText(this, "Quản lý sân - Coming soon!", Toast.LENGTH_SHORT).show());
-                        btnManageBookings.setOnClickListener(v ->
-                                Toast.makeText(this, "Đơn đặt sân - Coming soon!", Toast.LENGTH_SHORT).show());
-                                        btnAddCourt.setOnClickListener(v ->
-                                                Toast.makeText(this, "Thêm sân mới - Coming soon!", Toast.LENGTH_SHORT).show());
+                Toast.makeText(this, "Quản lý sân - Đang phát triển!", Toast.LENGTH_SHORT).show());
+        btnManageBookings.setOnClickListener(v ->
+                Toast.makeText(this, "Đơn đặt sân - Đang phát triển!", Toast.LENGTH_SHORT).show());
+        btnAddCourt.setOnClickListener(v ->
+                Toast.makeText(this, "Thêm sân mới - Đang phát triển!", Toast.LENGTH_SHORT).show());
                                                         btnOwnerProfile.setOnClickListener(v ->
                                                                 startActivity(new Intent(this, ProfileActivity.class)));
     }

@@ -85,6 +85,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnBookDetail"
             android:layout_width="160dp"
             android:layout_height="50dp"
             android:text="Chọn lịch"

@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Tên sân + Status -->
+        <!-- Header: Tên sân + Status -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_marginBottom="8dp">
 
             <TextView
-                android:id="@+id/tvBookingId"
+                android:id="@+id/tvManageCourtName"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:textColor="@color/text_primary"/>
 
             <TextView
-                android:id="@+id/tvStatus"
+                android:id="@+id/tvManageStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="⏳ Chờ xác nhận"
@@ -45,61 +45,71 @@
                 android:textColor="@color/warning_yellow"/>
         </LinearLayout>
 
-        <!-- Divider -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/divider"
             android:layout_marginBottom="8dp"/>
 
-        <!-- Ngày giờ -->
-        <LinearLayout
+        <!-- Khách hàng -->
+        <TextView
+            android:id="@+id/tvManageCustomer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:text="👤 Khách hàng"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="4dp"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="📅"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="0dp"
-                android:layout_weight="10"
-                android:layout_height="wrap_content"
-                android:text="25/10/2025  08:00 – 10:00"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"/>
-        </LinearLayout>
+        <!-- Ngày giờ -->
+        <TextView
+            android:id="@+id/tvManageDateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📅 25/10/2025  08:00 – 10:00"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="4dp"/>
 
         <!-- Giá -->
+        <TextView
+            android:id="@+id/tvManagePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💰 200.000đ"
+            android:textSize="14sp"
+            android:textColor="@color/green_dark"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Action Buttons (chỉ hiện khi pending) -->
         <LinearLayout
+            android:id="@+id/layoutActions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="4dp">
+            android:visibility="gone">
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReject"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="💰"
-                android:textSize="14sp"/>
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="0dp"
-                android:layout_weight="10"
-                android:layout_height="wrap_content"
-                android:text="200.000đ"
+                android:layout_height="44dp"
+                android:text="Từ chối"
+                android:textAllCaps="false"
                 android:textSize="14sp"
-                android:textColor="@color/green_dark"
-                android:textStyle="bold"/>
+                style="@style/Widget.PickleBall.Button.Outline"
+                android:layout_marginEnd="8dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConfirm"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="44dp"
+                android:text="Xác nhận"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                style="@style/Widget.PickleBall.Button.Primary"/>
         </LinearLayout>
 
     </LinearLayout>

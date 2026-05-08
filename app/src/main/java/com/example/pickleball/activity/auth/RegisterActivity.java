@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseFirestore db;
 
     // Role
-    private final String[] ROLES_DISPLAY = {"Khach hang", "Chu san"};
+    private final String[] ROLES_DISPLAY = {"Khách hàng", "Chủ sân"};
     private final String[] ROLES_VALUE   = {"user",       "owner"};
 
     // Skill Level

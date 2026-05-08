@@ -1,0 +1,143 @@
+📋 Danh Sách Chức Năng App Đặt Lịch Sân Pickleball
+👥 PHÂN CHIA MODULE CHO 4 THÀNH VIÊN
+👤 MODULE 1 – XÁC THỰC & QUẢN LÝ TÀI KHOẢN (Authentication & User Management)
+Phụ trách: Thành viên 1
+STT	Chức năng	Màn hình
+1.1	Đăng ký tài khoản (Khách hàng / Chủ sân)	RegisterActivity
+1.2	Đăng nhập bằng Email + Password (Firebase Auth)	LoginActivity
+1.3	Quên mật khẩu / Reset qua Email	ForgotPasswordActivity
+1.4	Xem & Chỉnh sửa thông tin cá nhân	ProfileActivity
+1.5	Đổi mật khẩu	Trong ProfileActivity
+1.6	Đăng xuất	Menu/Header
+1.7	Phân quyền 3 role: customer, owner, admin	Logic Firebase
+Firebase cần:
+users/{uid}
+  - name, email, phone, role, avatarUrl, createdAt
+🗺️ Tích Hợp Google Maps + Mở Rộng Chức Năng
+________________________________________
+🗺️ GOOGLE MAPS – Tích Hợp Vào App
+Google Maps rất phù hợp để hiển thị vị trí sân pickleball và có thể chia vào Module 2 (Quản lý sân). Đây là các tính năng Maps thực tế:
+STT	Chức năng Maps	Độ khó	Ý nghĩa
+M1	Hiển thị bản đồ có ghim vị trí sân (MapView trong CourtDetail)	⭐⭐	Khách xem sân ở đâu
+M2	Chủ sân chọn vị trí trên bản đồ khi đăng ký sân (kéo thả marker)	⭐⭐⭐	Lưu lat/lng vào Firestore
+M3	Hiển thị tất cả sân trên bản đồ (nhiều marker cùng lúc)	⭐⭐⭐	Khách tìm sân gần mình
+M4	Chỉ đường đến sân (mở Google Maps app với toạ độ đích)	⭐	Dễ làm, hữu ích
+M5	Tìm sân theo bán kính (filter sân trong vòng X km)	⭐⭐⭐⭐	Nâng cao, ấn tượng
+Firebase lưu thêm:
+courts/{courtId}
+  + latitude: 10.7769
+  + longitude: 106.7009
+  + address: "123 Nguyễn Văn A, Q.1, TP.HCM"
+Setup Google Maps Android SDK:
+// build.gradle (app)
+implementation 'com.google.android.gms:play-services-maps:18.2.0'
+implementation 'com.google.android.gms:play-services-location:21.1.0'
+
+// AndroidManifest.xml
+<meta-data android:name="com.google.android.geo.API_KEY"
+           android:value="YOUR_MAPS_API_KEY"/>
+🔑 Lấy API key miễn phí tại: console.cloud.google.com → Maps SDK for Android
+________________________________________
+➕ CÁC CHỨC NĂNG BỔ SUNG ĐÁNG LÀM
+⭐ Rating & Đánh Giá Sân
+reviews/{reviewId}
+  - courtId, customerId, rating (1-5), comment, createdAt
+•	Khách hàng đánh giá sân sau khi booking confirmed
+•	Hiển thị rating trung bình trong CourtDetailActivity
+•	Chủ sân xem đánh giá về sân mình
+❤️ Yêu Thích Sân (Favorites)
+•	Khách hàng lưu sân yêu thích → xem lại nhanh
+•	Lưu trong users/{uid}/favorites: [courtId1, courtId2]
+🔍 Lọc & Sắp Xếp Sân Nâng Cao
+•	Lọc theo: giá tiền, khu vực, trạng thái (còn trống hôm nay)
+•	Sắp xếp: gần nhất, rẻ nhất, đánh giá cao nhất
+________________________________________
+💪 MỞ RỘNG MODULE 1 CHO BẠN – Thêm Nhiều Điểm Hơn
+Bạn lo module 1 ít chức năng → hoàn toàn có thể gộp thêm các phần sau vào Module 1:
+Module 1 (Mở rộng) – "Auth + Profile + Onboarding + UX"
+STT	Chức năng thêm	Giá trị
+1.8	Màn hình Splash (logo animation khi mở app)	UI đẹp, dễ làm
+1.9	Onboarding 3 slide (giới thiệu app lần đầu mở)	Ấn tượng khi demo
+1.10	Đăng nhập bằng Google (Firebase Google Sign-In)	Kỹ thuật cao
+1.11	Upload ảnh đại diện (Firebase Storage)	Thực tế
+1.12	Màn hình Home/Dashboard theo từng role	Điều hướng thông minh
+1.13	Validation form đầy đủ (email hợp lệ, mật khẩu ≥ 6 ký tự...)	Code chắc chắn
+1.14	Ghi nhớ đăng nhập (auto-login nếu đã login trước đó)	UX tốt
+1.15	Màn hình Settings (đổi ngôn ngữ, thông báo on/off)	Hoàn chỉnh
+
+
+
+
+
+
+________________________________________
+🏟️ MODULE 2 – QUẢN LÝ SÂN (Court Management)
+Phụ trách: Thành viên 2
+STT	Chức năng	Màn hình
+2.1	Xem danh sách tất cả sân (dành cho Khách hàng)	CourtListActivity
+2.2	Xem chi tiết sân (ảnh, giá, địa chỉ, tiện ích)	CourtDetailActivity
+2.3	Tìm kiếm sân theo tên / địa điểm	Trong CourtListActivity
+2.4	Chủ sân: Thêm sân mới	AddCourtActivity
+2.5	Chủ sân: Chỉnh sửa thông tin sân	EditCourtActivity
+2.6	Chủ sân: Bật/Tắt trạng thái sân (đang hoạt động / tạm đóng)	Trong ManageCourtActivity
+2.7	Chủ sân: Xem danh sách sân của mình	MyCourtActivity
+Firebase cần:
+courts/{courtId}
+  - name, address, price, description, imageUrl
+  - ownerId, status (active/inactive)
+  - openTime, closeTime, slotDuration (phút)
+  - createdAt
+________________________________________
+📅 MODULE 3 – ĐẶT LỊCH & QUẢN LÝ ĐẶT SÂN (Booking)
+Phụ trách: Thành viên 3
+STT	Chức năng	Màn hình
+3.1	Xem lịch trống / đã đặt theo ngày (hiển thị slot giờ)	BookingScheduleActivity
+3.2	Khách hàng đặt sân (chọn ngày, giờ bắt đầu, giờ kết thúc)	CreateBookingActivity
+3.3	Khách hàng xem lịch sử đặt sân của mình	MyBookingsActivity
+3.4	Khách hàng hủy đặt sân (khi trạng thái còn pending)	Trong MyBookingsActivity
+3.5	Chủ sân xác nhận / từ chối đơn đặt	OwnerBookingManageActivity
+3.6	Chủ sân xem tất cả đơn đặt của sân mình	Trong OwnerBookingManageActivity
+3.7	Trạng thái đặt sân: pending → confirmed / rejected / cancelled	Logic Firebase
+Firebase cần:
+bookings/{bookingId}
+  - courtId, customerId, ownerID
+  - date, startTime, endTime
+  - status (pending/confirmed/rejected/cancelled)
+  - totalPrice, note
+  - createdAt
+________________________________________
+⚙️ MODULE 4 – ADMIN & TÍNH NĂNG PHỤ (Admin Panel & Extras)
+Phụ trách: Thành viên 4
+STT	Chức năng	Màn hình
+4.1	Admin: Xem danh sách tất cả User	AdminUserListActivity
+4.2	Admin: Khoá / Mở khoá tài khoản người dùng	Trong AdminUserListActivity
+4.3	Admin: Xem danh sách tất cả sân	AdminCourtListActivity
+4.4	Admin: Duyệt / Từ chối đăng ký sân của Chủ sân	Trong AdminCourtListActivity
+4.5	Admin: Xem tổng quan thống kê (số user, số sân, số booking)	AdminDashboardActivity
+4.6	Thông báo trong app (khi đặt sân thành công, bị từ chối)	NotificationActivity (dùng Firestore listener)
+4.7	Màn hình Splash + Onboarding (giới thiệu app)	SplashActivity
+Firebase cần:
+notifications/{notifId}
+  - userId, title, message, isRead, type, createdAt
+________________________________________
+📅 KẾ HOẠCH 4 TUẦN
+Tuần	Mục tiêu	Các thành viên làm gì
+Tuần 1	Thiết lập dự án + UI cơ bản	Setup Firebase, tạo cấu trúc project, design màn hình chính, xây dựng module Auth (TM1)
+Tuần 2	Core feature	TM1 hoàn thiện Auth & Profile, TM2 làm Court List/Detail/Thêm sân, TM3 bắt đầu Booking flow
+Tuần 3	Hoàn thiện + tích hợp	TM3 hoàn thiện Booking, TM4 làm Admin panel + Notification, tích hợp liên module
+Tuần 4	Test + Fix bug + Hoàn chỉnh	Kiểm tra toàn bộ luồng, sửa lỗi, viết báo cáo, demo
+________________________________________
+🔥 CẤU TRÚC FIREBASE ĐỀ XUẤT (bổ sung thêm collection)
+Bạn đã có users, courts, bookings – thêm:
+📁 Firebase Firestore
+├── users/          ✅ đã có
+├── courts/         ✅ đã có  
+├── bookings/       ✅ đã có
+└── notifications/  🆕 thêm mới (cho tính năng thông báo)
+________________________________________
+💡 GỢI Ý KỸ THUẬT QUAN TRỌNG
+1.	Phân quyền Role: Lưu role trong Firestore (customer/owner/admin), sau khi đăng nhập đọc role → điều hướng đến HomeActivity tương ứng.
+2.	Kiểm tra slot trống: Khi khách đặt, query Firestore lấy tất cả booking của courtId + date đó, so sánh startTime/endTime để tránh đặt trùng.
+3.	Real-time update: Dùng addSnapshotListener() của Firestore để Chủ sân thấy đơn mới ngay lập tức mà không cần F5.
+4.	Upload ảnh sân: Dùng Firebase Storage để upload ảnh sân, lưu URL vào Firestore.
+5.	Navigation: Dùng BottomNavigationView hoặc DrawerLayout để phân biệt giao diện 3 loại user.
