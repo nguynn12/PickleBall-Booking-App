@@ -28,7 +28,17 @@
     <color name="warning_yellow">#FF9500</color>
     <color name="info_blue">#007AFF</color>
 
-        <!-- Legacy keep -->
+        <!-- Booking schedule colors -->
+    <color name="slot_empty">#FFFFFF</color>
+    <color name="slot_booked">#E57373</color>
+    <color name="slot_selected">#A5D6A7</color>
+    <color name="slot_locked">#BDBDBD</color>
+    <color name="schedule_header_bg">#E8F5E9</color>
+    <color name="schedule_time_col_bg">#F1F8E9</color>
+    <color name="booking_dark_green">#2E7D32</color>
+    <color name="booking_yellow">#F9A825</color>
+
+    <!-- Legacy keep -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tab Hình ảnh: grid ảnh sân -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_primary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Ảnh chính lớn -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            android:layout_marginBottom="8dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <ImageView
+                android:id="@+id/imgMainPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@color/green_light"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Grid 2 cột ảnh phụ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="120dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                android:layout_marginEnd="4dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <ImageView
+                    android:id="@+id/imgPhoto2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@color/green_light"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="120dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                android:layout_marginStart="4dp"
+                xmlns:app="http://schemas.android.com/apk/res-auto">
+
+                <ImageView
+                    android:id="@+id/imgPhoto3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@color/green_light"/>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chủ sân chưa thêm hình ảnh"
+            android:id="@+id/tvNoPhotos"
+            android:textSize="14sp"
+            android:textColor="@color/text_tertiary"
+            android:gravity="center"
+            android:padding="32dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+</ScrollView>

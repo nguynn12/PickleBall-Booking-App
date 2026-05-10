@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,7 +31,7 @@ public class CourtListFragment extends Fragment {
 
     private RecyclerView rvCourts;
     private CourtAdapter adapter;
-    private final List<Court> masterList = new ArrayList<>();
+    private final List<Court> masterList  = new ArrayList<>();
     private final List<Court> displayList = new ArrayList<>();
     private TextView btnFilterNearMe, btnFilterAvailable, btnFilterIndoor;
     private EditText edtSearch;
@@ -49,11 +48,11 @@ public class CourtListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvCourts         = view.findViewById(R.id.rvCourts);
-        btnFilterNearMe  = view.findViewById(R.id.btnFilterNearMe);
+        rvCourts          = view.findViewById(R.id.rvCourts);
+        btnFilterNearMe   = view.findViewById(R.id.btnFilterNearMe);
         btnFilterAvailable = view.findViewById(R.id.btnFilterAvailable);
-        btnFilterIndoor  = view.findViewById(R.id.btnFilterIndoor);
-        edtSearch        = view.findViewById(R.id.edtSearch);
+        btnFilterIndoor   = view.findViewById(R.id.btnFilterIndoor);
+        edtSearch         = view.findViewById(R.id.edtSearch);
 
         rvCourts.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new CourtAdapter(requireContext(), displayList, court -> {
@@ -73,15 +72,15 @@ public class CourtListFragment extends Fragment {
 
         btnFilterNearMe.setOnClickListener(v -> {
             filterAll();
-            updateFilterUI(btnFilterNearMe, btnFilterAvailable, btnFilterIndoor);
+            setChipSelected(btnFilterNearMe, btnFilterAvailable, btnFilterIndoor);
         });
         btnFilterAvailable.setOnClickListener(v -> {
             filterAvailable();
-            updateFilterUI(btnFilterAvailable, btnFilterNearMe, btnFilterIndoor);
+            setChipSelected(btnFilterAvailable, btnFilterNearMe, btnFilterIndoor);
         });
         btnFilterIndoor.setOnClickListener(v -> {
             filterIndoor();
-            updateFilterUI(btnFilterIndoor, btnFilterNearMe, btnFilterAvailable);
+            setChipSelected(btnFilterIndoor, btnFilterNearMe, btnFilterAvailable);
         });
 
         loadCourts();
@@ -102,22 +101,21 @@ public class CourtListFragment extends Fragment {
                 masterList.add(court);
             }
             filterAll();
-            updateFilterUI(btnFilterNearMe, btnFilterAvailable, btnFilterIndoor);
         });
     }
 
     private void filterSearch(String query) {
         displayList.clear();
         if (query == null || query.trim().isEmpty()) {
-            filterAll();
-            return;
-        }
-        String q = query.toLowerCase();
-        for (Court c : masterList) {
-            String name = c.getCourtName() == null ? "" : c.getCourtName();
-            String addr = c.getAddress() == null ? "" : c.getAddress();
-            if (name.toLowerCase().contains(q) || addr.toLowerCase().contains(q)) {
-                displayList.add(c);
+            displayList.addAll(masterList);
+        } else {
+            String q = query.toLowerCase();
+            for (Court c : masterList) {
+                String name = c.getCourtName() == null ? "" : c.getCourtName();
+                String addr = c.getAddress() == null ? "" : c.getAddress();
+                if (name.toLowerCase().contains(q) || addr.toLowerCase().contains(q)) {
+                    displayList.add(c);
+                }
             }
         }
         adapter.notifyDataSetChanged();
@@ -146,12 +144,12 @@ public class CourtListFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void updateFilterUI(TextView selected, TextView u1, TextView u2) {
-        selected.setBackgroundResource(R.drawable.bg_button_primary);
-        selected.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
-        u1.setBackgroundResource(R.drawable.bg_search_bar);
-        u1.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary));
-        u2.setBackgroundResource(R.drawable.bg_search_bar);
-        u2.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary));
+    private void setChipSelected(TextView selected, TextView u1, TextView u2) {
+        selected.setBackgroundResource(R.drawable.bg_chip_selected);
+        selected.setTextColor(requireContext().getColor(R.color.green_primary));
+        u1.setBackgroundResource(R.drawable.bg_chip_unselected);
+        u1.setTextColor(requireContext().getColor(android.R.color.white));
+        u2.setBackgroundResource(R.drawable.bg_chip_unselected);
+        u2.setTextColor(requireContext().getColor(android.R.color.white));
     }
 }

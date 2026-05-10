@@ -72,7 +72,8 @@ public class ProfileFragment extends Fragment {
 
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) {
-            startActivity(new Intent(requireContext(), LoginActivity.class));
+            // Chưa đăng nhập → hiển thị màn hình mời đăng nhập
+            showGuestView(view);
             return;
         }
         currentUid = user.getUid();
@@ -264,5 +265,82 @@ public class ProfileFragment extends Fragment {
                 })
                 .setNegativeButton("Không", null)
                 .show();
+    }
+
+    /** Hiển thị màn hình mời đăng nhập cho khách chưa đăng nhập */
+    private void showGuestView(View rootView) {
+        // Ẩn tất cả view profile
+        rootView.setVisibility(android.view.View.GONE);
+
+        // Tạo view mời đăng nhập
+        android.widget.FrameLayout container = (android.widget.FrameLayout)
+                ((android.view.ViewGroup) rootView.getParent());
+
+        android.widget.LinearLayout guestLayout = new android.widget.LinearLayout(requireContext());
+        guestLayout.setOrientation(android.widget.LinearLayout.VERTICAL);
+        guestLayout.setGravity(android.view.Gravity.CENTER);
+        guestLayout.setBackgroundColor(requireContext().getColor(R.color.bg_primary));
+        guestLayout.setLayoutParams(new android.widget.FrameLayout.LayoutParams(
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+                android.widget.FrameLayout.LayoutParams.MATCH_PARENT));
+        guestLayout.setPadding(48, 0, 48, 0);
+
+        android.widget.TextView tvIcon = new android.widget.TextView(requireContext());
+        tvIcon.setText("👤");
+        tvIcon.setTextSize(64f);
+        tvIcon.setGravity(android.view.Gravity.CENTER);
+        tvIcon.setPadding(0, 0, 0, 24);
+        guestLayout.addView(tvIcon);
+
+        android.widget.TextView tvTitle = new android.widget.TextView(requireContext());
+        tvTitle.setText("Đăng nhập để sử dụng đầy đủ tính năng");
+        tvTitle.setTextSize(18f);
+        tvTitle.setTextColor(requireContext().getColor(R.color.text_primary));
+        tvTitle.setGravity(android.view.Gravity.CENTER);
+        tvTitle.setTypeface(null, android.graphics.Typeface.BOLD);
+        tvTitle.setPadding(0, 0, 0, 12);
+        guestLayout.addView(tvTitle);
+
+        android.widget.TextView tvDesc = new android.widget.TextView(requireContext());
+        tvDesc.setText("✅ Lưu lịch sử đặt sân\n✅ Nhận thông báo xác nhận\n✅ Quản lý hồ sơ cá nhân\n✅ Đánh giá sân sau khi chơi");
+        tvDesc.setTextSize(14f);
+        tvDesc.setTextColor(requireContext().getColor(R.color.text_secondary));
+        tvDesc.setGravity(android.view.Gravity.START);
+        tvDesc.setLineSpacing(8f, 1f);
+        tvDesc.setPadding(0, 0, 0, 32);
+        guestLayout.addView(tvDesc);
+
+        android.widget.Button btnLogin = new android.widget.Button(requireContext());
+        btnLogin.setText("Đăng nhập");
+        btnLogin.setAllCaps(false);
+        btnLogin.setTextSize(16f);
+        btnLogin.setTextColor(requireContext().getColor(android.R.color.white));
+        btnLogin.setBackgroundResource(R.drawable.bg_button_primary);
+        android.widget.LinearLayout.LayoutParams btnLp = new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT, dp(56));
+        btnLp.bottomMargin = dp(12);
+        btnLogin.setLayoutParams(btnLp);
+        btnLogin.setOnClickListener(v ->
+                startActivity(new Intent(requireContext(), LoginActivity.class)));
+        guestLayout.addView(btnLogin);
+
+        android.widget.Button btnRegister = new android.widget.Button(requireContext());
+        btnRegister.setText("Tạo tài khoản mới");
+        btnRegister.setAllCaps(false);
+        btnRegister.setTextSize(16f);
+        btnRegister.setTextColor(requireContext().getColor(R.color.green_primary));
+        btnRegister.setBackgroundResource(R.drawable.selector_button_outline);
+        btnRegister.setLayoutParams(new android.widget.LinearLayout.LayoutParams(
+                android.widget.LinearLayout.LayoutParams.MATCH_PARENT, dp(56)));
+        btnRegister.setOnClickListener(v ->
+                startActivity(new Intent(requireContext(),
+                        com.example.pickleball.activity.auth.RegisterActivity.class)));
+        guestLayout.addView(btnRegister);
+
+        container.addView(guestLayout);
+    }
+
+    private int dp(int value) {
+        return (int) (value * requireContext().getResources().getDisplayMetrics().density);
     }
 }

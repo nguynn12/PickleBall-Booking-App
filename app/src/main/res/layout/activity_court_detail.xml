@@ -1,98 +1,347 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_primary">
 
-    <ScrollView
+    <!-- AppBar với ảnh bìa + overlay buttons -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomBar">
+        android:layout_height="220dp"
+        android:background="@color/green_light"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@color/green_primary">
+
+            <!-- Ảnh bìa sân -->
+            <ImageView
+                android:id="@+id/imgDetailCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@color/green_light"
+                app:layout_collapseMode="parallax"/>
+
+            <!-- Overlay tối nhẹ -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000"
+                app:layout_collapseMode="parallax"/>
+
+            <!-- Toolbar với nút back, yêu thích, ĐẶT LỊCH -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:layout_marginTop="28dp"
+                app:layout_collapseMode="pin">
+
+                <!-- Nút back -->
+                <ImageView
+                    android:id="@+id/btnBack"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@android:drawable/ic_media_previous"
+                    android:padding="6dp"
+                    android:background="@drawable/bg_icon_circle_white"
+                    android:layout_marginStart="4dp"/>
+
+                <!-- Nút yêu thích + ĐẶT LỊCH (bên phải) -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginEnd="4dp">
+
+                    <ImageView
+                        android:id="@+id/btnFavorite"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_heart"
+                        android:padding="6dp"
+                        android:background="@drawable/bg_icon_circle_white"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/text_secondary"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnBookDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Đặt lịch"
+                        android:textAllCaps="false"
+                        android:textSize="14sp"
+                        style="@style/Widget.PickleBall.Button.Primary"
+                        app:cornerRadius="20dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"/>
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <!-- Badge rating ở giữa dưới ảnh -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="-18dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/green_primary"
+                app:layout_collapseMode="parallax">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⭐"
+                        android:textSize="16sp"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvRatingBadge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chưa có đánh giá"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Nội dung chính -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imgDetailCover"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:scaleType="centerCrop"/>
-
-            <LinearLayout
+            <!-- Card thông tin sân (logo + tên + địa chỉ + giờ + phone) -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-30dp"
-                android:background="@drawable/bg_rounded_top"
-                android:padding="24dp"
-                android:orientation="vertical">
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="0dp"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_white">
 
-                <TextView
-                    android:id="@+id/tvDetailName"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tên sân"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvDetailAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="📍 Địa chỉ"
-                    android:textColor="@color/text_secondary"
-                    android:layout_marginTop="8dp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    <!-- Logo + Tên sân + Badge loại sân -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
 
-    <LinearLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:background="@color/white"
-        android:elevation="20dp"
-        android:paddingHorizontal="24dp"
-        android:gravity="center_vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/divider"
+                            app:strokeWidth="1dp"
+                            android:layout_marginEnd="12dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                            <ImageView
+                                android:id="@+id/imgCourtLogo"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/ic_nav_court"
+                                android:padding="8dp"
+                                app:tint="@color/green_primary"/>
+                        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvDetailName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tên sân"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/text_primary"
+                                android:layout_marginBottom="6dp"/>
+
+                            <!-- Badge loại sân -->
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:cardCornerRadius="12dp"
+                                app:cardElevation="0dp"
+                                app:strokeColor="@color/green_primary"
+                                app:strokeWidth="1dp"
+                                app:cardBackgroundColor="@color/bg_white">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical"
+                                    android:paddingHorizontal="10dp"
+                                    android:paddingVertical="4dp">
+
+                                    <ImageView
+                                        android:layout_width="14dp"
+                                        android:layout_height="14dp"
+                                        android:src="@drawable/ic_nav_court"
+                                        android:layout_marginEnd="4dp"
+                                        app:tint="@color/green_primary"/>
+
+                                    <TextView
+                                        android:id="@+id/tvCourtType"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Pickleball"
+                                        android:textSize="12sp"
+                                        android:textColor="@color/green_primary"/>
+                                </LinearLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Địa chỉ -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_nav_court"
+                            android:layout_marginEnd="10dp"
+                            app:tint="@color/green_primary"/>
+
+                        <TextView
+                            android:id="@+id/tvDetailAddress"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ sân"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+
+                    <!-- Giờ mở cửa -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_nav_booking"
+                            android:layout_marginEnd="10dp"
+                            app:tint="@color/green_primary"/>
+
+                        <TextView
+                            android:id="@+id/tvOpenHours"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="05:00 - 22:00"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary"/>
+                    </LinearLayout>
+
+                    <!-- Số điện thoại -->
+                    <LinearLayout
+                        android:id="@+id/layoutPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/ic_nav_profile"
+                            android:layout_marginEnd="10dp"
+                            app:tint="@color/green_primary"/>
+
+                        <TextView
+                            android:id="@+id/tvPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Liên hệ"
+                            android:textSize="14sp"
+                            android:textColor="@color/green_dark"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tab Layout -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/bg_white"
+                app:tabTextColor="@color/text_secondary"
+                app:tabSelectedTextColor="@color/green_primary"
+                app:tabIndicatorColor="@color/green_primary"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabPaddingStart="4dp"
+                app:tabPaddingEnd="4dp"
+                app:tabTextAppearance="@style/TabTextAppearance"/>
+
+            <!-- ViewPager2 cho nội dung tab -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giá mỗi giờ từ"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp"/>
+                android:minHeight="400dp"/>
 
-            <TextView
-                android:id="@+id/tvDetailPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0đ"
-                android:textColor="@color/green_dark"
-                android:textSize="22sp"
-                android:textStyle="bold"/>
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-        <Button
-            android:id="@+id/btnBookDetail"
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:text="Chọn lịch"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:cornerRadius="25dp"
-            android:background="@drawable/bg_button_primary_gradient"/>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

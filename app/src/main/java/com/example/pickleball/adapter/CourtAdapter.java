@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.pickleball.R;
 import com.example.pickleball.model.Court;
+import com.google.android.material.button.MaterialButton;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHolder> {
 
@@ -44,29 +46,47 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
     public void onBindViewHolder(@NonNull CourtViewHolder holder, int position) {
         Court court = courtList.get(position);
 
-        // Handle null safely
-        String name = court.getCourtName();
-        String address = court.getAddress();
-        double price = court.getPricePerHour();
+        String name     = court.getCourtName();
+        String address  = court.getAddress();
+        double price    = court.getPricePerHour();
         String imageUrl = court.getImageUrl();
 
-        holder.tvCourtNameItem.setText(name != null && !name.isEmpty() ? name : "Sân Pickleball");
-        holder.tvLocationItem.setText("📍 " + (address != null && !address.isEmpty() ? address : "Chưa có địa chỉ"));
-        holder.tvPriceItem.setText(formatPrice(price));
+        // Tên sân
+        holder.tvCourtNameItem.setText(
+                name != null && !name.isEmpty() ? name : "Sân Pickleball");
 
+        // Địa chỉ (màu xanh, giống ảnh mẫu)
+        holder.tvLocationItem.setText(
+                address != null && !address.isEmpty() ? address : "Chưa có địa chỉ");
+
+        // Giờ mở cửa (mặc định nếu chưa có trong model)
+        holder.tvOpenHours.setText("🕐 06:00 - 22:00");
+
+        // Rating mặc định 5.0
+        holder.tvRating.setText("⭐ 5.0");
+
+        // Ảnh sân
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(context)
                     .load(imageUrl)
-                    .placeholder(R.drawable.ic_nav_court)
-                    .error(R.drawable.ic_nav_court)
+                    .placeholder(R.color.green_light)
+                    .error(R.color.green_light)
                     .centerCrop()
                     .into(holder.imgCourtItem);
+            // Logo cũng dùng ảnh sân
+            Glide.with(context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_nav_court)
+                    .circleCrop()
+                    .into(holder.imgCourtLogo);
         } else {
-            holder.imgCourtItem.setImageResource(R.drawable.ic_nav_court);
+            holder.imgCourtItem.setImageResource(0);
             holder.imgCourtItem.setBackgroundColor(
                     context.getResources().getColor(R.color.green_light, null));
+            holder.imgCourtLogo.setImageResource(R.drawable.ic_nav_court);
         }
 
+        // Nút ĐẶT LỊCH
         holder.btnBookItem.setOnClickListener(v -> {
             if (clickListener != null) clickListener.onCourtClick(court);
         });
@@ -75,29 +95,25 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         });
     }
 
-    private String formatPrice(double price) {
-        if (price <= 0) return "Liên hệ";
-        java.text.NumberFormat fmt = java.text.NumberFormat.getInstance(new java.util.Locale("vi", "VN"));
-        return fmt.format(price) + "đ/h";
-    }
-
     @Override
     public int getItemCount() {
-        return courtList.size();
+        return courtList == null ? 0 : courtList.size();
     }
 
     public static class CourtViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgCourtItem;
-        TextView tvCourtNameItem, tvPriceItem, tvLocationItem;
-        Button btnBookItem;
+        ImageView imgCourtItem, imgCourtLogo;
+        TextView tvCourtNameItem, tvLocationItem, tvOpenHours, tvRating;
+        MaterialButton btnBookItem;
 
         public CourtViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCourtItem = itemView.findViewById(R.id.imgCourtItem);
+            imgCourtItem    = itemView.findViewById(R.id.imgCourtItem);
+            imgCourtLogo    = itemView.findViewById(R.id.imgCourtLogo);
             tvCourtNameItem = itemView.findViewById(R.id.tvCourtNameItem);
-            tvPriceItem = itemView.findViewById(R.id.tvPriceItem);
-            tvLocationItem = itemView.findViewById(R.id.tvLocationItem);
-            btnBookItem = itemView.findViewById(R.id.btnBookItem);
+            tvLocationItem  = itemView.findViewById(R.id.tvLocationItem);
+            tvOpenHours     = itemView.findViewById(R.id.tvOpenHours);
+            tvRating        = itemView.findViewById(R.id.tvRating);
+            btnBookItem     = itemView.findViewById(R.id.btnBookItem);
         }
     }
 }

@@ -39,7 +39,10 @@ public class SplashActivity extends AppCompatActivity {
             if (currentUser != null) {
                 checkRoleAndNavigate(currentUser.getUid());
             } else {
-                startActivity(new Intent(this, LoginActivity.class));
+                // Không đăng nhập → vào app với role khách (CustomerMainActivity)
+                Intent intent = new Intent(this, com.example.pickleball.fragment.customer.CustomerMainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
         }, 2000);

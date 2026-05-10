@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/booking_dark_green"
+        android:paddingTop="44dp"
+        android:paddingBottom="12dp"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_media_previous"
+            android:padding="6dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/white"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Đặt lịch ngày trực quan"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <!-- Date picker button -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPickDate"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#44FFFFFF">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10dp">
+
+                <TextView
+                    android:id="@+id/tvSelectedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="09/05/2026"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_nav_booking"
+                    android:layout_marginStart="4dp"
+                    app:tint="@color/white"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Legend: Trống / Đã đặt / Khoá / Sự kiện -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/bg_white"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp">
+
+        <View android:layout_width="16dp" android:layout_height="16dp"
+            android:background="@drawable/bg_legend_empty" android:layout_marginEnd="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Trống" android:textSize="12sp" android:textColor="@color/text_secondary"
+            android:layout_marginEnd="12dp"/>
+
+        <View android:layout_width="16dp" android:layout_height="16dp"
+            android:background="@drawable/bg_legend_booked" android:layout_marginEnd="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Đã đặt" android:textSize="12sp" android:textColor="@color/text_secondary"
+            android:layout_marginEnd="12dp"/>
+
+        <View android:layout_width="16dp" android:layout_height="16dp"
+            android:background="@drawable/bg_legend_locked" android:layout_marginEnd="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Khoá" android:textSize="12sp" android:textColor="@color/text_secondary"
+            android:layout_marginEnd="12dp"/>
+
+        <View android:layout_width="16dp" android:layout_height="16dp"
+            android:background="@drawable/bg_legend_selected" android:layout_marginEnd="4dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Đã chọn" android:textSize="12sp" android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+
+    <!-- Xem sân & bảng giá -->
+    <TextView
+        android:id="@+id/tvViewPricing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xem sân &amp; bảng giá"
+        android:textSize="13sp"
+        android:textColor="@color/booking_dark_green"
+        android:textStyle="bold"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="6dp"
+        android:background="?attr/selectableItemBackground"/>
+
+    <!-- Lưu ý -->
+    <TextView
+        android:id="@+id/tvNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lưu ý: Nếu bạn cần đặt lịch cố định vui lòng liên hệ chủ sân để được hỗ trợ."
+        android:textSize="12sp"
+        android:textColor="@color/error_red"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="8dp"/>
+
+    <!-- Bảng lịch: scroll ngang + dọc, freeze cột thời gian và hàng sân -->
+    <!-- Cấu trúc: sân nằm ngang (cột), thời gian nằm dọc (hàng) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Header hàng: freeze row (tên sân) -->
+        <HorizontalScrollView
+            android:id="@+id/hsvHeader"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:scrollbars="none"
+            android:overScrollMode="never">
+
+            <LinearLayout
+                android:id="@+id/llCourtHeaders"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <!-- Ô góc trên trái (freeze) - placeholder -->
+                <View
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/schedule_header_bg"/>
+
+                <!-- Tên các sân sẽ được thêm động -->
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Body: scroll dọc (thời gian) + ngang (sân) đồng bộ -->
+        <ScrollView
+            android:id="@+id/svBody"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:overScrollMode="never">
+
+            <HorizontalScrollView
+                android:id="@+id/hsvBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="horizontal"
+                android:overScrollMode="never">
+
+                <!-- Grid container: thêm động bằng Java -->
+                <LinearLayout
+                    android:id="@+id/llGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </HorizontalScrollView>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- Slider phóng to số sân -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_white"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp">
+
+        <SeekBar
+            android:id="@+id/seekBarZoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="4"
+            android:progress="1"
+            android:progressTint="@color/green_primary"
+            android:thumbTint="@color/green_primary"/>
+    </LinearLayout>
+
+    <!-- Bottom panel: tổng giờ + tổng tiền (hiện khi có lựa chọn) -->
+    <LinearLayout
+        android:id="@+id/panelSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/booking_dark_green"
+        android:visibility="gone">
+
+        <!-- Toggle expand/collapse -->
+        <LinearLayout
+            android:id="@+id/btnToggleSummary"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground">
+
+            <TextView
+                android:id="@+id/tvToggleArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="∧"
+                android:textSize="16sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <!-- Chi tiết các sân đã chọn (hiện khi expand) -->
+        <LinearLayout
+            android:id="@+id/layoutSelectedDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:visibility="gone"/>
+
+        <!-- Tổng giờ + tổng tiền -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvTotalHours"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Tổng giờ: 0h00"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvTotalMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng tiền: 0 đ"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Nút TIẾP THEO -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="TIẾP THEO"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/booking_yellow"
+        android:textColor="@color/white"
+        app:cornerRadius="0dp"
+        android:elevation="0dp"
+        android:stateListAnimator="@null"/>
+
+</LinearLayout>

@@ -5,9 +5,9 @@
         android:icon="@drawable/ic_nav_home"
         android:title="Trang chủ" />
     <item
-        android:id="@+id/nav_courts"
-        android:icon="@drawable/ic_nav_court"
-        android:title="Tìm sân" />
+        android:id="@+id/nav_explore"
+        android:icon="@drawable/ic_nav_explore"
+        android:title="Khám phá" />
     <item
         android:id="@+id/nav_bookings"
         android:icon="@drawable/ic_nav_booking"
@@ -15,5 +15,5 @@
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_nav_profile"
-        android:title="Hồ sơ" />
+        android:title="Tài khoản" />
 </menu>

@@ -80,6 +80,9 @@ android:name=".activity.auth.OnboardingActivity"
 <activity android:name=".activity.booking.CreateBookingActivity"       android:exported="false"
     android:windowSoftInputMode="adjustResize" />
 <activity android:name=".activity.booking.OwnerBookingManageActivity"  android:exported="false" />
+<activity android:name=".activity.booking.BookingScheduleActivity"     android:exported="false" />
+<activity android:name=".activity.booking.BookingConfirmActivity"      android:exported="false"
+    android:windowSoftInputMode="adjustResize" />
 
 </application>
 
