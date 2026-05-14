@@ -2,6 +2,7 @@ package com.example.pickleball.fragment.customer;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -45,6 +46,23 @@ public class CustomerMainActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Kiểm tra xem tab hiện tại có phải là Trang chủ (nav_home) không
+                if (bottomNav.getSelectedItemId() != R.id.nav_home) {
+                    // Nếu đang ở Khám phá, Bản đồ, Lịch đặt hoặc Tài khoản -> Quay về Trang chủ
+                    bottomNav.setSelectedItemId(R.id.nav_home);
+                } else {
+                    // Nếu đã ở Trang chủ rồi, tắt vòng lặp can thiệp này đi
+                    setEnabled(false);
+                    // Kích hoạt lại sự kiện Back để hệ thống tự xử lý (Thoát app)
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
         });
     }
 

@@ -2,6 +2,7 @@ package com.example.pickleball.fragment.admin;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,22 @@ public class AdminMainActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Kiểm tra xem tab hiện tại có phải là tab Home hay không
+                if (bottomNav.getSelectedItemId() != R.id.nav_home) {
+                    // Nếu đang ở tab khác (ví dụ Users), quay về tab Home
+                    bottomNav.setSelectedItemId(R.id.nav_home);
+                } else {
+                    // Nếu đã ở tab Home rồi, tắt vòng lặp can thiệp này đi
+                    setEnabled(false);
+                    // Kích hoạt lại sự kiện Back để hệ thống tự xử lý (thoát app)
+                    getOnBackPressedDispatcher().onBackPressed();
+                }
+            }
         });
     }
 
