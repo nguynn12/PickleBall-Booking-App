@@ -8,6 +8,8 @@ public class Court implements Serializable {
     private String courtName;
     private String address;
     private String type;           // "Pickleball" | "Trong nhà" | "Ngoài trời"
+    private Double lat;
+    private Double lng;
     private double pricePerHour;
     private String imageUrl;
     private String ownerId;
@@ -44,6 +46,12 @@ public class Court implements Serializable {
 
     public String getType()                     { return type; }
     public void setType(String v)               { this.type = v; }
+
+    public Double getLat()                      { return lat; }
+    public void setLat(Double v)                { this.lat = v; }
+
+    public Double getLng()                      { return lng; }
+    public void setLng(Double v)                { this.lng = v; }
 
     public double getPricePerHour()             { return pricePerHour; }
     public void setPricePerHour(double v)       { this.pricePerHour = v; }

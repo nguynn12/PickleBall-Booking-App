@@ -11,55 +11,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Link đặt sân online -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Link đặt sân online"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="@color/green_dark"
-            android:layout_marginBottom="8dp"/>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:strokeColor="@color/divider"
-            app:strokeWidth="1dp"
-            app:cardBackgroundColor="@color/bg_white"
-            android:layout_marginBottom="20dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:id="@+id/tvBookingLink"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Chưa có link đặt sân"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_secondary"
-                    android:fontFamily="monospace"/>
-
-                <ImageView
-                    android:id="@+id/btnCopyLink"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_share"
-                    android:padding="4dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    app:tint="@color/green_primary"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
         <!-- Mô tả sân -->
         <TextView
             android:layout_width="wrap_content"
@@ -70,14 +21,27 @@
             android:textColor="@color/text_primary"
             android:layout_marginBottom="8dp"/>
 
-        <TextView
-            android:id="@+id/tvDescription"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Chưa có mô tả"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:lineSpacingMultiplier="1.5"/>
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/divider"
+            app:strokeWidth="1dp"
+            app:cardBackgroundColor="@color/bg_white"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chưa có mô tả"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:lineSpacingMultiplier="1.5"
+                android:padding="14dp"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 </ScrollView>

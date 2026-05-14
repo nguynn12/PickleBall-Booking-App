@@ -1,14 +1,10 @@
 package com.example.pickleball.fragment.court;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,23 +41,10 @@ public class TabInfoFragment extends Fragment {
                 ? (Court) getArguments().getSerializable(ARG_COURT) : null;
         if (court == null) return;
 
-        TextView tvLink = view.findViewById(R.id.tvBookingLink);
         TextView tvDesc = view.findViewById(R.id.tvDescription);
-
-        // Link đặt sân (placeholder)
-        String link = "Chưa có link đặt sân online";
-        tvLink.setText(link);
 
         // Mô tả
         String desc = court.getDescription();
         tvDesc.setText(desc != null && !desc.isEmpty() ? desc : "Chưa có mô tả về sân.");
-
-        // Copy link
-        view.findViewById(R.id.btnCopyLink).setOnClickListener(v -> {
-            ClipboardManager cm = (ClipboardManager)
-                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
-            cm.setPrimaryClip(ClipData.newPlainText("link", tvLink.getText()));
-            Toast.makeText(requireContext(), "Đã sao chép!", Toast.LENGTH_SHORT).show();
-        });
     }
 }

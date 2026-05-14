@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
         alias(libs.plugins.android.application)
         id("com.google.gms.google-services")
@@ -13,6 +15,20 @@ android {
             targetSdk = 36
             versionCode = 1
             versionName = "1.0"
+
+            val mapsApiKey = (project.findProperty("MAPS_API_KEY") as String?)
+                ?: run {
+                    val props = Properties()
+                    val localPropsFile = rootProject.file("local.properties")
+                    if (localPropsFile.exists()) {
+                        localPropsFile.inputStream().use { props.load(it) }
+                        props.getProperty("MAPS_API_KEY")
+                    } else {
+                        null
+                    }
+                }
+                ?: ""
+            manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
 
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }

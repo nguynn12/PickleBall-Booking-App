@@ -34,6 +34,9 @@ public class CustomerMainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_explore) {
                 loadFragment(new CourtListFragment());
                 return true;
+            } else if (id == R.id.nav_map) {
+                loadFragment(new MapFragment());
+                return true;
             } else if (id == R.id.nav_bookings) {
                 loadFragment(new MyBookingsFragment());
                 return true;
@@ -54,8 +57,8 @@ public class CustomerMainActivity extends AppCompatActivity {
 
     /** Cho phép fragment điều hướng sang tab khác */
     public void navigateTo(int index) {
-        // 0=Trang chủ, 1=Khám phá, 2=Lịch đặt, 3=Tài khoản
-        int[] ids = {R.id.nav_home, R.id.nav_explore, R.id.nav_bookings, R.id.nav_profile};
+        // 0=Trang chủ, 1=Khám phá, 2=Bản đồ, 3=Lịch đặt, 4=Tài khoản
+        int[] ids = {R.id.nav_home, R.id.nav_explore, R.id.nav_map, R.id.nav_bookings, R.id.nav_profile};
         if (index >= 0 && index < ids.length) {
             bottomNav.setSelectedItemId(ids[index]);
         }

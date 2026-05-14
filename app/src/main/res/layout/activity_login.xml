@@ -137,8 +137,6 @@ android:id="@+id/btnLogin"
     android:textAllCaps="false"
     android:textSize="16sp"
     android:textColor="@color/white"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
     style="@style/Widget.PickleBall.Button.Primary"
     android:layout_marginBottom="16dp"/>
 
@@ -180,8 +178,6 @@ android:id="@+id/btnGoogleSignIn"
     android:textAllCaps="false"
     android:textSize="16sp"
     android:textColor="@color/green_primary"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
     style="@style/Widget.PickleBall.Button.Outline"
     android:layout_marginBottom="28dp"/>
 
