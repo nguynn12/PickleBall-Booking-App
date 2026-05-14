@@ -1,276 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/booking_dark_green">
+    android:background="#E8F5E9">
 
     <!-- Header -->
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingTop="44dp"
-        android:paddingBottom="12dp"
-        android:paddingHorizontal="16dp">
+        android:background="@color/green_primary"
+        app:elevation="0dp">
 
-        <ImageView
-            android:id="@+id/btnBack"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:padding="6dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            app:tint="@color/white"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đặt lịch ngày trực quan"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:gravity="center"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="44dp"
+            android:paddingBottom="16dp"
+            android:paddingHorizontal="16dp">
 
-        <View android:layout_width="36dp" android:layout_height="36dp"/>
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@android:drawable/ic_media_previous"
+                android:padding="6dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:tint="@color/white"/>
 
-    <!-- Nội dung scroll -->
-    <ScrollView
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Đặt lịch"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+
+            <View android:layout_width="36dp" android:layout_height="36dp"/>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingBottom="16dp"
-        android:clipToPadding="false">
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:padding="16dp">
 
             <!-- Thông tin sân -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/green_primary"
+                android:layout_marginBottom="12dp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🗺️  "
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Thông tin sân"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/booking_yellow"/>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvConfirmCourtName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tên CLB: ..."
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="4dp"/>
-
-                <TextView
-                    android:id="@+id/tvConfirmAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Địa chỉ: ..."
-                    android:textSize="14sp"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View android:layout_width="match_parent" android:layout_height="0.5dp"
-                android:background="#44FFFFFF" android:layout_marginBottom="16dp"/>
-
-            <!-- Thông tin lịch đặt -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="📋  "
-                        android:textSize="16sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Thông tin lịch đặt"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/booking_yellow"/>
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tvConfirmDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ngày: ..."
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="8dp"/>
-
-                <!-- Danh sách sân đã chọn (thêm động) -->
-                <LinearLayout
-                    android:id="@+id/layoutConfirmSlots"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="8dp"/>
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvConfirmTarget"
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🗺️  "
+                            android:textSize="16sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thông tin sân"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvConfirmCourtName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tên CLB: ..."
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvConfirmAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ: ..."
+                        android:textSize="14sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Thông tin lịch đặt -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/green_primary"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Đối tượng: Pickleball"
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="8dp"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/tvConfirmTotalHours"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tổng giờ: ..."
-                    android:textSize="14sp"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="4dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:id="@+id/tvConfirmTotalMoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tổng tiền: ..."
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="📋  "
+                            android:textSize="16sp"/>
 
-            <!-- Divider -->
-            <View android:layout_width="match_parent" android:layout_height="0.5dp"
-                android:background="#44FFFFFF" android:layout_marginBottom="16dp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Thông tin lịch đặt"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"/>
+                    </LinearLayout>
 
-            <!-- Form nhập thông tin -->
+                    <TextView
+                        android:id="@+id/tvConfirmDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày: ..."
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="8dp"/>
+
+                    <!-- Danh sách slot đã chọn -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvConfirmSlots"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvConfirmType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Đối tượng: Pickleball"
+                        android:textSize="14sp"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="8dp"/>
+
+                    <View android:layout_width="match_parent" android:layout_height="0.5dp"
+                        android:background="#44FFFFFF" android:layout_marginBottom="8dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvConfirmTotalHours"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng giờ: 0h"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/tvConfirmTotalMoney"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng tiền: 0 đ"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Tên của bạn -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TÊN CỦA BẠN"
                 android:textSize="12sp"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/text_secondary"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="6dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.PickleBall.TextInput">
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_white"
+                android:layout_marginBottom="12dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtName"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập tên của bạn"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/text_primary"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    style="@style/Widget.PickleBall.TextInput"
+                    android:hint="Nhập tên của bạn">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtConfirmName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:textSize="15sp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
+            <!-- Số điện thoại -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SỐ ĐIỆN THOẠI"
                 android:textSize="12sp"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/text_secondary"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="6dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                style="@style/Widget.PickleBall.TextInput">
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_white"
+                android:layout_marginBottom="12dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPhone"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập số điện thoại"
-                    android:inputType="phone"
-                    android:textColor="@color/text_primary"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    style="@style/Widget.PickleBall.TextInput"
+                    android:hint="Nhập số điện thoại">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtConfirmPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:textSize="15sp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
+            <!-- Ghi chú -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="GHI CHÚ CHO CHỦ SÂN"
                 android:textSize="12sp"
-                android:textColor="#CCFFFFFF"
+                android:textColor="@color/text_secondary"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="6dp"/>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                style="@style/Widget.PickleBall.TextInput">
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/bg_white"
+                android:layout_marginBottom="24dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtNote"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nhập ghi chú"
-                    android:inputType="textMultiLine"
-                    android:minLines="3"
-                    android:textColor="@color/text_primary"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    style="@style/Widget.PickleBall.TextInput"
+                    android:hint="Nhập ghi chú">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtConfirmNote"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:minLines="2"
+                        android:textSize="15sp"
+                        android:paddingTop="14dp"
+                        android:paddingBottom="14dp"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    <!-- Nút XÁC NHẬN -->
+    <!-- Nút XÁC NHẬN & THANH TOÁN -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnConfirm"
+        android:id="@+id/btnConfirmBooking"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="XÁC NHẬN"
+        android:layout_height="52dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="XÁC NHẬN &amp; THANH TOÁN"
         android:textAllCaps="true"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/booking_yellow"
         android:textColor="@color/white"
-        app:cornerRadius="0dp"
-        android:elevation="0dp"
-        android:stateListAnimator="@null"/>
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:backgroundTint="#E6A817"
+        app:cornerRadius="8dp"/>
 
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
