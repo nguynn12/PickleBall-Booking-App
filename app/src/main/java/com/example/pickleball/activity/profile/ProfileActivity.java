@@ -99,6 +99,13 @@ public class ProfileActivity extends AppCompatActivity {
             startActivity(intent);
         });
         btnLogout.setOnClickListener(v -> logout());
+
+        // Nút thông báo
+        android.view.View btnNotif = findViewById(R.id.btnGoNotifications);
+        if (btnNotif != null) {
+            btnNotif.setOnClickListener(v ->
+                    startActivity(new Intent(this, com.example.pickleball.activity.NotificationsActivity.class)));
+        }
     }
 
     // ─── IMAGE PICKER SETUP ──────────────────────────────────────────────────

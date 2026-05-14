@@ -59,8 +59,8 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         holder.tvLocationItem.setText(
                 address != null && !address.isEmpty() ? address : "Chưa có địa chỉ");
 
-        // Giờ mở cửa (mặc định nếu chưa có trong model)
-        holder.tvOpenHours.setText("🕐 06:00 - 22:00");
+        // Giờ mở cửa từ model
+        holder.tvOpenHours.setText("🕐 " + court.getOpenHours());
 
         // Rating mặc định 5.0
         holder.tvRating.setText("⭐ 5.0");

@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pickleball.R;
 import com.example.pickleball.activity.court.AddCourtActivity;
 import com.example.pickleball.activity.court.CourtDetailActivity;
-import com.example.pickleball.adapter.CourtAdapter;
+import com.example.pickleball.adapter.OwnerCourtAdapter;
 import com.example.pickleball.model.Court;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,7 @@ import java.util.List;
 public class OwnerCourtsFragment extends Fragment {
 
     private RecyclerView rvCourts;
-    private CourtAdapter adapter;
+    private OwnerCourtAdapter adapter;
     private final List<Court> courtList = new ArrayList<>();
 
     @Nullable
@@ -45,10 +46,26 @@ public class OwnerCourtsFragment extends Fragment {
 
         rvCourts = view.findViewById(R.id.rvCourts);
         rvCourts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new CourtAdapter(requireContext(), courtList, court -> {
-            Intent intent = new Intent(requireContext(), CourtDetailActivity.class);
-            intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
-            startActivity(intent);
+
+        adapter = new OwnerCourtAdapter(requireContext(), courtList, new OwnerCourtAdapter.OnActionListener() {
+            @Override
+            public void onEdit(Court court) {
+                Intent intent = new Intent(requireContext(), AddCourtActivity.class);
+                intent.putExtra(AddCourtActivity.EXTRA_COURT, court);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onToggleStatus(Court court) {
+                confirmToggleStatus(court);
+            }
+
+            @Override
+            public void onView(Court court) {
+                Intent intent = new Intent(requireContext(), CourtDetailActivity.class);
+                intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
+                startActivity(intent);
+            }
         });
         rvCourts.setAdapter(adapter);
 
@@ -61,7 +78,7 @@ public class OwnerCourtsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadMyCourts(); // Reload khi quay lại sau khi thêm sân
+        loadMyCourts();
     }
 
     private void loadMyCourts() {
@@ -82,5 +99,31 @@ public class OwnerCourtsFragment extends Fragment {
                 })
                 .addOnFailureListener(e ->
                         Toast.makeText(requireContext(), "Lỗi tải sân: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private void confirmToggleStatus(Court court) {
+        boolean isActive = !"inactive".equals(court.getStatus());
+        String action = isActive ? "tạm đóng" : "mở lại";
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Xác nhận")
+                .setMessage("Bạn muốn " + action + " sân \"" + court.getCourtName() + "\"?")
+                .setPositiveButton("Xác nhận", (dialog, which) -> toggleStatus(court, isActive))
+                .setNegativeButton("Hủy", null)
+                .show();
+    }
+
+    private void toggleStatus(Court court, boolean currentlyActive) {
+        String newStatus = currentlyActive ? "inactive" : "active";
+        FirebaseFirestore.getInstance().collection("Courts")
+                .document(court.getCourtId())
+                .update("status", newStatus)
+                .addOnSuccessListener(v -> {
+                    court.setStatus(newStatus);
+                    adapter.notifyDataSetChanged();
+                    String msg = currentlyActive ? "Đã tạm đóng sân!" : "Đã mở lại sân!";
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e ->
+                        Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

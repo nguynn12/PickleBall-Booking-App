@@ -50,8 +50,9 @@ public class AdminUsersFragment extends Fragment {
     }
 
     private void loadUsers() {
-        FirebaseFirestore.getInstance().collection("Users").get()
-                .addOnSuccessListener(snap -> {
+        FirebaseFirestore.getInstance().collection("Users")
+                .addSnapshotListener((snap, err) -> {
+                    if (snap == null) return;
                     userList.clear();
                     for (var doc : snap) {
                         User u = doc.toObject(User.class);

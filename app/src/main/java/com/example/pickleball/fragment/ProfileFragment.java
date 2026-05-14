@@ -104,6 +104,14 @@ public class ProfileFragment extends Fragment {
         btnSettings.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), SettingsActivity.class)));
         btnLogout.setOnClickListener(v -> logout());
+
+        // Nút thông báo
+        View btnNotif = view.findViewById(R.id.btnGoNotifications);
+        if (btnNotif != null) {
+            btnNotif.setOnClickListener(v ->
+                    startActivity(new Intent(requireContext(),
+                            com.example.pickleball.activity.NotificationsActivity.class)));
+        }
     }
 
     private void setupImagePicker() {

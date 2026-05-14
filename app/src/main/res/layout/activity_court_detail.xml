@@ -79,6 +79,7 @@
                         android:layout_height="40dp"
                         android:text="Đặt lịch"
                         android:textAllCaps="false"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         style="@style/Widget.PickleBall.Button.Primary"
                         app:cornerRadius="20dp"

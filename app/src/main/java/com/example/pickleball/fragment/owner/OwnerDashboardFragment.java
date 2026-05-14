@@ -77,11 +77,12 @@ public class OwnerDashboardFragment extends Fragment {
     private void loadStats(TextView tvCourts, TextView tvPending, TextView tvConfirmed) {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Courts").whereEqualTo("ownerId", uid).get()
-                .addOnSuccessListener(snap -> tvCourts.setText(String.valueOf(snap.size())));
-        db.collection("Bookings").whereEqualTo("ownerId", uid).whereEqualTo("status", "pending").get()
-                .addOnSuccessListener(snap -> tvPending.setText(String.valueOf(snap.size())));
-        db.collection("Bookings").whereEqualTo("ownerId", uid).whereEqualTo("status", "confirmed").get()
-                .addOnSuccessListener(snap -> tvConfirmed.setText(String.valueOf(snap.size())));
+        // Real-time
+        db.collection("Courts").whereEqualTo("ownerId", uid)
+                .addSnapshotListener((s, e) -> { if (s != null) tvCourts.setText(String.valueOf(s.size())); });
+        db.collection("Bookings").whereEqualTo("ownerId", uid).whereEqualTo("status", "pending")
+                .addSnapshotListener((s, e) -> { if (s != null) tvPending.setText(String.valueOf(s.size())); });
+        db.collection("Bookings").whereEqualTo("ownerId", uid).whereEqualTo("status", "confirmed")
+                .addSnapshotListener((s, e) -> { if (s != null) tvConfirmed.setText(String.valueOf(s.size())); });
     }
 }

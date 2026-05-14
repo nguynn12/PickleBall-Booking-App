@@ -57,11 +57,20 @@ public class HomeFragment extends Fragment {
             tvDate.setText(today.substring(0, 1).toUpperCase() + today.substring(1));
         }
 
+        // Nút thông báo
+        android.widget.ImageView btnBell = view.findViewById(R.id.btnNotifications);
+        if (btnBell != null) {
+            btnBell.setOnClickListener(v2 -> startActivity(
+                    new Intent(requireContext(), com.example.pickleball.activity.NotificationsActivity.class)));
+        }
+
         rvCourts  = view.findViewById(R.id.rvCourts);
         edtSearch = view.findViewById(R.id.edtSearch);
 
         rvCourts.setLayoutManager(new LinearLayoutManager(requireContext()));
+        // Nút ĐẶT LỊCH → BookingScheduleActivity, click card → CourtDetailActivity
         adapter = new CourtAdapter(requireContext(), displayList, court -> {
+            // Click vào card → xem chi tiết
             Intent intent = new Intent(requireContext(), CourtDetailActivity.class);
             intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
             startActivity(intent);
@@ -80,6 +89,13 @@ public class HomeFragment extends Fragment {
         }
 
         loadCourts();
+        loadUpcomingBooking(view);
+    }
+
+    /** Load lịch đặt sắp tới gần nhất của user */
+    private void loadUpcomingBooking(View view) {
+        // Fragment này không có upcoming card trong layout mới (chỉ có search + list)
+        // Upcoming booking hiển thị trong MyBookingsFragment
     }
 
     private void loadCourts() {

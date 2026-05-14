@@ -56,6 +56,57 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Banner cảnh báo ngoài giờ (ẩn mặc định) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardOutsideHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#FFF3CD"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚠️"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="10dp"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ngoài giờ hoạt động"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#856404"/>
+
+                        <TextView
+                            android:id="@+id/tvOutsideHoursMsg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sân hoạt động từ 06:00 - 22:00. Bạn có thể xem trước nhưng chưa thể đặt lịch."
+                            android:textSize="13sp"
+                            android:textColor="#856404"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Court Info Card -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -324,7 +375,7 @@
         android:layout_margin="16dp"
         android:text="Xác nhận đặt sân"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="16sp"
         style="@style/Widget.PickleBall.Button.Primary"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

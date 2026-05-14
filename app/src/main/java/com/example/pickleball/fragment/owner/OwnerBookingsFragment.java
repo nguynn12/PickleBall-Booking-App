@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pickleball.R;
 import com.example.pickleball.adapter.BookingManageAdapter;
 import com.example.pickleball.model.Booking;
+import com.example.pickleball.utils.NotificationHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -113,8 +114,22 @@ public class OwnerBookingsFragment extends Fragment {
                 .document(booking.getBookingId())
                 .update("status", newStatus)
                 .addOnSuccessListener(v -> {
-                    String msg = "confirmed".equals(newStatus) ? "Đã xác nhận!" : "Đã từ chối!";
-                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+                    // Gửi thông báo cho khách hàng
+                    if ("confirmed".equals(newStatus)) {
+                        NotificationHelper.sendBookingConfirmed(
+                                booking.getUserId(),
+                                booking.getCourtName() != null ? booking.getCourtName() : "Sân",
+                                booking.getDate() != null ? booking.getDate() : "",
+                                booking.getBookingId());
+                        Toast.makeText(requireContext(), "Đã xác nhận!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        NotificationHelper.sendBookingRejected(
+                                booking.getUserId(),
+                                booking.getCourtName() != null ? booking.getCourtName() : "Sân",
+                                booking.getDate() != null ? booking.getDate() : "",
+                                booking.getBookingId());
+                        Toast.makeText(requireContext(), "Đã từ chối!", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .addOnFailureListener(e ->
                         Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());

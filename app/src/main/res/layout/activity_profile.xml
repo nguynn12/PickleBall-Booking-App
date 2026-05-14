@@ -97,6 +97,32 @@ android:id="@+id/tvRole"
     android:paddingBottom="6dp"/>
     </com.google.android.material.card.MaterialCardView>
 
+    <!-- Nút thông báo -->
+    <LinearLayout
+        android:id="@+id/btnGoNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:padding="8dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_bell"
+            android:layout_marginEnd="6dp"
+            app:tint="@color/green_primary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông báo của tôi"
+            android:textSize="14sp"
+            android:textColor="@color/green_primary"/>
+    </LinearLayout>
+
     </LinearLayout>
 
     <!-- Section label: Personal Info -->
@@ -205,6 +231,7 @@ android:id="@+id/btnSaveProfile"
     android:layout_height="56dp"
     android:text="Lưu thay đổi"
     android:textAllCaps="false"
+    android:textColor="@color/white"
     android:textSize="16sp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"

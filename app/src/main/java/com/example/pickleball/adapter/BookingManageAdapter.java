@@ -47,7 +47,21 @@ public class BookingManageAdapter extends RecyclerView.Adapter<BookingManageAdap
         Context ctx = h.itemView.getContext();
 
         h.tvCourtName.setText(b.getCourtName() != null ? b.getCourtName() : "Sân Pickleball");
-        h.tvCustomer.setText("👤 " + (b.getUserId() != null ? b.getUserId().substring(0, Math.min(8, b.getUserId().length())) + "..." : "Khách hàng"));
+
+        // Load tên khách hàng từ Firestore
+        h.tvCustomer.setText("👤 Đang tải...");
+        if (b.getUserId() != null) {
+            com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                    .collection("Users").document(b.getUserId()).get()
+                    .addOnSuccessListener(doc -> {
+                        String name = doc.getString("fullName");
+                        h.tvCustomer.setText("👤 " + (name != null ? name : "Khách hàng"));
+                    })
+                    .addOnFailureListener(e ->
+                            h.tvCustomer.setText("👤 Khách hàng"));
+        } else {
+            h.tvCustomer.setText("👤 Khách hàng");
+        }
 
         String dt = (b.getDate() != null ? b.getDate() : "") +
                 (b.getStartTime() != null ? "  " + b.getStartTime() + " – " + b.getEndTime() : "");

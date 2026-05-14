@@ -63,7 +63,7 @@ STT	Chức năng thêm	Giá trị
 1.12	Màn hình Home/Dashboard theo từng role	Điều hướng thông minh
 1.13	Validation form đầy đủ (email hợp lệ, mật khẩu ≥ 6 ký tự...)	Code chắc chắn
 1.14	Ghi nhớ đăng nhập (auto-login nếu đã login trước đó)	UX tốt
-1.15	Màn hình Settings (đổi ngôn ngữ, thông báo on/off)	Hoàn chỉnh
+1.15	Màn hình Settings (thông báo on/off)	Hoàn chỉnh
 
 
 

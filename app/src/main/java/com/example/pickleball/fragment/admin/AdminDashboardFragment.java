@@ -78,10 +78,19 @@ public class AdminDashboardFragment extends Fragment {
 
     private void loadStats(TextView tvUsers, TextView tvCourts, TextView tvBookings, TextView tvPending) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Users").get().addOnSuccessListener(s -> tvUsers.setText(String.valueOf(s.size())));
-        db.collection("Courts").get().addOnSuccessListener(s -> tvCourts.setText(String.valueOf(s.size())));
-        db.collection("Bookings").get().addOnSuccessListener(s -> tvBookings.setText(String.valueOf(s.size())));
-        db.collection("Bookings").whereEqualTo("status", "pending").get()
-                .addOnSuccessListener(s -> tvPending.setText(String.valueOf(s.size())));
+        // Real-time listeners
+        db.collection("Users").addSnapshotListener((s, e) -> {
+            if (s != null) tvUsers.setText(String.valueOf(s.size()));
+        });
+        db.collection("Courts").addSnapshotListener((s, e) -> {
+            if (s != null) tvCourts.setText(String.valueOf(s.size()));
+        });
+        db.collection("Bookings").addSnapshotListener((s, e) -> {
+            if (s != null) tvBookings.setText(String.valueOf(s.size()));
+        });
+        db.collection("Bookings").whereEqualTo("status", "pending")
+                .addSnapshotListener((s, e) -> {
+                    if (s != null) tvPending.setText(String.valueOf(s.size()));
+                });
     }
 }

@@ -173,6 +173,7 @@
                 android:text="ĐẶT LỊCH"
                 android:textSize="12sp"
                 android:textAllCaps="true"
+                android:textColor="@color/white"
                 android:letterSpacing="0.02"
                 style="@style/Widget.PickleBall.Button.Primary"
                 app:cornerRadius="8dp"
