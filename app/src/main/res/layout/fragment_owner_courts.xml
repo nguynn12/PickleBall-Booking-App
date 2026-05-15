@@ -17,8 +17,8 @@
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
             android:orientation="vertical"
-            android:paddingTop="40dp"
-            android:paddingBottom="16dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="12dp"
             android:paddingHorizontal="20dp">
 
             <TextView
@@ -37,7 +37,7 @@
                 android:text="Quản lý tất cả sân của bạn"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="2dp"/>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

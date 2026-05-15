@@ -32,7 +32,7 @@ android:layout_width="56dp"
 android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="PickleBall"
-    android:textSize="40sp"
+    android:textSize="32sp"
     android:textStyle="bold"
     android:fontFamily="sans-serif-medium"
     android:textColor="@color/text_primary"
@@ -44,13 +44,13 @@ android:layout_width="wrap_content"
 android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Booking"
-    android:textSize="40sp"
+    android:textSize="32sp"
     android:textStyle="bold"
     android:fontFamily="sans-serif-medium"
     android:textColor="@color/green_primary"
     android:letterSpacing="-0.02"
     android:lineSpacingMultiplier="1.07"
-    android:layout_marginBottom="16dp"/>
+    android:layout_marginBottom="12dp"/>
 
     <!-- Tagline -->
 <TextView
@@ -62,7 +62,7 @@ android:layout_width="wrap_content"
     android:textColor="@color/text_secondary"
     android:letterSpacing="-0.02"
     android:lineSpacingMultiplier="1.47"
-    android:layout_marginBottom="60dp"/>
+    android:layout_marginBottom="48dp"/>
 
     <!-- Loading -->
 <ProgressBar

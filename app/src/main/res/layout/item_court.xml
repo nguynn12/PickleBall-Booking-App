@@ -18,7 +18,7 @@
         <!-- Ảnh sân (lớn, full width) -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp">
+            android:layout_height="160dp">
 
             <ImageView
                 android:id="@+id/imgCourtItem"
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="12dp"
+            android:padding="10dp"
             android:gravity="center_vertical">
 
             <!-- Logo sân tròn -->
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="⭐ 5.0"
-                        android:textSize="12sp"
+                        android:textSize="11sp"
                         android:textColor="@color/warning_yellow"
                         android:layout_marginEnd="6dp"/>
                 </LinearLayout>
@@ -141,7 +141,7 @@
                     android:textColor="@color/text_primary"
                     android:maxLines="2"
                     android:ellipsize="end"
-                    android:layout_marginBottom="3dp"/>
+                    android:layout_marginBottom="2dp"/>
 
                 <!-- Khoảng cách + địa chỉ -->
                 <TextView
@@ -150,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:text="Địa chỉ sân"
                     android:textSize="12sp"
-                    android:textColor="@color/green_dark"
+                    android:textColor="@color/text_secondary"
                     android:maxLines="1"
                     android:ellipsize="end"
                     android:layout_marginBottom="2dp"/>
@@ -161,7 +161,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="🕐 06:00 - 22:00"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textColor="@color/text_secondary"/>
             </LinearLayout>
 

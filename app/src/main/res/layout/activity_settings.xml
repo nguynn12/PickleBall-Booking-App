@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/bg_white"
+            android:paddingTop="24dp"
             app:titleTextColor="@color/text_primary"
             app:navigationIconTint="@color/text_primary" />
 
@@ -61,7 +62,7 @@
                 <LinearLayout
                     android:id="@+id/btnAccount"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="52dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"
@@ -117,7 +118,7 @@
                     <LinearLayout
                         android:id="@+id/btnNotifications"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -161,7 +162,7 @@
                     <LinearLayout
                         android:id="@+id/btnDarkMode"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -228,7 +229,7 @@
                     <LinearLayout
                         android:id="@+id/btnAbout"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -262,7 +263,7 @@
                     <LinearLayout
                         android:id="@+id/btnPrivacy"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -296,7 +297,7 @@
                     <LinearLayout
                         android:id="@+id/btnTerms"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -329,7 +330,7 @@
                     <!-- App Version (non-clickable) -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
+                        android:layout_height="52dp"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:paddingLeft="20dp"
@@ -368,7 +369,7 @@
                 <LinearLayout
                     android:id="@+id/btnLogout"
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="52dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingLeft="20dp"

@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="44dp"
+            android:paddingTop="48dp"
             android:paddingBottom="12dp"
             android:paddingHorizontal="16dp">
 
@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:text="Thứ sáu, 08/05/2026"
                     android:textSize="13sp"
-                    android:textColor="#CCFFFFFF"/>
+                    android:textColor="@color/white_60"/>
 
                 <ImageView
                     android:id="@+id/btnNotifications"

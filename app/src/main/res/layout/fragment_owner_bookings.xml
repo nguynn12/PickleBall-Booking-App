@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
             android:orientation="vertical"
-            android:paddingTop="40dp"
+            android:paddingTop="48dp"
             android:paddingBottom="16dp"
             android:paddingHorizontal="20dp">
 
@@ -37,14 +37,14 @@
                 android:text="Tất cả đơn đặt sân của bạn"
                 android:textSize="14sp"
                 android:textColor="@color/text_secondary"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="2dp"/>
 
             <!-- Filter tabs -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="10dp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,17 +53,17 @@
                         android:layout_width="wrap_content" android:layout_height="36dp"
                         android:text="Tất cả" android:gravity="center"
                         android:textColor="@color/white" android:background="@drawable/bg_button_primary"
-                        android:paddingHorizontal="16dp" android:layout_marginEnd="8dp"/>
+                        android:paddingHorizontal="14dp" android:layout_marginEnd="8dp"/>
                     <TextView android:id="@+id/tabPending"
                         android:layout_width="wrap_content" android:layout_height="36dp"
                         android:text="Chờ duyệt" android:gravity="center"
                         android:textColor="@color/text_primary" android:background="@drawable/bg_search_bar"
-                        android:paddingHorizontal="16dp" android:layout_marginEnd="8dp"/>
+                        android:paddingHorizontal="14dp" android:layout_marginEnd="8dp"/>
                     <TextView android:id="@+id/tabConfirmed"
                         android:layout_width="wrap_content" android:layout_height="36dp"
                         android:text="Đã duyệt" android:gravity="center"
                         android:textColor="@color/text_primary" android:background="@drawable/bg_search_bar"
-                        android:paddingHorizontal="16dp"/>
+                        android:paddingHorizontal="14dp"/>
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>

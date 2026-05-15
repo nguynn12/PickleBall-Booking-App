@@ -22,7 +22,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="80dp"
     app:cardElevation="0dp"
     app:cardBackgroundColor="@color/green_light"
-    android:layout_marginBottom="48dp">
+    android:layout_marginBottom="32dp">
 
 <ImageView
 android:id="@+id/imgOnboard"
@@ -40,14 +40,14 @@ android:id="@+id/tvOnboardTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Tiêu đề"
-    android:textSize="28sp"
+    android:textSize="24sp"
     android:fontFamily="sans-serif-medium"
     android:textStyle="bold"
     android:textColor="@color/text_primary"
     android:gravity="center"
     android:letterSpacing="-0.02"
     android:lineSpacingMultiplier="1.14"
-    android:layout_marginBottom="16dp"/>
+    android:layout_marginBottom="12dp"/>
 
     <!-- Subtitle -->
 <TextView
@@ -55,11 +55,11 @@ android:id="@+id/tvOnboardSubtitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="Mô tả"
-    android:textSize="17sp"
+    android:textSize="15sp"
     android:fontFamily="sans-serif"
     android:textColor="@color/text_secondary"
     android:gravity="center"
-    android:lineSpacingMultiplier="1.47"
+    android:lineSpacingMultiplier="1.4"
     android:letterSpacing="-0.02"/>
 
     </LinearLayout>

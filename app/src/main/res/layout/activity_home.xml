@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tìm sân Pickleball\ntốt nhất hôm nay!"
-        android:textSize="22sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/text_primary"
         android:layout_margin="20dp"
@@ -50,7 +50,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardSearch"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="25dp"
@@ -104,7 +104,7 @@
                 android:textColor="@color/white"
                 android:background="@drawable/bg_button_primary"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
+                android:paddingVertical="6dp"
                 android:layout_marginEnd="8dp"/>
 
             <TextView
@@ -115,7 +115,7 @@
                 android:textColor="@color/text_primary"
                 android:background="@drawable/bg_search_bar"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
+                android:paddingVertical="6dp"
                 android:layout_marginEnd="8dp"/>
 
             <TextView
@@ -126,7 +126,7 @@
                 android:textColor="@color/text_primary"
                 android:background="@drawable/bg_search_bar"
                 android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"/>
+                android:paddingVertical="6dp"/>
         </LinearLayout>
     </HorizontalScrollView>
 

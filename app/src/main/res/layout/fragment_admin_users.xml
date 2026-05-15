@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F7FA">
+    android:background="@color/bg_primary">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -15,25 +15,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#1A1A1A"
+            android:background="@color/text_primary"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:paddingTop="48dp"
+            android:paddingBottom="16dp"
+            android:paddingHorizontal="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="0dp"
                 android:text="Quản lý người dùng"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                android:fontFamily="sans-serif-black" />
+                android:fontFamily="sans-serif-medium" />
 
             <TextView
                 android:id="@+id/tvUserCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng số: 23 người dùng"
-                android:textColor="#99FFFFFF"
+                android:textColor="@color/white_60"
                 android:textSize="14sp" />
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>

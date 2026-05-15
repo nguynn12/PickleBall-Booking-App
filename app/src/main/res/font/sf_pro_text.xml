@@ -6,14 +6,14 @@
         android:fontWeight="400"
         android:font="@font/sf_pro_text_regular" />
 
-    <font
-        android:fontStyle="italic"
-        android:fontWeight="400"
-        android:font="@font/sf_pro_text_italic" />
+<!--    <font-->
+<!--        android:fontStyle="italic"-->
+<!--        android:fontWeight="400"-->
+<!--        android:font="@font/sf_pro_text_italic" />-->
 
-    <font
-        android:fontStyle="normal"
-        android:fontWeight="600"
-        android:font="@font/sf_pro_text_semibold" />
+<!--    <font-->
+<!--        android:fontStyle="normal"-->
+<!--        android:fontWeight="600"-->
+<!--        android:font="@font/sf_pro_text_semibold" />-->
 
 </font-family>

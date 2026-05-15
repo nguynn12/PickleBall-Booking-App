@@ -21,7 +21,7 @@ android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/text_primary"
-    android:paddingTop="52dp"
+    android:paddingTop="48dp"
     android:paddingBottom="24dp"
     android:paddingHorizontal="24dp">
 
@@ -31,7 +31,7 @@ android:layout_width="wrap_content"
     android:text="Quản trị hệ thống"
     android:textSize="14sp"
     android:fontFamily="sans-serif"
-    android:textColor="#99FFFFFF"/>
+    android:textColor="@color/white_60"/>
 
 <LinearLayout
 android:layout_width="match_parent"
@@ -83,7 +83,7 @@ android:layout_width="wrap_content"
     android:textColor="@color/text_secondary"
     android:letterSpacing="0.08"
     android:layout_marginStart="24dp"
-    android:layout_marginTop="28dp"
+    android:layout_marginTop="20dp"
     android:layout_marginBottom="12dp"/>
 
     <!-- Row 1: Users + Courts -->
@@ -111,7 +111,7 @@ android:layout_width="0dp"
     android:textStyle="bold" android:textColor="@color/bg_white"/>
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:text="Người dùng" android:textSize="12sp"
-    android:fontFamily="sans-serif" android:textColor="#CCFFFFFF"/>
+    android:fontFamily="sans-serif" android:textColor="@color/white_80"/>
     </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -201,7 +201,7 @@ android:layout_width="wrap_content"
     android:textColor="@color/text_secondary"
     android:letterSpacing="0.08"
     android:layout_marginStart="24dp"
-    android:layout_marginTop="28dp"
+    android:layout_marginTop="20dp"
     android:layout_marginBottom="8dp"/>
 
 <com.google.android.material.card.MaterialCardView
@@ -220,7 +220,7 @@ android:layout_width="match_parent"
     android:orientation="vertical">
 
 <LinearLayout android:id="@+id/btnManageUsers"
-    android:layout_width="match_parent" android:layout_height="56dp"
+    android:layout_width="match_parent" android:layout_height="52dp"
     android:orientation="horizontal" android:gravity="center_vertical"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -234,7 +234,7 @@ android:layout_width="match_parent"
     android:background="@color/divider" android:layout_marginStart="20dp"/>
 
 <LinearLayout android:id="@+id/btnManageCourtsAdmin"
-    android:layout_width="match_parent" android:layout_height="56dp"
+    android:layout_width="match_parent" android:layout_height="52dp"
     android:orientation="horizontal" android:gravity="center_vertical"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -248,7 +248,7 @@ android:layout_width="match_parent"
     android:background="@color/divider" android:layout_marginStart="20dp"/>
 
 <LinearLayout android:id="@+id/btnManageBookingsAdmin"
-    android:layout_width="match_parent" android:layout_height="56dp"
+    android:layout_width="match_parent" android:layout_height="52dp"
     android:orientation="horizontal" android:gravity="center_vertical"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -262,7 +262,7 @@ android:layout_width="match_parent"
     android:background="@color/divider" android:layout_marginStart="20dp"/>
 
 <LinearLayout android:id="@+id/btnAdminProfile"
-    android:layout_width="match_parent" android:layout_height="56dp"
+    android:layout_width="match_parent" android:layout_height="52dp"
     android:orientation="horizontal" android:gravity="center_vertical"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
@@ -276,7 +276,7 @@ android:layout_width="match_parent"
     android:background="@color/divider" android:layout_marginStart="20dp"/>
 
 <LinearLayout android:id="@+id/btnAdminLogout"
-    android:layout_width="match_parent" android:layout_height="56dp"
+    android:layout_width="match_parent" android:layout_height="52dp"
     android:orientation="horizontal" android:gravity="center_vertical"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"

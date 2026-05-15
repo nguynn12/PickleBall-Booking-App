@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="14dp">
 
         <!-- Tên sân + Status -->
         <LinearLayout
@@ -32,7 +32,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Tên sân"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"/>
 
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/divider"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="6dp"/>
 
         <!-- Ngày giờ -->
         <LinearLayout
@@ -72,7 +72,7 @@
                 android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:text="25/10/2025  08:00 – 10:00"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/text_secondary"/>
         </LinearLayout>
 
@@ -97,7 +97,7 @@
                 android:layout_weight="10"
                 android:layout_height="wrap_content"
                 android:text="200.000đ"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/green_dark"
                 android:textStyle="bold"/>
         </LinearLayout>

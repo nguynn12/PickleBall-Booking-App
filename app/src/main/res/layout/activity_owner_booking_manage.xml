@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
             android:orientation="vertical"
-            android:paddingTop="40dp"
+            android:paddingTop="48dp"
             android:paddingBottom="16dp"
             android:paddingHorizontal="20dp">
 
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
-                android:layout_marginTop="12dp">
+                android:layout_marginTop="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:background="@drawable/bg_button_primary"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="14dp"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
@@ -60,7 +60,7 @@
                         android:gravity="center"
                         android:textColor="@color/text_primary"
                         android:background="@drawable/bg_search_bar"
-                        android:paddingHorizontal="16dp"
+                        android:paddingHorizontal="14dp"
                         android:layout_marginEnd="8dp"/>
 
                     <TextView
@@ -71,7 +71,7 @@
                         android:gravity="center"
                         android:textColor="@color/text_primary"
                         android:background="@drawable/bg_search_bar"
-                        android:paddingHorizontal="16dp"/>
+                        android:paddingHorizontal="14dp"/>
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>

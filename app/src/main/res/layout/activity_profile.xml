@@ -18,8 +18,8 @@ android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@color/bg_white"
-    android:paddingTop="40dp"
-    android:paddingBottom="24dp"
+    android:paddingTop="48dp"
+    android:paddingBottom="20dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp">
 
@@ -33,7 +33,7 @@ android:id="@+id/cardAvatar"
     app:strokeColor="@color/divider"
     app:strokeWidth="2dp"
     app:cardBackgroundColor="@color/green_light"
-    android:layout_marginBottom="16dp">
+    android:layout_marginBottom="12dp">
 
 <ImageView
 android:id="@+id/imgAvatar"
@@ -57,7 +57,7 @@ android:id="@+id/tvChangeAvatar"
     android:fontFamily="sans-serif-medium"
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="12dp"
     android:clickable="true"
     android:focusable="true"
     android:background="?attr/selectableItemBackground"/>
@@ -73,7 +73,7 @@ android:id="@+id/tvUserName"
     android:textStyle="bold"
     android:textColor="@color/text_primary"
     android:letterSpacing="-0.01"
-    android:layout_marginBottom="6dp"/>
+    android:layout_marginBottom="4dp"/>
 
     <!-- Role Badge (pill) -->
 <com.google.android.material.card.MaterialCardView
@@ -106,7 +106,7 @@ android:id="@+id/tvRole"
         android:gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
         android:padding="8dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:layout_width="20dp"
@@ -177,7 +177,7 @@ android:id="@+id/edtName"
     </com.google.android.material.textfield.TextInputLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
-    android:background="@color/divider" android:layout_marginBottom="12dp"/>
+    android:background="@color/divider" android:layout_marginBottom="10dp"/>
 
     <!-- Phone Input -->
 <com.google.android.material.textfield.TextInputLayout
@@ -200,7 +200,7 @@ android:id="@+id/edtPhone"
     </com.google.android.material.textfield.TextInputLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
-    android:background="@color/divider" android:layout_marginBottom="12dp"/>
+    android:background="@color/divider" android:layout_marginBottom="10dp"/>
 
     <!-- Email (read-only) -->
 <TextView
@@ -228,18 +228,16 @@ android:id="@+id/tvEmail"
 <com.google.android.material.button.MaterialButton
 android:id="@+id/btnSaveProfile"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:text="Lưu thay đổi"
     android:textAllCaps="false"
     android:textColor="@color/white"
     android:textSize="16sp"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
     style="@style/Widget.PickleBall.Button.Primary"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="28dp"/>
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="20dp"/>
 
     <!-- Section label: Settings -->
 <TextView
@@ -275,7 +273,7 @@ android:layout_width="match_parent"
 <LinearLayout
 android:id="@+id/btnChangePassword"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingLeft="20dp"
@@ -307,7 +305,7 @@ android:layout_width="wrap_content"
 <LinearLayout
 android:id="@+id/btnSettings"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingLeft="20dp"
@@ -339,7 +337,7 @@ android:layout_width="wrap_content"
 <LinearLayout
 android:id="@+id/btnLogout"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingLeft="20dp"

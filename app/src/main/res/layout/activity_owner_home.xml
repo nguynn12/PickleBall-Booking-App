@@ -21,7 +21,7 @@ android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/bg_white"
-    android:paddingTop="40dp"
+    android:paddingTop="48dp"
     android:paddingBottom="16dp"
     android:paddingHorizontal="20dp">
 
@@ -131,7 +131,7 @@ android:layout_width="wrap_content"
     android:text="Sân của tôi"
     android:textSize="12sp"
     android:fontFamily="sans-serif"
-    android:textColor="#CCFFFFFF"/>
+    android:textColor="@color/white_80"/>
     </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -224,7 +224,7 @@ android:layout_width="wrap_content"
     android:textColor="@color/text_secondary"
     android:letterSpacing="0.08"
     android:layout_marginStart="24dp"
-    android:layout_marginTop="28dp"
+    android:layout_marginTop="20dp"
     android:layout_marginBottom="8dp"/>
 
 <com.google.android.material.card.MaterialCardView
@@ -246,7 +246,7 @@ android:layout_width="match_parent"
 <LinearLayout
 android:id="@+id/btnManageCourts"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingHorizontal="20dp"
@@ -272,7 +272,7 @@ android:layout_width="0dp"
 <LinearLayout
 android:id="@+id/btnManageBookings"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingHorizontal="20dp"
@@ -298,7 +298,7 @@ android:layout_width="0dp"
 <LinearLayout
 android:id="@+id/btnAddCourt"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingHorizontal="20dp"
@@ -324,7 +324,7 @@ android:layout_width="0dp"
 <LinearLayout
 android:id="@+id/btnOwnerProfile"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
+    android:layout_height="52dp"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:paddingHorizontal="20dp"

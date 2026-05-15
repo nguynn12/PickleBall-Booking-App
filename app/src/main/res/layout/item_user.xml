@@ -19,6 +19,7 @@
         <FrameLayout
             android:layout_width="52dp"
             android:layout_height="52dp"
+             android:background="@color/green_primary"
              >
             <TextView
                 android:id="@+id/tvAvatarChar"
@@ -27,7 +28,7 @@
                 android:layout_gravity="center"
                 android:text="A"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
         </FrameLayout>
 
@@ -43,8 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nguyễn Văn An"
-                android:textColor="#2D3436"
-                android:textSize="16sp"
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"
                 android:fontFamily="sans-serif-medium" />
 
             <TextView
@@ -52,8 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="an.nguyen@gmail.com"
-                android:textColor="#636E72"
-                android:textSize="13sp" />
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -67,9 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hoạt động"
-                android:textColor="#42C861"
-                android:textSize="11sp"
-                android:layout_marginBottom="4dp"
+                android:textColor="@color/green_primary"
+                android:textSize="10sp"
+                android:layout_marginBottom="2dp"
                 android:textStyle="bold" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial

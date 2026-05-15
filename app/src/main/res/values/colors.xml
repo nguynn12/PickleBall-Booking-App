@@ -38,6 +38,12 @@
     <color name="booking_yellow">#E9A800</color>
     <color name="grid_header_bg">#E8F5E9</color>
 
+    <!-- Additional semantic colors -->
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="warning_text">#856404</color>
+    <color name="warning_bg">#FFF3CD</color>
+
     <!-- Legacy -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

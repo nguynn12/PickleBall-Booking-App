@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/green_primary"
-        android:paddingTop="44dp"
+        android:paddingTop="48dp"
         android:paddingBottom="12dp"
         android:paddingHorizontal="16dp"
         app:layout_constraintTop_toTopOf="parent">
@@ -89,19 +89,19 @@
                 android:layout_marginEnd="12dp"/>
 
             <View android:layout_width="16dp" android:layout_height="16dp"
-                android:background="#FF6B6B" android:layout_marginEnd="4dp"/>
+                android:background="@color/slot_booked" android:layout_marginEnd="4dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Đã đặt" android:textSize="12sp" android:textColor="@color/white"
                 android:layout_marginEnd="12dp"/>
 
             <View android:layout_width="16dp" android:layout_height="16dp"
-                android:background="#AAAAAA" android:layout_marginEnd="4dp"/>
+                android:background="@color/slot_locked" android:layout_marginEnd="4dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Khoá" android:textSize="12sp" android:textColor="@color/white"
                 android:layout_marginEnd="12dp"/>
 
             <View android:layout_width="16dp" android:layout_height="16dp"
-                android:background="#A8E6CF" android:layout_marginEnd="4dp"/>
+                android:background="@color/slot_selected" android:layout_marginEnd="4dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                 android:text="Đã chọn" android:textSize="12sp" android:textColor="@color/white"/>
         </LinearLayout>
@@ -178,7 +178,7 @@
         <LinearLayout
             android:id="@+id/btnTogglePanel"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="32dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:background="?attr/selectableItemBackground">
@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Tổng giờ: 0h"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
 
@@ -232,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tổng tiền: 0 đ"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
         </LinearLayout>
@@ -241,15 +241,15 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:text="TIẾP THEO"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:backgroundTint="#E6A817"
+            android:backgroundTint="@color/booking_yellow"
             app:cornerRadius="8dp"/>
     </LinearLayout>
 

@@ -55,4 +55,18 @@
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_elevation_pressed">8dp</dimen>
 
+    <!-- Header padding cho status bar -->
+    <dimen name="header_padding_top">48dp</dimen>
+    <dimen name="header_padding_bottom">16dp</dimen>
+
+    <!-- Bottom button area -->
+    <dimen name="bottom_button_margin">16dp</dimen>
+    <dimen name="bottom_button_height">52dp</dimen>
+
+    <!-- Card chuẩn -->
+    <dimen name="card_radius">12dp</dimen>
+    <dimen name="card_radius_large">16dp</dimen>
+    <dimen name="card_margin_h">16dp</dimen>
+    <dimen name="card_margin_v">6dp</dimen>
+
 </resources>
