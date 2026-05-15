@@ -101,15 +101,24 @@ public class OwnerBookingManageActivity extends AppCompatActivity {
     }
 
     private void updateStatus(Booking booking, String newStatus) {
-        if (booking.getBookingId() == null) return;
+        // Ưu tiên lấy bookingId từ object, nếu không có thì không thể update
+        String bId = booking.getBookingId();
+
+        if (bId == null || bId.isEmpty()) {
+            Toast.makeText(this, "Lỗi: Không tìm thấy ID đơn hàng!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         FirebaseFirestore.getInstance().collection("Bookings")
-                .document(booking.getBookingId())
+                .document(bId)
                 .update("status", newStatus)
                 .addOnSuccessListener(v -> {
-                    String msg = "confirmed".equals(newStatus) ? "Đã xác nhận đơn!" : "Đã từ chối đơn!";
+                    String msg = "confirmed".equals(newStatus) ? "✅ Đã xác nhận đơn!" : "❌ Đã từ chối đơn!";
                     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                    // UI sẽ tự động cập nhật thông qua addSnapshotListener trong loadBookings()
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Lỗi cập nhật: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
     }
 }
