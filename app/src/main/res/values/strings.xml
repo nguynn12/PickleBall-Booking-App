@@ -139,6 +139,28 @@
     <string name="upload_error">Lỗi tải ảnh!</string>
     <string name="upload_size_limit">Kích thước ảnh không được vượt quá 5MB!</string>
 
+    <!-- ==================== EXPLORE / NEARBY PLAYERS ==================== -->
+    <string name="explore_title">Xung quanh bạn</string>
+    <string name="explore_subtitle">Người chơi pickleball gần đây</string>
+    <string name="explore_empty_title">Chưa có người chơi nào gần bạn</string>
+    <string name="explore_empty_desc">Hãy nhấn "Tìm người chơi" để bắt đầu kết nối!</string>
+    <string name="explore_no_gps">📍 Cần bật GPS để tìm người chơi</string>
+    <string name="explore_enable_gps">Bật vị trí</string>
+    <string name="btn_find_player">🏓  Tìm người chơi</string>
+    <string name="nearby_players_count">%d người chơi trong vòng 5km</string>
+    <string name="btn_challenge">Thách đấu</string>
+
+    <!-- ==================== RADAR MATCHMAKING ==================== -->
+    <string name="radar_title">Tìm người chơi</string>
+    <string name="radar_searching">Đang tìm kiếm...</string>
+    <string name="radar_timeout">Không tìm thấy đối thủ. Hãy thử lại!</string>
+    <string name="btn_cancel_search">Hủy tìm kiếm</string>
+    <string name="match_found_title">Đã tìm thấy đối thủ!</string>
+    <string name="match_found_subtitle">Sẵn sàng để đấu chưa?</string>
+    <string name="btn_book_court">🏓  Đặt sân ngay</string>
+    <string name="btn_search_again">Tìm lại</string>
+    <string name="auto_close_countdown">Tự động đóng sau %ds</string>
+
     <!-- ==================== COMING SOON ==================== -->
     <string name="coming_soon">Tính năng đang phát triển!</string>
 

@@ -84,4 +84,10 @@ dependencies {
     // 5. Google Maps SDK (Module 2)
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.1.0")
+
+    // 6. HTTP client để gọi Cloud Functions (PayOS)
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+
+    // 7. JSON parsing
+    implementation("com.google.code.gson:gson:2.10.1")
 }

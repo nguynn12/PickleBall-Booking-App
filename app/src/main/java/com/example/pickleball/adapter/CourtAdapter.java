@@ -62,8 +62,11 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         // Giờ mở cửa từ model
         holder.tvOpenHours.setText("🕐 " + court.getOpenHours());
 
-        // Rating mặc định 5.0
-        holder.tvRating.setText("⭐ 5.0");
+        // Rating từ Firestore
+        double avg = court.getAvgRating();
+        holder.tvRating.setText(avg > 0
+                ? String.format(java.util.Locale.getDefault(), "⭐ %.1f", avg)
+                : "⭐ Mới");
 
         // Ảnh sân
         if (imageUrl != null && !imageUrl.isEmpty()) {

@@ -15,6 +15,7 @@ import com.example.pickleball.adapter.SelectedSlotAdapter;
 import com.example.pickleball.model.Booking;
 import com.example.pickleball.model.Court;
 import com.example.pickleball.model.SelectedSlot;
+import com.example.pickleball.utils.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -143,13 +144,19 @@ public class BookingConfirmActivity extends AppCompatActivity {
         btnConfirm.setEnabled(false);
         btnConfirm.setText("Đang xử lý...");
 
-        // Tạo 1 booking cho mỗi slot đã chọn (hoặc gộp theo sân con)
-        // Gộp các slot liên tiếp của cùng 1 sân con thành 1 booking
-        List<Booking> bookings = mergeSlots(uid, note);
+        double totalMoney   = 0;
+        for (SelectedSlot s : selectedSlots) totalMoney += s.getPrice();
+        double depositMoney = Math.round(totalMoney * Constants.DEPOSIT_RATE);
+        double remaining    = totalMoney - depositMoney;
+
+        List<Booking> bookings = mergeSlots(uid, note, name, depositMoney, remaining);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         final int[] count = {0};
-        final int total = bookings.size();
+        final int total   = bookings.size();
+        final String firstName = name;
+        final double deposit   = depositMoney;
+        final double total2    = totalMoney;
 
         for (Booking b : bookings) {
             db.collection("Bookings").add(b)
@@ -157,13 +164,14 @@ public class BookingConfirmActivity extends AppCompatActivity {
                         ref.update("bookingId", ref.getId());
                         count[0]++;
                         if (count[0] == total) {
-                            Toast.makeText(this,
-                                    "Đặt sân thành công! Chờ chủ sân xác nhận.",
-                                    Toast.LENGTH_LONG).show();
-                            // Quay về màn hình chính
-                            Intent intent = new android.content.Intent(this,
-                                    com.example.pickleball.fragment.customer.CustomerMainActivity.class);
-                            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            // Mở màn hình thanh toán
+                            Intent intent = new Intent(this, PaymentActivity.class);
+                            intent.putExtra(PaymentActivity.EXTRA_BOOKING_ID,   ref.getId());
+                            intent.putExtra(PaymentActivity.EXTRA_DEPOSIT,       deposit);
+                            intent.putExtra(PaymentActivity.EXTRA_TOTAL,         total2);
+                            intent.putExtra(PaymentActivity.EXTRA_COURT_NAME,    court.getCourtName());
+                            intent.putExtra(PaymentActivity.EXTRA_DATE,          selectedDate);
+                            intent.putExtra(PaymentActivity.EXTRA_CUSTOMER_NAME, firstName);
                             startActivity(intent);
                             finish();
                         }
@@ -177,7 +185,8 @@ public class BookingConfirmActivity extends AppCompatActivity {
     }
 
     /** Gộp các slot liên tiếp của cùng sân con thành 1 booking */
-    private List<Booking> mergeSlots(String uid, String note) {
+    private List<Booking> mergeSlots(String uid, String note, String customerName,
+                                      double depositPerBooking, double remainingPerBooking) {
         List<Booking> result = new ArrayList<>();
         if (selectedSlots.isEmpty()) return result;
 
@@ -198,7 +207,8 @@ public class BookingConfirmActivity extends AppCompatActivity {
             if (!s.getSubCourtId().equals(curSubId)) {
                 // Sân con mới → lưu booking cũ
                 if (curSubId != null) {
-                    result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice, note));
+                    result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice,
+                            note, customerName, depositPerBooking, remainingPerBooking));
                 }
                 curSubId = s.getSubCourtId();
                 curName  = s.getSubCourtName();
@@ -213,7 +223,8 @@ public class BookingConfirmActivity extends AppCompatActivity {
                     curPrice += s.getPrice();
                 } else {
                     // Không liên tiếp → lưu booking cũ, bắt đầu mới
-                    result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice, note));
+                    result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice,
+                            note, customerName, depositPerBooking, remainingPerBooking));
                     curStart = s.getStartTime();
                     curEnd   = s.getEndTime();
                     curPrice = s.getPrice();
@@ -222,17 +233,25 @@ public class BookingConfirmActivity extends AppCompatActivity {
         }
         // Lưu booking cuối
         if (curSubId != null) {
-            result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice, note));
+            result.add(makeBooking(uid, curSubId, curName, curStart, curEnd, curPrice,
+                    note, customerName, depositPerBooking, remainingPerBooking));
         }
         return result;
     }
 
     private Booking makeBooking(String uid, String subCourtId, String subCourtName,
-                                 String start, String end, double price, String note) {
+                                 String start, String end, double price, String note,
+                                 String customerName, double deposit, double remaining) {
         String ownerId = court.getOwnerId() != null ? court.getOwnerId() : "";
         Booking b = new Booking(uid, court.getCourtId(), court.getCourtName(),
                 ownerId, selectedDate, start, end, price, note);
-        b.setTimeSlotId(subCourtId); // dùng timeSlotId để lưu subCourtId
+        b.setSubCourtId(subCourtId);
+        b.setStatus(Constants.BOOKING_STATUS_AWAITING_PAYMENT);
+        b.setCustomerName(customerName);
+        b.setDepositAmount(deposit);
+        b.setRemainingAmount(remaining);
+        b.setPaymentStatus(Constants.PAYMENT_STATUS_PENDING);
+        b.setPaymentExpiredAt(System.currentTimeMillis() + Constants.PAYMENT_TIMEOUT_MS);
         return b;
     }
 }

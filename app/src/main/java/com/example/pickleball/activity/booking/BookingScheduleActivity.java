@@ -218,7 +218,8 @@ public class BookingScheduleActivity extends AppCompatActivity {
                 .addOnSuccessListener(snap -> {
                     for (var doc : snap.getDocuments()) {
                         String status = doc.getString("status");
-                        if (!"pending".equals(status) && !"confirmed".equals(status)) continue;
+                        // Chỉ block khi đã thanh toán — "awaiting_payment" không block
+                        if (!"confirmed".equals(status)) continue;
 
                         String subCourtId = doc.getString("subCourtId");
                         String startTime  = doc.getString("startTime");
