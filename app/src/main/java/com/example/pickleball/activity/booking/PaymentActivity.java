@@ -3,6 +3,8 @@ package com.example.pickleball.activity.booking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,8 +15,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.bumptech.glide.Glide;
 import com.example.pickleball.R;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import com.example.pickleball.utils.Constants;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -147,7 +151,18 @@ public class PaymentActivity extends AppCompatActivity {
     private void displayQR(String qrCodeData) {
         layoutQrLoading.setVisibility(View.GONE);
         layoutQrContent.setVisibility(View.VISIBLE);
-        Glide.with(this).load(qrCodeData).into(imgQrCode);
+        try {
+            int size = 600;
+            BitMatrix matrix = new MultiFormatWriter().encode(
+                    qrCodeData, BarcodeFormat.QR_CODE, size, size);
+            Bitmap bmp = Bitmap.createBitmap(size, size, Bitmap.Config.RGB_565);
+            for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
+                    bmp.setPixel(x, y, matrix.get(x, y) ? Color.BLACK : Color.WHITE);
+            imgQrCode.setImageBitmap(bmp);
+        } catch (Exception e) {
+            showQRError();
+        }
     }
 
     private void showQRError() {

@@ -3,6 +3,8 @@ package com.example.pickleball.activity.court;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
@@ -25,8 +27,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddCourtActivity extends AppCompatActivity {
@@ -42,10 +47,8 @@ public class AddCourtActivity extends AppCompatActivity {
 
     private Court editCourt;
 
-    // Biến lưu trữ chuỗi ảnh thay cho URL Firebase Storage
     private String base64Image = "";
 
-    // Image picker mới gọn nhẹ hơn
     private ActivityResultLauncher<String> pickImageLauncher;
 
     @Override
@@ -61,8 +64,6 @@ public class AddCourtActivity extends AppCompatActivity {
         if (editCourt != null) prefillForEdit();
 
         ((ImageView) findViewById(R.id.btnBack)).setOnClickListener(v -> finish());
-
-        // Gọi launcher lấy ảnh trực tiếp
         btnPickImage.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
         btnSave.setOnClickListener(v -> saveCourt());
     }
@@ -98,16 +99,11 @@ public class AddCourtActivity extends AppCompatActivity {
                 new ActivityResultContracts.GetContent(),
                 uri -> {
                     if (uri != null) {
-                        // 1. GỠ BỎ TINT (LỚP PHỦ MÀU XANH) VÀ BACKGROUND MẶC ĐỊNH
                         imgPreview.setColorFilter(null);
                         imgPreview.setImageTintList(null);
                         imgPreview.setBackgroundResource(0);
                         imgPreview.setPadding(0, 0, 0, 0);
-
-                        // 2. Hiển thị ảnh lên giao diện
                         Glide.with(this).load(uri).centerCrop().into(imgPreview);
-
-                        // 3. Chuyển ảnh thành chuỗi mã hóa
                         base64Image = encodeImageToBase64(uri);
                         Toast.makeText(this, "Đã đính kèm ảnh thành công!", Toast.LENGTH_SHORT).show();
                     }
@@ -119,20 +115,14 @@ public class AddCourtActivity extends AppCompatActivity {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-            // Nén ảnh xuống còn tối đa 600px để không làm quá tải Firestore
             int maxWidth = 600;
             int maxHeight = (int) (maxWidth * ((float) bitmap.getHeight() / bitmap.getWidth()));
             Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true);
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
             byte[] imageBytes = baos.toByteArray();
-
-            // Thêm tiền tố để thư viện Glide có thể dễ dàng đọc được
             return "data:image/jpeg;base64," + Base64.encodeToString(imageBytes, Base64.NO_WRAP);
         } catch (Exception e) {
-            e.printStackTrace();
             return "";
         }
     }
@@ -160,14 +150,11 @@ public class AddCourtActivity extends AppCompatActivity {
         // Load ảnh hiện tại
         if (editCourt.getImageUrl() != null && !editCourt.getImageUrl().isEmpty()) {
             base64Image = editCourt.getImageUrl();
-
-            // Xử lý hiển thị nếu là ảnh Base64
             if (base64Image.startsWith("data:image")) {
-                String pureBase64 = base64Image.substring(base64Image.indexOf(",") + 1);
-                byte[] decodedString = Base64.decode(pureBase64, Base64.DEFAULT);
-                Glide.with(this).load(decodedString).centerCrop().into(imgPreview);
+                String pure = base64Image.substring(base64Image.indexOf(",") + 1);
+                byte[] decoded = Base64.decode(pure, Base64.DEFAULT);
+                Glide.with(this).load(decoded).centerCrop().into(imgPreview);
             } else {
-                // Xử lý hiển thị nếu là link url bình thường
                 Glide.with(this).load(base64Image).centerCrop().into(imgPreview);
             }
             imgPreview.setPadding(0, 0, 0, 0);
@@ -215,6 +202,7 @@ public class AddCourtActivity extends AppCompatActivity {
                     .add(court)
                     .addOnSuccessListener(ref -> {
                         ref.update("courtId", ref.getId());
+                        geocodeAndSave(ref.getId(), addr);
                         Toast.makeText(this, "Thêm sân thành công!", Toast.LENGTH_SHORT).show();
                         finish();
                     })
@@ -230,13 +218,13 @@ public class AddCourtActivity extends AppCompatActivity {
             updates.put("openTime",     getText(edtOpenTime).isEmpty() ? "06:00" : getText(edtOpenTime));
             updates.put("closeTime",    getText(edtCloseTime).isEmpty() ? "22:00" : getText(edtCloseTime));
             updates.put("description",  getText(edtDescription));
-
             if (!base64Image.isEmpty()) updates.put("imageUrl", base64Image);
 
             FirebaseFirestore.getInstance().collection("Courts")
                     .document(editCourt.getCourtId())
                     .update(updates)
                     .addOnSuccessListener(v -> {
+                        geocodeAndSave(editCourt.getCourtId(), addr);
                         Toast.makeText(this, "Cập nhật sân thành công!", Toast.LENGTH_SHORT).show();
                         finish();
                     })
@@ -252,5 +240,22 @@ public class AddCourtActivity extends AppCompatActivity {
 
     private String getText(TextInputEditText edt) {
         return edt.getText() != null ? edt.getText().toString().trim() : "";
+    }
+
+    private void geocodeAndSave(String courtId, String address) {
+        new Thread(() -> {
+            try {
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> results = geocoder.getFromLocationName(address, 1);
+                if (results != null && !results.isEmpty()) {
+                    double lat = results.get(0).getLatitude();
+                    double lng = results.get(0).getLongitude();
+                    FirebaseFirestore.getInstance().collection("Courts")
+                            .document(courtId)
+                            .update("lat", lat, "lng", lng);
+                }
+            } catch (IOException ignored) {
+            }
+        }).start();
     }
 }

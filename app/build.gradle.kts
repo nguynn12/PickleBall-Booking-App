@@ -90,4 +90,7 @@ dependencies {
 
     // 7. JSON parsing
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // 8. ZXing để generate QR bitmap từ VietQR string
+    implementation("com.google.zxing:core:3.5.3")
 }
