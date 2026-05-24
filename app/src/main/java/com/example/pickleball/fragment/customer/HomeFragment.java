@@ -21,10 +21,14 @@ import com.example.pickleball.activity.court.CourtDetailActivity;
 import com.example.pickleball.adapter.CourtAdapter;
 import com.example.pickleball.model.Court;
 import com.example.pickleball.utils.FirebaseHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,6 +39,7 @@ public class HomeFragment extends Fragment {
     private CourtAdapter adapter;
     private final List<Court> masterList  = new ArrayList<>();
     private final List<Court> displayList = new ArrayList<>();
+    private final List<String> favoriteIds = new ArrayList<>(); // Chứa ID các sân yêu thích
     private EditText edtSearch;
 
     @Nullable
@@ -49,15 +54,12 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Hiển thị ngày hôm nay
         android.widget.TextView tvDate = view.findViewById(R.id.tvDate);
         if (tvDate != null) {
             String today = new SimpleDateFormat("EEEE, dd/MM/yyyy", new Locale("vi", "VN")).format(new Date());
-            // Viết hoa chữ đầu
             tvDate.setText(today.substring(0, 1).toUpperCase() + today.substring(1));
         }
 
-        // Nút thông báo
         android.widget.ImageView btnBell = view.findViewById(R.id.btnNotifications);
         if (btnBell != null) {
             btnBell.setOnClickListener(v2 -> startActivity(
@@ -68,16 +70,15 @@ public class HomeFragment extends Fragment {
         edtSearch = view.findViewById(R.id.edtSearch);
 
         rvCourts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        // Nút ĐẶT LỊCH → BookingScheduleActivity, click card → CourtDetailActivity
-        adapter = new CourtAdapter(requireContext(), displayList, court -> {
-            // Click vào card → xem chi tiết
+
+        // Truyền thêm favoriteIds vào Adapter để nó tô màu đỏ ở ngoài trang chủ
+        adapter = new CourtAdapter(requireContext(), displayList, favoriteIds, court -> {
             Intent intent = new Intent(requireContext(), CourtDetailActivity.class);
             intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
             startActivity(intent);
         });
         rvCourts.setAdapter(adapter);
 
-        // Search
         if (edtSearch != null) {
             edtSearch.addTextChangedListener(new TextWatcher() {
                 @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -87,15 +88,28 @@ public class HomeFragment extends Fragment {
                 @Override public void afterTextChanged(Editable s) {}
             });
         }
-
-        loadCourts();
-        loadUpcomingBooking(view);
     }
 
-    /** Load lịch đặt sắp tới gần nhất của user */
-    private void loadUpcomingBooking(View view) {
-        // Fragment này không có upcoming card trong layout mới (chỉ có search + list)
-        // Upcoming booking hiển thị trong MyBookingsFragment
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Gọi lại mỗi khi màn hình quay lại (để cập nhật ngay nếu user vừa bỏ thích ở trang chi tiết)
+        loadFavoritesAndCourts();
+    }
+
+    private void loadFavoritesAndCourts() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseFirestore.getInstance().collection("Favorites")
+                .whereEqualTo("userId", uid)
+                .get()
+                .addOnSuccessListener(snap -> {
+                    favoriteIds.clear();
+                    for (DocumentSnapshot doc : snap.getDocuments()) {
+                        favoriteIds.add(doc.getString("courtId"));
+                    }
+                    // Sau khi có list yêu thích, tải danh sách sân
+                    loadCourts();
+                });
     }
 
     private void loadCourts() {
@@ -112,6 +126,16 @@ public class HomeFragment extends Fragment {
                 }
                 masterList.add(court);
             }
+
+            // SẮP XẾP: Đưa các sân nằm trong favoriteIds lên đầu
+            Collections.sort(masterList, (c1, c2) -> {
+                boolean isF1 = favoriteIds.contains(c1.getCourtId());
+                boolean isF2 = favoriteIds.contains(c2.getCourtId());
+                if (isF1 && !isF2) return -1; // c1 lên trước
+                if (!isF1 && isF2) return 1;  // c2 lên trước
+                return 0; // Giữ nguyên thứ tự nếu cùng thích hoặc cùng không thích
+            });
+
             displayList.clear();
             displayList.addAll(masterList);
             adapter.notifyDataSetChanged();

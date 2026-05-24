@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourtListFragment extends Fragment {
-
+    private final List<String> favoriteIds = new ArrayList<>();
     private RecyclerView rvCourts;
     private CourtAdapter adapter;
     private final List<Court> masterList  = new ArrayList<>();
@@ -55,7 +55,8 @@ public class CourtListFragment extends Fragment {
         edtSearch         = view.findViewById(R.id.edtSearch);
 
         rvCourts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new CourtAdapter(requireContext(), displayList, court -> {
+        // Thêm favoriteIds vào giữa displayList và listener
+        adapter = new CourtAdapter(requireContext(), displayList, favoriteIds, court -> {
             Intent intent = new Intent(requireContext(), CourtDetailActivity.class);
             intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
             startActivity(intent);

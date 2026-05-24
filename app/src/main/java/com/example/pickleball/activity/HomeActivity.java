@@ -33,7 +33,7 @@ import java.util.Locale;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
-
+    private final List<String> favoriteIds = new ArrayList<>();
     private RecyclerView rvCourts;
     private CourtAdapter adapter;
     private final List<Court> masterCourtList = new ArrayList<>();
@@ -68,8 +68,9 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         rvCourts.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CourtAdapter(this, displayList, court -> {
-            Intent intent = new Intent(HomeActivity.this, CourtDetailActivity.class);
+        // Thêm biến favoriteIds vào tham số thứ 3
+        adapter = new CourtAdapter(this, displayList, favoriteIds, court -> {
+            Intent intent = new Intent(this, CourtDetailActivity.class);
             intent.putExtra(CourtDetailActivity.EXTRA_COURT, court);
             startActivity(intent);
         });
