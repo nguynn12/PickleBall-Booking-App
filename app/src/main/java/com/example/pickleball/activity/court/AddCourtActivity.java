@@ -1,14 +1,13 @@
 package com.example.pickleball.activity.court;
 
-import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,26 +16,23 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.pickleball.R;
 import com.example.pickleball.model.Court;
-import com.example.pickleball.utils.ImageHelper;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.UUID;
 
 public class AddCourtActivity extends AppCompatActivity {
 
@@ -50,12 +46,10 @@ public class AddCourtActivity extends AppCompatActivity {
     private TextView tvTitle;
 
     private Court editCourt;
-    private String uploadedImageUrl = ""; // URL sau khi upload xong
-    private ProgressDialog progressDialog;
 
-    // Image picker
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
-    private ActivityResultLauncher<String> permissionLauncher;
+    private String base64Image = "";
+
+    private ActivityResultLauncher<String> pickImageLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +64,7 @@ public class AddCourtActivity extends AppCompatActivity {
         if (editCourt != null) prefillForEdit();
 
         ((ImageView) findViewById(R.id.btnBack)).setOnClickListener(v -> finish());
-        btnPickImage.setOnClickListener(v -> checkPermissionAndPickImage());
+        btnPickImage.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
         btnSave.setOnClickListener(v -> saveCourt());
     }
 
@@ -92,86 +86,45 @@ public class AddCourtActivity extends AppCompatActivity {
         btnSave        = findViewById(R.id.btnSave);
         btnPickImage   = findViewById(R.id.btnPickImage);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-
         // Chỉ 1 chip được chọn
         chipPickleball.setOnClickListener(v -> { chipPickleball.setChecked(true); chipIndoor.setChecked(false); chipOutdoor.setChecked(false); });
         chipIndoor.setOnClickListener(v    -> { chipPickleball.setChecked(false); chipIndoor.setChecked(true);  chipOutdoor.setChecked(false); });
         chipOutdoor.setOnClickListener(v   -> { chipPickleball.setChecked(false); chipIndoor.setChecked(false); chipOutdoor.setChecked(true);  });
     }
 
-    // ─── IMAGE PICKER ────────────────────────────────────────────────────────
+    // ─── IMAGE PICKER & BASE64 ───────────────────────────────────────────────
 
     private void setupImagePicker() {
-        imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Uri uri = result.getData().getData();
-                        if (uri != null) handleImageSelected(uri);
+        pickImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        imgPreview.setColorFilter(null);
+                        imgPreview.setImageTintList(null);
+                        imgPreview.setBackgroundResource(0);
+                        imgPreview.setPadding(0, 0, 0, 0);
+                        Glide.with(this).load(uri).centerCrop().into(imgPreview);
+                        base64Image = encodeImageToBase64(uri);
+                        Toast.makeText(this, "Đã đính kèm ảnh thành công!", Toast.LENGTH_SHORT).show();
                     }
-                });
-
-        permissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                granted -> {
-                    if (granted) openGallery();
-                    else Toast.makeText(this, "Cần cấp quyền để chọn ảnh!", Toast.LENGTH_SHORT).show();
-                });
+                }
+        );
     }
 
-    private void checkPermissionAndPickImage() {
-        String perm = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU
-                ? Manifest.permission.READ_MEDIA_IMAGES
-                : Manifest.permission.READ_EXTERNAL_STORAGE;
-        if (ContextCompat.checkSelfPermission(this, perm) == PackageManager.PERMISSION_GRANTED) {
-            openGallery();
-        } else {
-            permissionLauncher.launch(perm);
+    private String encodeImageToBase64(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            int maxWidth = 600;
+            int maxHeight = (int) (maxWidth * ((float) bitmap.getHeight() / bitmap.getWidth()));
+            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, maxWidth, maxHeight, true);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, baos);
+            byte[] imageBytes = baos.toByteArray();
+            return "data:image/jpeg;base64," + Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+        } catch (Exception e) {
+            return "";
         }
-    }
-
-    private void openGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        imagePickerLauncher.launch(intent);
-    }
-
-    private void handleImageSelected(Uri uri) {
-        if (!ImageHelper.isValidImageUri(this, uri)) {
-            Toast.makeText(this, "Ảnh không hợp lệ!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        // Preview ngay
-        Glide.with(this).load(uri).centerCrop().into(imgPreview);
-        imgPreview.setPadding(0, 0, 0, 0);
-
-        // Compress + upload
-        byte[] data = ImageHelper.compressImage(this, uri);
-        if (data == null) {
-            Toast.makeText(this, "Lỗi xử lý ảnh!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        progressDialog.setMessage("Đang tải ảnh lên... 0%");
-        progressDialog.show();
-
-        String fileName = "court_images/" + UUID.randomUUID().toString() + ".jpg";
-        StorageReference ref = FirebaseStorage.getInstance().getReference(fileName);
-        ref.putBytes(data)
-                .addOnProgressListener(snap -> {
-                    int pct = (int) (100.0 * snap.getBytesTransferred() / snap.getTotalByteCount());
-                    progressDialog.setMessage("Đang tải ảnh lên... " + pct + "%");
-                })
-                .addOnSuccessListener(snap -> ref.getDownloadUrl().addOnSuccessListener(downloadUri -> {
-                    progressDialog.dismiss();
-                    uploadedImageUrl = downloadUri.toString();
-                    Toast.makeText(this, "Tải ảnh thành công!", Toast.LENGTH_SHORT).show();
-                }))
-                .addOnFailureListener(e -> {
-                    progressDialog.dismiss();
-                    Toast.makeText(this, "Lỗi tải ảnh: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
     }
 
     // ─── PREFILL (edit mode) ─────────────────────────────────────────────────
@@ -196,8 +149,14 @@ public class AddCourtActivity extends AppCompatActivity {
 
         // Load ảnh hiện tại
         if (editCourt.getImageUrl() != null && !editCourt.getImageUrl().isEmpty()) {
-            uploadedImageUrl = editCourt.getImageUrl();
-            Glide.with(this).load(uploadedImageUrl).centerCrop().into(imgPreview);
+            base64Image = editCourt.getImageUrl();
+            if (base64Image.startsWith("data:image")) {
+                String pure = base64Image.substring(base64Image.indexOf(",") + 1);
+                byte[] decoded = Base64.decode(pure, Base64.DEFAULT);
+                Glide.with(this).load(decoded).centerCrop().into(imgPreview);
+            } else {
+                Glide.with(this).load(base64Image).centerCrop().into(imgPreview);
+            }
             imgPreview.setPadding(0, 0, 0, 0);
         }
     }
@@ -230,7 +189,7 @@ public class AddCourtActivity extends AppCompatActivity {
         if (editCourt == null) {
             // Thêm mới
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            Court court = new Court(null, name, addr, type, priceVal, uploadedImageUrl);
+            Court court = new Court(null, name, addr, type, priceVal, base64Image);
             court.setOwnerId(uid);
             court.setPhone(getText(edtPhone));
             court.setOpenTime(getText(edtOpenTime).isEmpty() ? "06:00" : getText(edtOpenTime));
@@ -259,7 +218,7 @@ public class AddCourtActivity extends AppCompatActivity {
             updates.put("openTime",     getText(edtOpenTime).isEmpty() ? "06:00" : getText(edtOpenTime));
             updates.put("closeTime",    getText(edtCloseTime).isEmpty() ? "22:00" : getText(edtCloseTime));
             updates.put("description",  getText(edtDescription));
-            if (!uploadedImageUrl.isEmpty()) updates.put("imageUrl", uploadedImageUrl);
+            if (!base64Image.isEmpty()) updates.put("imageUrl", base64Image);
 
             FirebaseFirestore.getInstance().collection("Courts")
                     .document(editCourt.getCourtId())
