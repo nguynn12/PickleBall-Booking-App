@@ -17,11 +17,9 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-        super.onCreate(savedInstanceState);
-
-        // Apply saved dark mode setting
+        // Apply dark mode BEFORE super.onCreate() to avoid recreate() loop
         SettingsActivity.applySavedDarkMode(this);
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="36dp"
+    android:height="48dp"
+    android:viewportWidth="36"
+    android:viewportHeight="48">
+
+    <!-- Pin body -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M18,0 C8.06,0 0,8.06 0,18 C0,31.5 18,48 18,48 C18,48 36,31.5 36,18 C36,8.06 27.94,0 18,0Z"/>
+
+    <!-- White circle background -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,9 C13.03,9 9,13.03 9,18 C9,22.97 13.03,27 18,27 C22.97,27 27,22.97 27,18 C27,13.03 22.97,9 18,9Z"/>
+
+    <!-- Pickleball lines (green on white) -->
+    <path
+        android:strokeColor="#2E7D32"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"
+        android:pathData="M11,18 C11,14.13 14.13,11 18,11 C21.87,11 25,14.13 25,18 C25,21.87 21.87,25 18,25 C14.13,25 11,21.87 11,18Z"/>
+
+    <!-- Horizontal arc top -->
+    <path
+        android:strokeColor="#2E7D32"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M12,15 Q18,13 24,15"/>
+
+    <!-- Horizontal arc bottom -->
+    <path
+        android:strokeColor="#2E7D32"
+        android:strokeWidth="1.2"
+        android:fillColor="#00000000"
+        android:pathData="M12,21 Q18,23 24,21"/>
+
+    <!-- Center dot -->
+    <path
+        android:fillColor="#2E7D32"
+        android:pathData="M16.5,16.5 C16.5,15.67 17.17,15 18,15 C18.83,15 19.5,15.67 19.5,16.5 C19.5,17.33 18.83,18 18,18 C17.17,18 16.5,17.33 16.5,16.5Z"/>
+
+</vector>

@@ -105,7 +105,7 @@ public class Constants {
     // ==================== CLOUD FUNCTION URL ====================
     // Thay YOUR_PROJECT bằng Firebase project ID thực tế
     public static final String CLOUD_FN_CREATE_PAYMENT =
-            "https://asia-southeast1-YOUR_PROJECT.cloudfunctions.net/createPaymentLink";
+            "https://createpaymentlink-3tpswkiexa-as.a.run.app";
 
     // Private constructor to prevent instantiation
     private Constants() {

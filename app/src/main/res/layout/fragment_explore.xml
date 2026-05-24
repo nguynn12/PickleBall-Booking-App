@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Hãy nhấn \"Tìm người chơi\" để bắt đầu kết nối!"
+                    android:text="@string/explore_empty_desc"
                     android:textSize="13sp"
                     android:textColor="@color/text_secondary"
                     android:gravity="center" />

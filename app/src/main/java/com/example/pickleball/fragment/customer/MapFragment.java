@@ -34,6 +34,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -43,7 +44,14 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.content.res.AppCompatResources;
+
+import com.bumptech.glide.Glide;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -85,6 +93,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private TextView tvSheetOpenHours;
     private TextView tvSheetPhone;
     private MaterialButton btnOpenCourtDetail;
+    private ImageView imgSheetCourt;
+
+    private BitmapDescriptor customMarkerIcon;
 
     private final java.util.List<Court> nearbyCourts = new ArrayList<>();
     private final java.util.List<Court> displayCourts = new ArrayList<>();
@@ -144,6 +155,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         tvSheetCourtDistance = view.findViewById(R.id.tvSheetCourtDistance);
         tvSheetOpenHours = view.findViewById(R.id.tvSheetOpenHours);
         tvSheetPhone = view.findViewById(R.id.tvSheetPhone);
+        imgSheetCourt = view.findViewById(R.id.imgSheetCourt);
         btnOpenCourtDetail = view.findViewById(R.id.btnOpenCourtDetail);
         if (btnOpenCourtDetail != null) {
             btnOpenCourtDetail.setOnClickListener(v -> {
@@ -200,6 +212,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         googleMap = map;
+        customMarkerIcon = buildCustomMarkerIcon();
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.getUiSettings().setCompassEnabled(true);
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -345,11 +358,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private void addMarker(LatLngBounds.Builder boundsBuilder, Court court, String name, String address, LatLng latLng) {
         if (googleMap == null) return;
+        BitmapDescriptor icon = customMarkerIcon != null
+                ? customMarkerIcon
+                : BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
         Marker marker = googleMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(name)
                 .snippet(address)
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                .icon(icon));
         if (marker != null) {
             markerCourtMap.put(marker, court);
         }
@@ -404,6 +420,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             String phone = court.getPhone();
             tvSheetPhone.setText(phone != null && !phone.isEmpty() ? "☎ " + phone : "");
         }
+        if (imgSheetCourt != null) {
+            String img = court.getImageUrl();
+            if (img != null && !img.isEmpty()) {
+                Glide.with(this).load(img).centerCrop().placeholder(R.color.divider).into(imgSheetCourt);
+            } else {
+                imgSheetCourt.setImageResource(R.color.divider);
+            }
+        }
 
         if (tvSheetCourtDistance != null) {
             tvSheetCourtDistance.setText(formatSelectedCourtDistance(court));
@@ -425,6 +449,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return String.format(java.util.Locale.getDefault(), "Khoảng cách: %dm", Math.round(results[0]));
         }
         return String.format(java.util.Locale.getDefault(), "Khoảng cách: %.1fkm", km);
+    }
+
+    @androidx.annotation.Nullable
+    private BitmapDescriptor buildCustomMarkerIcon() {
+        try {
+            android.graphics.drawable.Drawable d =
+                    AppCompatResources.getDrawable(requireContext(), R.drawable.ic_court_marker);
+            if (d == null) return null;
+            Bitmap bmp = Bitmap.createBitmap(d.getIntrinsicWidth(), d.getIntrinsicHeight(),
+                    Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bmp);
+            d.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            d.draw(canvas);
+            return BitmapDescriptorFactory.fromBitmap(bmp);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private void showSheetList() {

@@ -3,6 +3,8 @@ package com.example.pickleball.activity.court;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,7 +31,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -238,6 +243,7 @@ public class AddCourtActivity extends AppCompatActivity {
                     .add(court)
                     .addOnSuccessListener(ref -> {
                         ref.update("courtId", ref.getId());
+                        geocodeAndSave(ref.getId(), addr);
                         Toast.makeText(this, "Thêm sân thành công!", Toast.LENGTH_SHORT).show();
                         finish();
                     })
@@ -259,6 +265,7 @@ public class AddCourtActivity extends AppCompatActivity {
                     .document(editCourt.getCourtId())
                     .update(updates)
                     .addOnSuccessListener(v -> {
+                        geocodeAndSave(editCourt.getCourtId(), addr);
                         Toast.makeText(this, "Cập nhật sân thành công!", Toast.LENGTH_SHORT).show();
                         finish();
                     })
@@ -274,5 +281,22 @@ public class AddCourtActivity extends AppCompatActivity {
 
     private String getText(TextInputEditText edt) {
         return edt.getText() != null ? edt.getText().toString().trim() : "";
+    }
+
+    private void geocodeAndSave(String courtId, String address) {
+        new Thread(() -> {
+            try {
+                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> results = geocoder.getFromLocationName(address, 1);
+                if (results != null && !results.isEmpty()) {
+                    double lat = results.get(0).getLatitude();
+                    double lng = results.get(0).getLongitude();
+                    FirebaseFirestore.getInstance().collection("Courts")
+                            .document(courtId)
+                            .update("lat", lat, "lng", lng);
+                }
+            } catch (IOException ignored) {
+            }
+        }).start();
     }
 }

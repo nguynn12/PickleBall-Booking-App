@@ -3,7 +3,7 @@ const crypto = require('crypto');
 
 const PAYOS_CLIENT_ID = process.env.PAYOS_CLIENT_ID;
 const PAYOS_API_KEY   = process.env.PAYOS_API_KEY;
-const PAYOS_CHECKSUM  = process.env.PAYOS_CHECKSUM_KEY;
+const PAYOS_CHECKSUM  = process.env.PAYOS_CHECKSUM_KEY;  // từ functions/.env
 
 exports.createPaymentLink = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
