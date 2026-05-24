@@ -91,6 +91,14 @@ android:name=".activity.auth.OnboardingActivity"
     <!-- NOTIFICATIONS -->
 <activity android:name=".activity.NotificationsActivity" android:exported="false" />
 
+    <!-- PLAYER MATCHING -->
+<activity android:name=".activity.player.RadarMatchActivity"  android:exported="false" />
+<activity android:name=".activity.player.MatchFoundActivity"  android:exported="false" />
+
+    <!-- PAYMENT -->
+<activity android:name=".activity.booking.PaymentActivity"        android:exported="false" />
+<activity android:name=".activity.booking.BookingSuccessActivity" android:exported="false" />
+
 </application>
 
     </manifest>

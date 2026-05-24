@@ -48,6 +48,32 @@ public class NotificationHelper {
         ));
     }
 
+    /** Gửi thông báo chủ sân hủy booking (hoàn tiền cọc) */
+    public static void sendBookingCancelledByOwner(String customerId, String courtName,
+                                                    String date, String bookingId) {
+        send(new Notification(
+                customerId,
+                "❌ Lịch đặt bị hủy bởi chủ sân",
+                "Lịch đặt sân " + courtName + " ngày " + date
+                        + " đã bị hủy. Tiền cọc sẽ được hoàn lại trong 1-3 ngày làm việc.",
+                "booking_cancelled_by_owner",
+                bookingId
+        ));
+    }
+
+    /** Gửi thông báo thanh toán cọc thành công */
+    public static void sendPaymentConfirmed(String customerId, String courtName,
+                                             String date, String bookingId) {
+        send(new Notification(
+                customerId,
+                "✅ Đặt sân thành công!",
+                "Bạn đã cọc 30% thành công cho sân " + courtName + " vào ngày " + date
+                        + ". Thanh toán 70% còn lại tại sân.",
+                "payment_confirmed",
+                bookingId
+        ));
+    }
+
     private static void send(Notification notif) {
         db.collection("Notifications")
                 .add(notif)

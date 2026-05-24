@@ -169,9 +169,26 @@ public class TabReviewsFragment extends Fragment {
                             .addOnSuccessListener(ref -> {
                                 ref.update("reviewId", ref.getId());
                                 Toast.makeText(requireContext(), "Cảm ơn bạn đã đánh giá!", Toast.LENGTH_SHORT).show();
+                                updateCourtAvgRating(court.getCourtId());
                             })
                             .addOnFailureListener(e ->
                                     Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                });
+    }
+
+    private void updateCourtAvgRating(String courtId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("Reviews").whereEqualTo("courtId", courtId).get()
+                .addOnSuccessListener(snap -> {
+                    float total = 0;
+                    for (com.google.firebase.firestore.DocumentSnapshot d : snap.getDocuments()) {
+                        Double r = d.getDouble("rating");
+                        if (r != null) total += r;
+                    }
+                    int count = snap.size();
+                    float avg = count > 0 ? total / count : 0;
+                    db.collection("Courts").document(courtId)
+                            .update("avgRating", (double) avg, "reviewCount", count);
                 });
     }
 }

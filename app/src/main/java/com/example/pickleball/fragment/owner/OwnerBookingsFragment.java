@@ -54,14 +54,16 @@ public class OwnerBookingsFragment extends Fragment {
 
         rvBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new BookingManageAdapter(displayList, new BookingManageAdapter.OnActionListener() {
-            @Override public void onConfirm(Booking b) { updateStatus(b, "confirmed"); }
-            @Override public void onReject(Booking b)  { updateStatus(b, "rejected"); }
+            @Override public void onConfirm(Booking b) { ownerCancelBooking(b); }
+            @Override public void onReject(Booking b)  { ownerCancelBooking(b); }
         });
         rvBookings.setAdapter(adapter);
 
         tabAll.setOnClickListener(v -> applyFilter("all", tabAll, tabPending, tabConfirmed));
-        tabPending.setOnClickListener(v -> applyFilter("pending", tabPending, tabAll, tabConfirmed));
-        tabConfirmed.setOnClickListener(v -> applyFilter("confirmed", tabConfirmed, tabAll, tabPending));
+        tabPending.setOnClickListener(v -> applyFilter(com.example.pickleball.utils.Constants.BOOKING_STATUS_AWAITING_PAYMENT,
+                tabPending, tabAll, tabConfirmed));
+        tabConfirmed.setOnClickListener(v -> applyFilter(com.example.pickleball.utils.Constants.BOOKING_STATUS_CONFIRMED,
+                tabConfirmed, tabAll, tabPending));
 
         loadOwnerBookings();
     }
@@ -108,30 +110,34 @@ public class OwnerBookingsFragment extends Fragment {
         if (rvBookings != null) rvBookings.setVisibility(displayList.isEmpty() ? View.GONE : View.VISIBLE);
     }
 
-    private void updateStatus(Booking booking, String newStatus) {
+    private void ownerCancelBooking(Booking booking) {
         if (booking.getBookingId() == null) return;
-        FirebaseFirestore.getInstance().collection("Bookings")
-                .document(booking.getBookingId())
-                .update("status", newStatus)
-                .addOnSuccessListener(v -> {
-                    // Gửi thông báo cho khách hàng
-                    if ("confirmed".equals(newStatus)) {
-                        NotificationHelper.sendBookingConfirmed(
-                                booking.getUserId(),
-                                booking.getCourtName() != null ? booking.getCourtName() : "Sân",
-                                booking.getDate() != null ? booking.getDate() : "",
-                                booking.getBookingId());
-                        Toast.makeText(requireContext(), "Đã xác nhận!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        NotificationHelper.sendBookingRejected(
-                                booking.getUserId(),
-                                booking.getCourtName() != null ? booking.getCourtName() : "Sân",
-                                booking.getDate() != null ? booking.getDate() : "",
-                                booking.getBookingId());
-                        Toast.makeText(requireContext(), "Đã từ chối!", Toast.LENGTH_SHORT).show();
-                    }
+        String customerLabel = booking.getCustomerName() != null ? booking.getCustomerName() : "khách";
+        new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Hủy lịch đặt")
+                .setMessage("Hủy lịch của " + customerLabel + "?\nKhách sẽ được hoàn 100% tiền cọc (nếu đã thanh toán).")
+                .setPositiveButton("Xác nhận hủy", (d, w) -> {
+                    java.util.Map<String, Object> updates = new java.util.HashMap<>();
+                    updates.put("status",       com.example.pickleball.utils.Constants.BOOKING_STATUS_CANCELLED_BY_OWNER);
+                    updates.put("cancelledBy",  "owner");
+                    updates.put("cancelledAt",  System.currentTimeMillis());
+                    updates.put("refundStatus", com.example.pickleball.utils.Constants.REFUND_STATUS_PENDING);
+                    updates.put("refundAmount", booking.getDepositAmount());
+                    FirebaseFirestore.getInstance().collection("Bookings")
+                            .document(booking.getBookingId())
+                            .update(updates)
+                            .addOnSuccessListener(v -> {
+                                Toast.makeText(requireContext(), "Đã hủy lịch!", Toast.LENGTH_SHORT).show();
+                                NotificationHelper.sendBookingCancelledByOwner(
+                                        booking.getUserId(),
+                                        booking.getCourtName() != null ? booking.getCourtName() : "Sân",
+                                        booking.getDate() != null ? booking.getDate() : "",
+                                        booking.getBookingId());
+                            })
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                 })
-                .addOnFailureListener(e ->
-                        Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                .setNegativeButton("Giữ lại", null)
+                .show();
     }
 }

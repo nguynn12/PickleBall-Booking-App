@@ -12,12 +12,33 @@ public class Booking implements Serializable {
     private String startTime;   // "08:00"
     private String endTime;     // "10:00"
     private String timeSlotId;  // legacy
+    private String subCourtId;   // sân con được đặt
     private int rentedPaddles;
     private int boughtBalls;
     private double totalPrice;
     private String status;      // "pending" | "confirmed" | "rejected" | "cancelled"
     private String note;
     private long createdAt;
+
+    // --- Thanh toán ---
+    private double depositAmount;       // Số tiền cọc (totalPrice * 30%)
+    private double remainingAmount;     // Số tiền còn lại (totalPrice * 70%)
+    private String paymentStatus;       // "pending" | "paid" | "refunded" | "expired"
+    private long   paidAt;              // timestamp khi thanh toán xong
+    private long   paymentExpiredAt;    // timestamp hết hạn QR (createdAt + 15 phút)
+    private String customerName;        // tên khách (lưu để hiển thị cho owner)
+
+    // --- PayOS ---
+    private long   payosOrderCode;      // mã đơn hàng PayOS (số nguyên)
+    private String payosPaymentLinkId;  // ID link thanh toán PayOS
+    private String payosTransactionId;  // ID giao dịch sau khi thanh toán
+
+    // --- Hủy & hoàn tiền ---
+    private String cancelReason;        // lý do hủy
+    private String cancelledBy;         // "user" | "owner" | "system"
+    private long   cancelledAt;         // timestamp hủy
+    private String refundStatus;        // "not_applicable" | "refund_pending" | "refund_done"
+    private double refundAmount;        // số tiền được hoàn
 
     public Booking() {}
 
@@ -67,6 +88,54 @@ public class Booking implements Serializable {
 
     public String getTimeSlotId() { return timeSlotId; }
     public void setTimeSlotId(String timeSlotId) { this.timeSlotId = timeSlotId; }
+
+    public String getSubCourtId() { return subCourtId; }
+    public void setSubCourtId(String subCourtId) { this.subCourtId = subCourtId; }
+
+    // --- Thanh toán ---
+    public double getDepositAmount() { return depositAmount; }
+    public void setDepositAmount(double v) { this.depositAmount = v; }
+
+    public double getRemainingAmount() { return remainingAmount; }
+    public void setRemainingAmount(double v) { this.remainingAmount = v; }
+
+    public String getPaymentStatus() { return paymentStatus; }
+    public void setPaymentStatus(String v) { this.paymentStatus = v; }
+
+    public long getPaidAt() { return paidAt; }
+    public void setPaidAt(long v) { this.paidAt = v; }
+
+    public long getPaymentExpiredAt() { return paymentExpiredAt; }
+    public void setPaymentExpiredAt(long v) { this.paymentExpiredAt = v; }
+
+    public String getCustomerName() { return customerName; }
+    public void setCustomerName(String v) { this.customerName = v; }
+
+    // --- PayOS ---
+    public long getPayosOrderCode() { return payosOrderCode; }
+    public void setPayosOrderCode(long v) { this.payosOrderCode = v; }
+
+    public String getPayosPaymentLinkId() { return payosPaymentLinkId; }
+    public void setPayosPaymentLinkId(String v) { this.payosPaymentLinkId = v; }
+
+    public String getPayosTransactionId() { return payosTransactionId; }
+    public void setPayosTransactionId(String v) { this.payosTransactionId = v; }
+
+    // --- Hủy & hoàn tiền ---
+    public String getCancelReason() { return cancelReason; }
+    public void setCancelReason(String v) { this.cancelReason = v; }
+
+    public String getCancelledBy() { return cancelledBy; }
+    public void setCancelledBy(String v) { this.cancelledBy = v; }
+
+    public long getCancelledAt() { return cancelledAt; }
+    public void setCancelledAt(long v) { this.cancelledAt = v; }
+
+    public String getRefundStatus() { return refundStatus; }
+    public void setRefundStatus(String v) { this.refundStatus = v; }
+
+    public double getRefundAmount() { return refundAmount; }
+    public void setRefundAmount(double v) { this.refundAmount = v; }
 
     public int getRentedPaddles() { return rentedPaddles; }
     public void setRentedPaddles(int rentedPaddles) { this.rentedPaddles = rentedPaddles; }

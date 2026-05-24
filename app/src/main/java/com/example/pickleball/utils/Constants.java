@@ -75,6 +75,38 @@ public class Constants {
     public static final int COMPRESSED_IMAGE_QUALITY = 80;
     public static final int MAX_IMAGE_DIMENSION = 1024;
 
+    // ==================== PAYMENT / DEPOSIT ====================
+    public static final double DEPOSIT_RATE            = 0.30;                  // 30% tổng tiền
+    public static final long   PAYMENT_TIMEOUT_MS      = 15 * 60 * 1000L;      // 15 phút QR
+    public static final long   FREE_CANCEL_WINDOW_MS   = 2 * 60 * 60 * 1000L; // 2h trước giờ chơi
+
+    // ==================== BOOKING STATUSES ====================
+    public static final String BOOKING_STATUS_AWAITING_PAYMENT   = "awaiting_payment";
+    public static final String BOOKING_STATUS_CONFIRMED          = "confirmed";
+    public static final String BOOKING_STATUS_CANCELLED_BY_USER  = "cancelled_by_user";
+    public static final String BOOKING_STATUS_CANCELLED_BY_OWNER = "cancelled_by_owner";
+    public static final String BOOKING_STATUS_CANCELLED_NO_SHOW  = "cancelled_no_show";
+    public static final String BOOKING_STATUS_CANCELLED_TIMEOUT  = "cancelled_timeout";
+    public static final String BOOKING_STATUS_CANCELLED_CONFLICT = "cancelled_conflict";
+    public static final String BOOKING_STATUS_COMPLETED          = "completed";
+
+    // ==================== REFUND STATUSES ====================
+    public static final String REFUND_STATUS_PENDING  = "refund_pending";
+    public static final String REFUND_STATUS_DONE     = "refund_done";
+    public static final String REFUND_STATUS_REJECTED = "refund_rejected";
+    public static final String REFUND_STATUS_NA       = "not_applicable";
+
+    // ==================== PAYMENT STATUSES ====================
+    public static final String PAYMENT_STATUS_PENDING  = "pending";
+    public static final String PAYMENT_STATUS_PAID     = "paid";
+    public static final String PAYMENT_STATUS_REFUNDED = "refunded";
+    public static final String PAYMENT_STATUS_EXPIRED  = "expired";
+
+    // ==================== CLOUD FUNCTION URL ====================
+    // Thay YOUR_PROJECT bằng Firebase project ID thực tế
+    public static final String CLOUD_FN_CREATE_PAYMENT =
+            "https://asia-southeast1-YOUR_PROJECT.cloudfunctions.net/createPaymentLink";
+
     // Private constructor to prevent instantiation
     private Constants() {
         throw new AssertionError("Cannot instantiate Constants class");

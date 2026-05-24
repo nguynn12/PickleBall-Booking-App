@@ -11,6 +11,9 @@ public class User implements Serializable {
     private String skillLevel;  // "beginner" | "intermediate" | "pro"
     private String avatarUrl;   // URL anh dai dien (Firebase Storage)
     private boolean blocked;
+    private Double lat;          // độ vĩ đặt cuối cùng
+    private Double lng;          // kinh độ đặt cuối cùng
+    private long lastSeen;       // timestamp lần cuối online
     // Firebase yeu cau constructor rong
     public User() {}
 
@@ -64,4 +67,13 @@ public class User implements Serializable {
     public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
+
+    public Double getLat() { return lat; }
+    public void setLat(Double lat) { this.lat = lat; }
+
+    public Double getLng() { return lng; }
+    public void setLng(Double lng) { this.lng = lng; }
+
+    public long getLastSeen() { return lastSeen; }
+    public void setLastSeen(long lastSeen) { this.lastSeen = lastSeen; }
 }

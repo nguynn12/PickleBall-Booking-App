@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pickleball.R;
 import com.example.pickleball.adapter.BookingAdapter;
 import com.example.pickleball.model.Booking;
+import com.example.pickleball.utils.Constants;
 import com.example.pickleball.utils.NotificationHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -55,18 +56,23 @@ public class MyBookingsFragment extends Fragment {
         tabCancelled = view.findViewById(R.id.tabCancelled);
 
         rvBookings.setLayoutManager(new LinearLayoutManager(requireContext()));
-        // Click vào booking → hỏi hủy nếu còn pending
         adapter = new BookingAdapter(displayList, booking -> {
-            if ("pending".equals(booking.getStatus())) {
+            String status = booking.getStatus();
+            if (Constants.BOOKING_STATUS_AWAITING_PAYMENT.equals(status)
+                    || Constants.BOOKING_STATUS_CONFIRMED.equals(status)) {
                 showCancelDialog(booking);
             }
         });
         rvBookings.setAdapter(adapter);
 
-        tabAll.setOnClickListener(v       -> applyFilter("all",       tabAll,       tabPending, tabConfirmed, tabCancelled));
-        tabPending.setOnClickListener(v   -> applyFilter("pending",   tabPending,   tabAll,     tabConfirmed, tabCancelled));
-        tabConfirmed.setOnClickListener(v -> applyFilter("confirmed", tabConfirmed, tabAll,     tabPending,   tabCancelled));
-        tabCancelled.setOnClickListener(v -> applyFilter("cancelled", tabCancelled, tabAll,     tabPending,   tabConfirmed));
+        tabAll.setOnClickListener(v       -> applyFilter("all",
+                tabAll, tabPending, tabConfirmed, tabCancelled));
+        tabPending.setOnClickListener(v   -> applyFilter(Constants.BOOKING_STATUS_AWAITING_PAYMENT,
+                tabPending, tabAll, tabConfirmed, tabCancelled));
+        tabConfirmed.setOnClickListener(v -> applyFilter(Constants.BOOKING_STATUS_CONFIRMED,
+                tabConfirmed, tabAll, tabPending, tabCancelled));
+        tabCancelled.setOnClickListener(v -> applyFilter("cancelled",
+                tabCancelled, tabAll, tabPending, tabConfirmed));
 
         loadMyBookings();
     }
@@ -108,38 +114,58 @@ public class MyBookingsFragment extends Fragment {
     private void filterAndShow() {
         displayList.clear();
         for (Booking b : allBookings) {
-            if ("all".equals(currentFilter) || currentFilter.equals(b.getStatus())) {
-                displayList.add(b);
-            }
+            String s = b.getStatus();
+            boolean matches = "all".equals(currentFilter)
+                    || currentFilter.equals(s)
+                    || ("cancelled".equals(currentFilter) && s != null && s.startsWith("cancelled"));
+            if (matches) displayList.add(b);
         }
         adapter.notifyDataSetChanged();
         boolean empty = displayList.isEmpty();
         tvEmpty.setVisibility(empty ? View.VISIBLE : View.GONE);
         rvBookings.setVisibility(empty ? View.GONE : View.VISIBLE);
-
-        // Hint khi tab pending: tap để hủy
-        if ("pending".equals(currentFilter) && !empty) {
-            tvEmpty.setVisibility(View.GONE);
-        }
     }
 
     private void showCancelDialog(Booking booking) {
+        long playTimeMs  = parseBookingDateTime(booking.getDate(), booking.getStartTime());
+        long msUntilPlay = playTimeMs - System.currentTimeMillis();
+        boolean hasPaid   = Constants.PAYMENT_STATUS_PAID.equals(booking.getPaymentStatus());
+        boolean canRefund = hasPaid && msUntilPlay >= Constants.FREE_CANCEL_WINDOW_MS;
+
+        String msg;
+        if (!hasPaid) {
+            msg = "Hủy lịch đặt sân \"" + booking.getCourtName()
+                    + "\" vào ngày " + booking.getDate() + "?\n(Chưa thanh toán — không mất phí)";
+        } else if (canRefund) {
+            msg = "Hủy lịch đặt sân \"" + booking.getCourtName()
+                    + "\" vào ngày " + booking.getDate() + "?\n✅ Bạn sẽ được hoàn 100% tiền cọc.";
+        } else {
+            msg = "Hủy lịch đặt sân \"" + booking.getCourtName()
+                    + "\" vào ngày " + booking.getDate()
+                    + "?\n⚠️ Còn dưới 2 tiếng trước giờ chơi — bạn sẽ MẤT tiền cọc.";
+        }
+
         new AlertDialog.Builder(requireContext())
                 .setTitle("Hủy đặt sân")
-                .setMessage("Bạn có chắc muốn hủy lịch đặt sân \"" + booking.getCourtName() + "\" vào ngày " + booking.getDate() + "?")
-                .setPositiveButton("Hủy đặt", (d, w) -> cancelBooking(booking))
+                .setMessage(msg)
+                .setPositiveButton("Xác nhận hủy", (d, w) -> cancelBooking(booking, canRefund && hasPaid))
                 .setNegativeButton("Giữ lại", null)
                 .show();
     }
 
-    private void cancelBooking(Booking booking) {
+    private void cancelBooking(Booking booking, boolean shouldRefund) {
+        java.util.Map<String, Object> updates = new java.util.HashMap<>();
+        updates.put("status",       Constants.BOOKING_STATUS_CANCELLED_BY_USER);
+        updates.put("cancelledBy",  "user");
+        updates.put("cancelledAt",  System.currentTimeMillis());
+        updates.put("refundStatus", shouldRefund ? Constants.REFUND_STATUS_PENDING : Constants.REFUND_STATUS_NA);
+        updates.put("refundAmount", shouldRefund ? booking.getDepositAmount() : 0);
+
         FirebaseFirestore.getInstance()
-                .collection("Bookings")
-                .document(booking.getBookingId())
-                .update("status", "cancelled")
+                .collection("Bookings").document(booking.getBookingId())
+                .update(updates)
                 .addOnSuccessListener(v -> {
                     Toast.makeText(requireContext(), "Đã hủy lịch đặt sân!", Toast.LENGTH_SHORT).show();
-                    // Gửi thông báo cho owner
                     if (booking.getOwnerId() != null && !booking.getOwnerId().isEmpty()) {
                         NotificationHelper.sendBookingCancelledToOwner(
                                 booking.getOwnerId(),
@@ -150,5 +176,18 @@ public class MyBookingsFragment extends Fragment {
                 })
                 .addOnFailureListener(e ->
                         Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+    }
+
+    private long parseBookingDateTime(String date, String startTime) {
+        try {
+            String[] d = date.split("/");   // dd/MM/yyyy
+            String[] t = (startTime != null ? startTime : "00:00").split(":");
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.set(Integer.parseInt(d[2]), Integer.parseInt(d[1]) - 1, Integer.parseInt(d[0]),
+                    Integer.parseInt(t[0]), Integer.parseInt(t[1]), 0);
+            return cal.getTimeInMillis();
+        } catch (Exception e) {
+            return 0L;
+        }
     }
 }

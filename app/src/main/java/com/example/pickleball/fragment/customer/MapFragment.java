@@ -34,6 +34,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -155,7 +156,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         View bottomSheet = view.findViewById(R.id.bottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
         btnToggleSheet = view.findViewById(R.id.btnToggleSheet);
         btnMyLocation = view.findViewById(R.id.btnMyLocation);
@@ -207,8 +208,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         googleMap.setOnMarkerClickListener(marker -> {
             Court court = markerCourtMap.get(marker);
             if (court == null) return false;
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15f));
             openCourtDetailSheet(court);
-            return false;
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            return true;
         });
 
         fetchAndCenterToDevice(false, false);
@@ -251,8 +254,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     if (loc != null) {
                         onDeviceLocationAvailable(loc, moveCamera);
                     } else {
-                        if (moveCamera && googleMap != null) {
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_CENTER, DEFAULT_ZOOM));
+                        if (googleMap != null) {
+                            if (moveCamera) {
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_CENTER, DEFAULT_ZOOM));
+                            }
+                            loadNearbyCourtsAndRender();
                         }
                     }
                 });
@@ -273,10 +279,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void loadNearbyCourtsAndRender() {
-        if (googleMap == null || currentLatLng == null) return;
+        if (googleMap == null) return;
 
         new FirebaseHelper().getAllCourts(task -> {
-            if (!task.isSuccessful() || task.getResult() == null || googleMap == null || currentLatLng == null) {
+            if (!task.isSuccessful() || task.getResult() == null || googleMap == null) {
                 return;
             }
 
@@ -291,13 +297,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 LatLng courtLatLng = tryGetLatLngFromDoc(doc);
                 if (courtLatLng == null) continue;
 
-                float[] results = new float[1];
-                Location.distanceBetween(
-                        currentLatLng.latitude, currentLatLng.longitude,
-                        courtLatLng.latitude, courtLatLng.longitude,
-                        results
-                );
-                if (results[0] > SEARCH_RADIUS_METERS) continue;
+                if (currentLatLng != null) {
+                    float[] results = new float[1];
+                    Location.distanceBetween(
+                            currentLatLng.latitude, currentLatLng.longitude,
+                            courtLatLng.latitude, courtLatLng.longitude,
+                            results
+                    );
+                    if (results[0] > SEARCH_RADIUS_METERS) continue;
+                }
 
                 Court court = doc.toObject(Court.class);
                 if (court.getCourtId() == null || court.getCourtId().isEmpty()) {
@@ -319,11 +327,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             if (!suppressAutoFitBounds) {
                 if (hasAny) {
                     try {
+                        if (currentLatLng != null) boundsBuilder.include(currentLatLng);
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 80));
                     } catch (Exception ignored) {
+                        LatLng center = currentLatLng != null ? currentLatLng : DEFAULT_CENTER;
+                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(center, DEFAULT_ZOOM));
                     }
                 } else {
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, DEFAULT_ZOOM));
+                    LatLng center = currentLatLng != null ? currentLatLng : DEFAULT_CENTER;
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(center, DEFAULT_ZOOM));
                 }
             }
 
@@ -336,7 +348,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         Marker marker = googleMap.addMarker(new MarkerOptions()
                 .position(latLng)
                 .title(name)
-                .snippet(address));
+                .snippet(address)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         if (marker != null) {
             markerCourtMap.put(marker, court);
         }
@@ -489,11 +502,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onDestroyView() {
-        if (mapView != null) mapView.onDestroy();
-        mapView = null;
         googleMap = null;
         suppressAutoFitBounds = false;
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mapView != null) {
+            mapView.onDestroy();
+            mapView = null;
+        }
+        super.onDestroy();
     }
 
     @Override

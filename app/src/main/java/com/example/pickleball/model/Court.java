@@ -20,6 +20,8 @@ public class Court implements Serializable {
     private String terms;          // điều khoản & quy định
     private String status;         // "active" | "inactive"
     private long createdAt;
+    private double avgRating;     // trung bình đánh giá (cập nhật sau mỗi review)
+    private int reviewCount;      // số lượng đánh giá
 
     public Court() {}
 
@@ -82,6 +84,12 @@ public class Court implements Serializable {
 
     public long getCreatedAt()                  { return createdAt; }
     public void setCreatedAt(long v)            { this.createdAt = v; }
+
+    public double getAvgRating()               { return avgRating; }
+    public void setAvgRating(double v)         { this.avgRating = v; }
+
+    public int getReviewCount()                { return reviewCount; }
+    public void setReviewCount(int v)          { this.reviewCount = v; }
 
     /** Trả về chuỗi giờ mở cửa dạng "05:00 - 22:00" */
     public String getOpenHours() {

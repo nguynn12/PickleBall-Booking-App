@@ -9,11 +9,16 @@ import androidx.fragment.app.Fragment;
 
 import com.example.pickleball.R;
 import com.example.pickleball.fragment.ProfileFragment;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class CustomerMainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
+    private ListenerRegistration pendingBookingListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +32,15 @@ public class CustomerMainActivity extends AppCompatActivity {
             loadFragment(new HomeFragment());
         }
 
+        setupPendingBookingBadge();
+
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_home) {
                 loadFragment(new HomeFragment());
                 return true;
             } else if (id == R.id.nav_explore) {
-                loadFragment(new CourtListFragment());
+                loadFragment(new ExploreFragment());
                 return true;
             } else if (id == R.id.nav_map) {
                 loadFragment(new MapFragment());
@@ -71,6 +78,34 @@ public class CustomerMainActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
                 .commit();
+    }
+
+    private void setupPendingBookingBadge() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid() : null;
+        if (uid == null) return;
+
+        pendingBookingListener = FirebaseFirestore.getInstance()
+                .collection("Bookings")
+                .whereEqualTo("userId", uid)
+                .whereEqualTo("status", "pending")
+                .addSnapshotListener((snap, err) -> {
+                    if (snap == null) return;
+                    int count = snap.size();
+                    BadgeDrawable badge = bottomNav.getOrCreateBadge(R.id.nav_bookings);
+                    if (count > 0) {
+                        badge.setVisible(true);
+                        badge.setNumber(count);
+                    } else {
+                        badge.setVisible(false);
+                    }
+                });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pendingBookingListener != null) pendingBookingListener.remove();
     }
 
     /** Cho phép fragment điều hướng sang tab khác */

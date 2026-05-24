@@ -56,7 +56,12 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         holder.tvCourtNameItem.setText(name != null && !name.isEmpty() ? name : "Sân Pickleball");
         holder.tvLocationItem.setText(address != null && !address.isEmpty() ? address : "Chưa có địa chỉ");
         holder.tvOpenHours.setText("🕐 " + court.getOpenHours());
-        holder.tvRating.setText("⭐ 5.0");
+
+        // Rating từ Firestore
+        double avg = court.getAvgRating();
+        holder.tvRating.setText(avg > 0
+                ? String.format(java.util.Locale.getDefault(), "⭐ %.1f", avg)
+                : "⭐ Mới");
 
         // --- XỬ LÝ MÀU TRÁI TIM ---
         // Kiểm tra nếu ID của sân này nằm trong danh sách yêu thích thì tô đỏ
