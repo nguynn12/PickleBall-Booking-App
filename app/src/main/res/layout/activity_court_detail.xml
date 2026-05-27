@@ -49,7 +49,7 @@
                     android:id="@+id/btnBack"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@android:drawable/ic_media_previous"
+                    android:src="@drawable/ic_back"
                     android:padding="6dp"
                     android:background="@drawable/bg_icon_circle_white"
                     android:layout_marginStart="4dp"/>
@@ -264,7 +264,7 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_nav_court"
+                            android:src="@drawable/ic_location"
                             android:layout_marginEnd="10dp"
                             app:tint="@color/green_primary"/>
 
@@ -289,7 +289,7 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_nav_booking"
+                            android:src="@drawable/ic_clock"
                             android:layout_marginEnd="10dp"
                             app:tint="@color/green_primary"/>
 
@@ -314,7 +314,7 @@
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
-                            android:src="@drawable/ic_nav_profile"
+                            android:src="@drawable/ic_phone"
                             android:layout_marginEnd="10dp"
                             app:tint="@color/green_primary"/>
 

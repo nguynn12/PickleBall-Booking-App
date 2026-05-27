@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/text_primary">
+    android:background="@color/header_dark_bg">
 
     <!-- Nút back -->
     <ImageButton
@@ -16,7 +16,7 @@
         android:src="@drawable/ic_chevron_left"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
-        app:tint="@color/white"
+        app:tint="@android:color/white"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -80,7 +80,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:backgroundTint="#44FFFFFF"
+        app:backgroundTint="@color/white_20"
         app:cornerRadius="26dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

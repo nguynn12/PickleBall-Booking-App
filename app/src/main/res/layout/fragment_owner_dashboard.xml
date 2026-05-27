@@ -190,8 +190,7 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Quản lý sân của tôi"
                         android:textSize="17sp" android:textColor="@color/text_primary"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -204,8 +203,7 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Đơn đặt sân"
                         android:textSize="17sp" android:textColor="@color/text_primary"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -218,8 +216,7 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Thêm sân mới"
                         android:textSize="17sp" android:textColor="@color/green_dark"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
 
                 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -232,8 +229,7 @@
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_weight="1" android:text="Hồ sơ cá nhân"
                         android:textSize="17sp" android:textColor="@color/text_primary"/>
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -90,7 +90,7 @@
         <!-- Challenge button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChallenge"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.PickleBall.Button.Outline"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:text="Thách đấu"

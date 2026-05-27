@@ -77,20 +77,16 @@
         <item name="strokeColor">@color/divider</item>
         <item name="strokeWidth">1dp</item>
     </style>
-    <style name="Base.Theme.PickleBallBookingApp"
-        parent="Theme.Material3.DayNight.NoActionBar"></style>
-
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">13sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <!-- <style name="Base.Theme.PickleBallBookingApp"
-        parent="Theme.Material3.Light.NoActionBar"></style> -->
-
-    <!-- <style name="Base.Theme.PickleBallBookingApp"
-        parent="Theme.Material3.Light.NoActionBar"></style> -->
-
-    <!-- <style name="Base.Theme.PickleBallBookingApp"
-        parent="Theme.Material3.Light.NoActionBar"></style> -->
+    <style name="Widget.PickleBall.Chip" parent="Widget.MaterialComponents.Chip.Action">
+        <item name="chipBackgroundColor">@color/chip_bg_selector</item>
+        <item name="chipStrokeColor">@color/green_primary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/chip_text_selector</item>
+        <item name="chipCornerRadius">16dp</item>
+    </style>
 </resources>

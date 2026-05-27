@@ -91,7 +91,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="40dp"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.PickleBall.Button.Outline"
                 android:text="✗ Từ chối"
                 android:textAllCaps="false"
                 android:textSize="13sp"

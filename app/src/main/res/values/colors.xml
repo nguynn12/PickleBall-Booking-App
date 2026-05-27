@@ -44,6 +44,12 @@
     <color name="warning_text">#856404</color>
     <color name="warning_bg">#FFF3CD</color>
 
+    <!-- Semantic header/panel colors -->
+    <color name="header_dark_bg">#1D1D1F</color>
+    <color name="bottom_panel_bg">#FFFFFF</color>
+    <color name="card_accent_green">#34C759</color>
+    <color name="white_20">#33FFFFFF</color>
+
     <!-- Legacy -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

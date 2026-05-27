@@ -28,6 +28,26 @@
     <color name="warning_yellow">#FFD60A</color>
     <color name="info_blue">#0A84FF</color>
 
+    <!-- Booking schedule colors – dark mode -->
+    <color name="slot_empty">#2C2C2E</color>
+    <color name="slot_booked">#5C2A2A</color>
+    <color name="slot_selected">#1C3A25</color>
+    <color name="slot_locked">#48484A</color>
+    <color name="booking_dark_green">#30D158</color>
+    <color name="booking_yellow">#FFD60A</color>
+    <color name="schedule_header_bg">#1C3A25</color>
+    <color name="grid_header_bg">#1C3A25</color>
+
+    <!-- Semantic dark colors -->
+    <color name="warning_text">#FFD60A</color>
+    <color name="warning_bg">#3A2E00</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="header_dark_bg">#000000</color>
+    <color name="bottom_panel_bg">#000000</color>
+    <color name="card_accent_green">#1C3A25</color>
+
     <!-- Legacy keep -->
     <color name="black">#FFFFFFFF</color>
     <color name="white">#FF000000</color>
