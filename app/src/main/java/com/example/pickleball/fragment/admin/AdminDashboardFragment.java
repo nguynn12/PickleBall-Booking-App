@@ -47,16 +47,19 @@ public class AdminDashboardFragment extends Fragment {
                 ((AdminMainActivity) getActivity()).navigateTo(1);
             }
         });
-        btnManageCourtsAdmin.setOnClickListener(v -> {
+        btnManageBookingsAdmin.setOnClickListener(v -> {
             if (getActivity() instanceof AdminMainActivity) {
                 ((AdminMainActivity) getActivity()).navigateTo(2);
             }
         });
-        btnManageBookingsAdmin.setOnClickListener(v ->
-                android.widget.Toast.makeText(requireContext(), "Đang phát triển!", android.widget.Toast.LENGTH_SHORT).show());
-        btnAdminProfile.setOnClickListener(v -> {
+        btnManageCourtsAdmin.setOnClickListener(v -> {
             if (getActivity() instanceof AdminMainActivity) {
                 ((AdminMainActivity) getActivity()).navigateTo(3);
+            }
+        });
+        btnAdminProfile.setOnClickListener(v -> {
+            if (getActivity() instanceof AdminMainActivity) {
+                ((AdminMainActivity) getActivity()).navigateTo(4);
             }
         });
 

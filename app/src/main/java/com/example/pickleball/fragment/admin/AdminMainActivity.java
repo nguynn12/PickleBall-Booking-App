@@ -35,6 +35,9 @@ public class AdminMainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_users) {
                 loadFragment(new AdminUsersFragment());
                 return true;
+            } else if (id == R.id.nav_finance) {
+                loadFragment(new AdminFinanceFragment());
+                return true;
             } else if (id == R.id.nav_courts) {
                 loadFragment(new AdminCourtsFragment());
                 return true;
@@ -48,14 +51,10 @@ public class AdminMainActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // Kiểm tra xem tab hiện tại có phải là tab Home hay không
                 if (bottomNav.getSelectedItemId() != R.id.nav_home) {
-                    // Nếu đang ở tab khác (ví dụ Users), quay về tab Home
                     bottomNav.setSelectedItemId(R.id.nav_home);
                 } else {
-                    // Nếu đã ở tab Home rồi, tắt vòng lặp can thiệp này đi
                     setEnabled(false);
-                    // Kích hoạt lại sự kiện Back để hệ thống tự xử lý (thoát app)
                     getOnBackPressedDispatcher().onBackPressed();
                 }
             }
@@ -70,7 +69,8 @@ public class AdminMainActivity extends AppCompatActivity {
     }
 
     public void navigateTo(int index) {
-        int[] ids = {R.id.nav_home, R.id.nav_users, R.id.nav_courts, R.id.nav_profile};
+        // Order: Home, Users, Finance, Courts, Profile
+        int[] ids = {R.id.nav_home, R.id.nav_users, R.id.nav_finance, R.id.nav_courts, R.id.nav_profile};
         if (index >= 0 && index < ids.length) {
             bottomNav.setSelectedItemId(ids[index]);
         }
