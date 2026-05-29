@@ -44,28 +44,32 @@ public class AdminRefundFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         rvRefunds = view.findViewById(R.id.rvRefunds);
-        tvEmpty   = view.findViewById(R.id.tvEmpty);
+        tvEmpty = view.findViewById(R.id.tvEmpty);
         rvRefunds.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new RefundAdapter(refundList, this::onDoneClicked, this::onRejectClicked);
         rvRefunds.setAdapter(adapter);
+
         loadRefundRequests();
     }
 
     private void loadRefundRequests() {
         FirebaseFirestore.getInstance()
-                .collection("Bookings")
+                .collection(Constants.COLLECTION_BOOKINGS)
                 .whereEqualTo("refundStatus", Constants.REFUND_STATUS_PENDING)
                 .addSnapshotListener((snap, err) -> {
                     if (snap == null) return;
+
                     refundList.clear();
                     for (var doc : snap.getDocuments()) {
-                        Booking b = doc.toObject(Booking.class);
-                        if (b != null) {
-                            if (b.getBookingId() == null) b.setBookingId(doc.getId());
-                            refundList.add(b);
+                        Booking booking = doc.toObject(Booking.class);
+                        if (booking != null) {
+                            if (booking.getBookingId() == null) booking.setBookingId(doc.getId());
+                            refundList.add(booking);
                         }
                     }
+
                     adapter.notifyDataSetChanged();
                     tvEmpty.setVisibility(refundList.isEmpty() ? View.VISIBLE : View.GONE);
                     rvRefunds.setVisibility(refundList.isEmpty() ? View.GONE : View.VISIBLE);
@@ -77,7 +81,7 @@ public class AdminRefundFragment extends Fragment {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Xác nhận đã hoàn tiền")
                 .setMessage("Xác nhận đã hoàn " + fmt.format((long) booking.getRefundAmount())
-                        + "đ cho khách " + booking.getCustomerName() + "?")
+                        + "đ cho khách " + safeText(booking.getCustomerName(), "Khách hàng") + "?")
                 .setPositiveButton("Đã hoàn tiền", (d, w) -> updateRefundStatus(booking, Constants.REFUND_STATUS_DONE))
                 .setNegativeButton("Hủy", null)
                 .show();
@@ -86,7 +90,7 @@ public class AdminRefundFragment extends Fragment {
     private void onRejectClicked(Booking booking) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Từ chối hoàn tiền")
-                .setMessage("Từ chối hoàn tiền cho khách " + booking.getCustomerName() + "?")
+                .setMessage("Từ chối hoàn tiền cho khách " + safeText(booking.getCustomerName(), "Khách hàng") + "?")
                 .setPositiveButton("Từ chối", (d, w) -> updateRefundStatus(booking, Constants.REFUND_STATUS_REJECTED))
                 .setNegativeButton("Hủy", null)
                 .show();
@@ -95,8 +99,10 @@ public class AdminRefundFragment extends Fragment {
     private void updateRefundStatus(Booking booking, String status) {
         Map<String, Object> updates = new HashMap<>();
         updates.put("refundStatus", status);
+
         FirebaseFirestore.getInstance()
-                .collection("Bookings").document(booking.getBookingId())
+                .collection(Constants.COLLECTION_BOOKINGS)
+                .document(booking.getBookingId())
                 .update(updates)
                 .addOnSuccessListener(v ->
                         Toast.makeText(requireContext(), "Đã cập nhật!", Toast.LENGTH_SHORT).show())
@@ -104,60 +110,66 @@ public class AdminRefundFragment extends Fragment {
                         Toast.makeText(requireContext(), "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
-    // ── Inner adapter ──────────────────────────────────────────────────────────
+    private static String safeText(String value, String fallback) {
+        return value != null && !value.trim().isEmpty() ? value : fallback;
+    }
 
-    interface OnActionCallback { void invoke(Booking b); }
+    interface OnActionCallback {
+        void invoke(Booking booking);
+    }
 
     static class RefundAdapter extends RecyclerView.Adapter<RefundAdapter.VH> {
 
-        private final List<Booking>    list;
+        private final List<Booking> list;
         private final OnActionCallback onDone, onReject;
 
         RefundAdapter(List<Booking> list, OnActionCallback onDone, OnActionCallback onReject) {
-            this.list     = list;
-            this.onDone   = onDone;
+            this.list = list;
+            this.onDone = onDone;
             this.onReject = onReject;
         }
 
         @NonNull
         @Override
         public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
+            View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_refund, parent, false);
-            return new VH(v);
+            return new VH(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull VH h, int position) {
-            Booking b = list.get(position);
+        public void onBindViewHolder(@NonNull VH holder, int position) {
+            Booking booking = list.get(position);
             NumberFormat fmt = NumberFormat.getInstance(new Locale("vi", "VN"));
 
-            h.tvName.setText(b.getCustomerName() != null ? b.getCustomerName() : "—");
-            h.tvCourt.setText(b.getCourtName() != null ? b.getCourtName() : "—");
-            h.tvDate.setText(b.getDate() != null ? b.getDate() : "—");
-            h.tvAmount.setText(fmt.format((long) b.getRefundAmount()) + "đ");
-            h.tvReason.setText("Lý do: " + (b.getStatus() != null ? b.getStatus() : "—"));
+            holder.tvName.setText(safeText(booking.getCustomerName(), "Khách hàng"));
+            holder.tvCourt.setText(safeText(booking.getCourtName(), "Sân Pickleball"));
+            holder.tvDate.setText(safeText(booking.getDate(), "-"));
+            holder.tvAmount.setText(fmt.format((long) booking.getRefundAmount()) + "đ");
+            holder.tvReason.setText("Lý do: " + safeText(booking.getCancelReason(), "Không có ghi chú"));
 
-            h.btnDone.setOnClickListener(v -> onDone.invoke(b));
-            h.btnReject.setOnClickListener(v -> onReject.invoke(b));
+            holder.btnDone.setOnClickListener(v -> onDone.invoke(booking));
+            holder.btnReject.setOnClickListener(v -> onReject.invoke(booking));
         }
 
         @Override
-        public int getItemCount() { return list.size(); }
+        public int getItemCount() {
+            return list == null ? 0 : list.size();
+        }
 
         static class VH extends RecyclerView.ViewHolder {
             TextView tvName, tvCourt, tvDate, tvAmount, tvReason;
             com.google.android.material.button.MaterialButton btnDone, btnReject;
 
-            VH(@NonNull View v) {
-                super(v);
-                tvName   = v.findViewById(R.id.tvRefundName);
-                tvCourt  = v.findViewById(R.id.tvRefundCourt);
-                tvDate   = v.findViewById(R.id.tvRefundDate);
-                tvAmount = v.findViewById(R.id.tvRefundAmount);
-                tvReason = v.findViewById(R.id.tvRefundReason);
-                btnDone  = v.findViewById(R.id.btnRefundDone);
-                btnReject = v.findViewById(R.id.btnRefundReject);
+            VH(@NonNull View view) {
+                super(view);
+                tvName = view.findViewById(R.id.tvRefundName);
+                tvCourt = view.findViewById(R.id.tvRefundCourt);
+                tvDate = view.findViewById(R.id.tvRefundDate);
+                tvAmount = view.findViewById(R.id.tvRefundAmount);
+                tvReason = view.findViewById(R.id.tvRefundReason);
+                btnDone = view.findViewById(R.id.btnRefundDone);
+                btnReject = view.findViewById(R.id.btnRefundReject);
             }
         }
     }

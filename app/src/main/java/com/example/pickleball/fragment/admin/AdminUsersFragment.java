@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pickleball.R;
 import com.example.pickleball.adapter.UserAdapter;
 import com.example.pickleball.model.User;
+import com.example.pickleball.utils.Constants;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -43,21 +44,20 @@ public class AdminUsersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvUsers     = view.findViewById(R.id.rvUserList);
+        rvUsers = view.findViewById(R.id.rvUserList);
         tvUserCount = view.findViewById(R.id.tvUserCount);
-        tabAll      = view.findViewById(R.id.tabAll);
+        tabAll = view.findViewById(R.id.tabAll);
         tabCustomer = view.findViewById(R.id.tabCustomer);
-        tabOwner    = view.findViewById(R.id.tabOwner);
+        tabOwner = view.findViewById(R.id.tabOwner);
 
         rvUsers.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new UserAdapter(requireContext(), displayList);
         rvUsers.setAdapter(adapter);
 
         tabAll.setOnClickListener(v -> applyFilter("all", tabAll, tabCustomer, tabOwner));
-        tabCustomer.setOnClickListener(v -> applyFilter("user", tabCustomer, tabAll, tabOwner));
-        tabOwner.setOnClickListener(v -> applyFilter("owner", tabOwner, tabAll, tabCustomer));
+        tabCustomer.setOnClickListener(v -> applyFilter(Constants.ROLE_CUSTOMER, tabCustomer, tabAll, tabOwner));
+        tabOwner.setOnClickListener(v -> applyFilter(Constants.ROLE_OWNER, tabOwner, tabAll, tabCustomer));
 
-        // Set initial tab style
         setTabSelected(tabAll);
         setTabUnselected(tabCustomer);
         setTabUnselected(tabOwner);
@@ -66,15 +66,16 @@ public class AdminUsersFragment extends Fragment {
     }
 
     private void loadUsers() {
-        FirebaseFirestore.getInstance().collection("Users")
+        FirebaseFirestore.getInstance().collection(Constants.COLLECTION_USERS)
                 .addSnapshotListener((snap, err) -> {
                     if (snap == null) return;
+
                     allUsers.clear();
                     for (var doc : snap) {
-                        User u = doc.toObject(User.class);
-                        if (u != null) {
-                            if (u.getUserId() == null) u.setUserId(doc.getId());
-                            allUsers.add(u);
+                        User user = doc.toObject(User.class);
+                        if (user != null) {
+                            if (user.getUserId() == null) user.setUserId(doc.getId());
+                            allUsers.add(user);
                         }
                     }
                     filterAndShow();
@@ -91,13 +92,12 @@ public class AdminUsersFragment extends Fragment {
 
     private void filterAndShow() {
         displayList.clear();
-        for (User u : allUsers) {
-            if ("all".equals(currentFilter)) {
-                displayList.add(u);
-            } else if (currentFilter.equals(u.getRole())) {
-                displayList.add(u);
+        for (User user : allUsers) {
+            if ("all".equals(currentFilter) || currentFilter.equals(user.getRole())) {
+                displayList.add(user);
             }
         }
+
         adapter.notifyDataSetChanged();
         if (tvUserCount != null) {
             tvUserCount.setText("Tổng số: " + displayList.size() + " người dùng");
@@ -111,6 +111,6 @@ public class AdminUsersFragment extends Fragment {
 
     private void setTabUnselected(TextView tab) {
         tab.setBackgroundResource(R.drawable.bg_chip_unselected);
-        tab.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
+        tab.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary));
     }
 }
