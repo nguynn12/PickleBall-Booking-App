@@ -146,6 +146,6 @@ public class AdminCourtsFragment extends Fragment {
 
     private void setTabUnselected(TextView tab) {
         tab.setBackgroundResource(R.drawable.bg_chip_unselected);
-        tab.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
+        tab.setTextColor(ContextCompat.getColor(requireContext(), R.color.text_secondary));
     }
 }

@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
-        android:text="➕  Thêm tài khoản khác"
+        android:text="Thêm tài khoản khác"
         android:textColor="@color/text_primary"
         android:textSize="16sp" />
 
@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="12dp"
-        android:text="⚙️  Cài đặt ứng dụng"
+        android:text="Cài đặt ứng dụng"
         android:textColor="@color/text_primary"
         android:textSize="16sp" />
 

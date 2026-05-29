@@ -174,7 +174,7 @@
                             android:padding="6dp"
                             android:src="@drawable/ic_chevron_left"
                             android:background="#80000000"
-                            app:tint="@color/white" />
+                            app:tint="@android:color/white" />
 
                     </com.google.android.material.card.MaterialCardView>
 

@@ -130,7 +130,7 @@ android:layout_width="0dp"
 <TextView android:id="@+id/tvTotalCourtsAdmin"
     android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:text="0" android:textSize="28sp" android:fontFamily="sans-serif-medium"
-    android:textStyle="bold" android:textColor="@color/header_dark_bg"/>
+    android:textStyle="bold" android:textColor="@color/text_primary"/>
 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
     android:text="Tổng sân" android:textSize="12sp"
     android:fontFamily="sans-serif" android:textColor="@color/text_secondary"/>
@@ -225,7 +225,7 @@ android:layout_width="match_parent"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Quản lý người dùng"
-    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/header_dark_bg"/>
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
 <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
@@ -238,7 +238,7 @@ android:layout_width="match_parent"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Duyệt &amp; quản lý sân"
-    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/header_dark_bg"/>
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
 <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
@@ -251,7 +251,7 @@ android:layout_width="match_parent"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Tất cả đơn đặt sân"
-    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/header_dark_bg"/>
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
 <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
@@ -264,7 +264,7 @@ android:layout_width="match_parent"
     android:paddingHorizontal="20dp" android:background="?attr/selectableItemBackground">
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Hồ sơ Admin"
-    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/header_dark_bg"/>
+    android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
 <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 

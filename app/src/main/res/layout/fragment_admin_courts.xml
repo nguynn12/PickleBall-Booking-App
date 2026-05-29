@@ -57,12 +57,12 @@
                     <TextView android:id="@+id/tabActive"
                         android:layout_width="wrap_content" android:layout_height="36dp"
                         android:text="Đang hoạt động" android:gravity="center"
-                        android:textColor="@color/white" android:background="@drawable/bg_chip_unselected"
+                        android:textColor="@color/text_secondary" android:background="@drawable/bg_chip_unselected"
                         android:paddingHorizontal="14dp" android:layout_marginEnd="8dp"/>
                     <TextView android:id="@+id/tabInactive"
                         android:layout_width="wrap_content" android:layout_height="36dp"
                         android:text="Đã vô hiệu hóa" android:gravity="center"
-                        android:textColor="@color/white" android:background="@drawable/bg_chip_unselected"
+                        android:textColor="@color/text_secondary" android:background="@drawable/bg_chip_unselected"
                         android:paddingHorizontal="14dp"/>
                 </LinearLayout>
             </HorizontalScrollView>

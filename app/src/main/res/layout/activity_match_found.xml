@@ -148,11 +148,11 @@
             android:id="@+id/btnBookCourt"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:text="🏓  Đặt sân ngay"
+            android:text="Đặt sân ngay"
             android:textAllCaps="false"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             app:backgroundTint="@color/green_primary"
             app:cornerRadius="26dp" />
 
