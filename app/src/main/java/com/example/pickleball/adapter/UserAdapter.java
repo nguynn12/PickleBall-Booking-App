@@ -1,7 +1,7 @@
 package com.example.pickleball.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
+import androidx.core.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,10 +80,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private void updateUIStatus(UserViewHolder holder, boolean isBlocked) {
         if (isBlocked) {
             holder.txtStatus.setText("Đã khóa");
-            holder.txtStatus.setTextColor(Color.RED);
+            holder.txtStatus.setTextColor(ContextCompat.getColor(context, R.color.error_red));
         } else {
             holder.txtStatus.setText("Hoạt động");
-            holder.txtStatus.setTextColor(Color.parseColor("#42C861")); // Màu xanh lá từ Dashboard
+            holder.txtStatus.setTextColor(ContextCompat.getColor(context, R.color.green_primary));
         }
     }
 

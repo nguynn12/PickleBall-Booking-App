@@ -20,7 +20,7 @@ android:layout_width="match_parent"
 android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/text_primary"
+    android:background="@color/header_dark_bg"
     android:paddingTop="48dp"
     android:paddingBottom="24dp"
     android:paddingHorizontal="24dp">
@@ -226,8 +226,7 @@ android:layout_width="match_parent"
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Quản lý người dùng"
     android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -240,8 +239,7 @@ android:layout_width="match_parent"
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Duyệt &amp; quản lý sân"
     android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -254,8 +252,7 @@ android:layout_width="match_parent"
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Tất cả đơn đặt sân"
     android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -268,8 +265,7 @@ android:layout_width="match_parent"
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Hồ sơ Admin"
     android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/text_primary"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
 <View android:layout_width="match_parent" android:layout_height="0.5dp"
@@ -282,8 +278,7 @@ android:layout_width="match_parent"
 <TextView android:layout_width="0dp" android:layout_height="wrap_content"
     android:layout_weight="1" android:text="Đăng xuất"
     android:textSize="17sp" android:fontFamily="sans-serif" android:textColor="@color/error_red"/>
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="›" android:textSize="22sp" android:textColor="@color/text_tertiary"/>
+<ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
     </LinearLayout>
 
     </LinearLayout>

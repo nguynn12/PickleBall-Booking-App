@@ -125,7 +125,7 @@
                         android:id="@+id/tvRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⭐ 5.0"
+                        android:text="★ 5.0"
                         android:textSize="11sp"
                         android:textColor="@color/warning_yellow"
                         android:layout_marginEnd="6dp"/>

@@ -1,7 +1,6 @@
 package com.example.pickleball.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +59,8 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
         // Rating từ Firestore
         double avg = court.getAvgRating();
         holder.tvRating.setText(avg > 0
-                ? String.format(java.util.Locale.getDefault(), "⭐ %.1f", avg)
-                : "⭐ Mới");
+                ? String.format(java.util.Locale.getDefault(), "★ %.1f", avg)
+                : "★ Mới");
 
         // --- XỬ LÝ MÀU TRÁI TIM ---
         // Kiểm tra nếu ID của sân này nằm trong danh sách yêu thích thì tô đỏ
@@ -69,7 +68,7 @@ public class CourtAdapter extends RecyclerView.Adapter<CourtAdapter.CourtViewHol
             holder.btnFavoriteItem.setColorFilter(ContextCompat.getColor(context, android.R.color.holo_red_dark));
         } else {
             // Nếu không thì để màu xám mặc định (mã màu #BDBDBD như trong file XML của bạn)
-            holder.btnFavoriteItem.setColorFilter(Color.parseColor("#BDBDBD"));
+            holder.btnFavoriteItem.setColorFilter(ContextCompat.getColor(context, R.color.text_tertiary));
         }
 
         // --- HIỂN THỊ ẢNH ---

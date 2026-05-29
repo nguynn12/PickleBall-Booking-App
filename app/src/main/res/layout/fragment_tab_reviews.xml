@@ -46,8 +46,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⭐⭐⭐⭐⭐"
-                    android:textSize="14sp"/>
+                    android:text="★★★★★"
+                    android:textSize="14sp"
+                    android:textColor="@color/warning_yellow"/>
 
                 <TextView
                     android:id="@+id/tvReviewCount"
@@ -124,7 +125,10 @@
         android:id="@+id/btnWriteReview"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="✏️  Viết đánh giá"
+        android:text="Viết đánh giá"
+        app:icon="@drawable/ic_edit"
+        app:iconTint="@color/green_primary"
+        app:iconGravity="textStart"
         android:textAllCaps="false"
         android:textColor="@color/green_primary"
         android:textSize="15sp"

@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/bg_white"
-            android:paddingTop="24dp"
             app:titleTextColor="@color/text_primary"
             app:navigationIconTint="@color/text_primary" />
 
@@ -78,12 +77,7 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@color/text_primary"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=">"
-                        android:textSize="20sp"
-                        android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -245,12 +239,7 @@
                             android:fontFamily="sans-serif"
                             android:textColor="@color/text_primary"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=">"
-                            android:textSize="20sp"
-                            android:textColor="@color/text_tertiary"/>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                     </LinearLayout>
 
                     <View
@@ -279,12 +268,7 @@
                             android:fontFamily="sans-serif"
                             android:textColor="@color/text_primary"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=">"
-                            android:textSize="20sp"
-                            android:textColor="@color/text_tertiary"/>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                     </LinearLayout>
 
                     <View
@@ -313,12 +297,7 @@
                             android:fontFamily="sans-serif"
                             android:textColor="@color/text_primary"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=">"
-                            android:textSize="20sp"
-                            android:textColor="@color/text_tertiary"/>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                     </LinearLayout>
 
                     <View
@@ -385,12 +364,7 @@
                         android:fontFamily="sans-serif"
                         android:textColor="@color/error_red"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=">"
-                        android:textSize="20sp"
-                        android:textColor="@color/text_tertiary"/>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_chevron_right" app:tint="@color/text_tertiary"/>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

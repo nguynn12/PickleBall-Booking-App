@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.pickleball.R;
+import com.example.pickleball.utils.Constants;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminDashboardFragment extends Fragment {
@@ -29,10 +31,10 @@ public class AdminDashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView tvAdminName      = view.findViewById(R.id.tvAdminName);
-        TextView tvTotalUsers     = view.findViewById(R.id.tvTotalUsers);
+        TextView tvAdminName = view.findViewById(R.id.tvAdminName);
+        TextView tvTotalUsers = view.findViewById(R.id.tvTotalUsers);
         TextView tvTotalCourtsAdmin = view.findViewById(R.id.tvTotalCourtsAdmin);
-        TextView tvTotalBookings  = view.findViewById(R.id.tvTotalBookings);
+        TextView tvTotalBookings = view.findViewById(R.id.tvTotalBookings);
         TextView tvPendingApproval = view.findViewById(R.id.tvPendingApproval);
         LinearLayout btnManageUsers = view.findViewById(R.id.btnManageUsers);
         LinearLayout btnManageCourtsAdmin = view.findViewById(R.id.btnManageCourtsAdmin);
@@ -42,35 +44,35 @@ public class AdminDashboardFragment extends Fragment {
         loadAdminInfo(tvAdminName);
         loadStats(tvTotalUsers, tvTotalCourtsAdmin, tvTotalBookings, tvPendingApproval);
 
-        btnManageUsers.setOnClickListener(v -> {
-            if (getActivity() instanceof AdminMainActivity) {
-                ((AdminMainActivity) getActivity()).navigateTo(1);
-            }
-        });
-        btnManageCourtsAdmin.setOnClickListener(v -> {
-            if (getActivity() instanceof AdminMainActivity) {
-                ((AdminMainActivity) getActivity()).navigateTo(2);
-            }
-        });
-        btnManageBookingsAdmin.setOnClickListener(v ->
-                android.widget.Toast.makeText(requireContext(), "Đang phát triển!", android.widget.Toast.LENGTH_SHORT).show());
-        btnAdminProfile.setOnClickListener(v -> {
-            if (getActivity() instanceof AdminMainActivity) {
-                ((AdminMainActivity) getActivity()).navigateTo(3);
-            }
-        });
+        btnManageUsers.setOnClickListener(v -> navigateTo(1));
+        btnManageBookingsAdmin.setOnClickListener(v -> navigateTo(2));
+        btnManageCourtsAdmin.setOnClickListener(v -> navigateTo(3));
+        btnAdminProfile.setOnClickListener(v -> navigateTo(4));
 
-        // Ẩn nút logout khỏi dashboard (đã có trong Profile tab)
         LinearLayout btnAdminLogout = view.findViewById(R.id.btnAdminLogout);
         if (btnAdminLogout != null) btnAdminLogout.setVisibility(View.GONE);
     }
 
+    private void navigateTo(int index) {
+        if (getActivity() instanceof AdminMainActivity) {
+            ((AdminMainActivity) getActivity()).navigateTo(index);
+        }
+    }
+
     private void loadAdminInfo(TextView tvName) {
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        FirebaseFirestore.getInstance().collection("Users").document(uid).get()
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser == null) {
+            tvName.setText("Admin");
+            return;
+        }
+
+        FirebaseFirestore.getInstance()
+                .collection(Constants.COLLECTION_USERS)
+                .document(currentUser.getUid())
+                .get()
                 .addOnSuccessListener(doc -> {
                     if (doc.exists()) {
-                        String name = doc.getString("fullName");
+                        String name = doc.getString(Constants.FIELD_FULL_NAME);
                         tvName.setText(name != null ? name : "Admin");
                     }
                 });
@@ -78,19 +80,20 @@ public class AdminDashboardFragment extends Fragment {
 
     private void loadStats(TextView tvUsers, TextView tvCourts, TextView tvBookings, TextView tvPending) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        // Real-time listeners
-        db.collection("Users").addSnapshotListener((s, e) -> {
-            if (s != null) tvUsers.setText(String.valueOf(s.size()));
+
+        db.collection(Constants.COLLECTION_USERS).addSnapshotListener((snap, err) -> {
+            if (snap != null) tvUsers.setText(String.valueOf(snap.size()));
         });
-        db.collection("Courts").addSnapshotListener((s, e) -> {
-            if (s != null) tvCourts.setText(String.valueOf(s.size()));
+        db.collection(Constants.COLLECTION_COURTS).addSnapshotListener((snap, err) -> {
+            if (snap != null) tvCourts.setText(String.valueOf(snap.size()));
         });
-        db.collection("Bookings").addSnapshotListener((s, e) -> {
-            if (s != null) tvBookings.setText(String.valueOf(s.size()));
+        db.collection(Constants.COLLECTION_BOOKINGS).addSnapshotListener((snap, err) -> {
+            if (snap != null) tvBookings.setText(String.valueOf(snap.size()));
         });
-        db.collection("Bookings").whereEqualTo("status", "pending")
-                .addSnapshotListener((s, e) -> {
-                    if (s != null) tvPending.setText(String.valueOf(s.size()));
+        db.collection(Constants.COLLECTION_BOOKINGS)
+                .whereEqualTo("status", "pending")
+                .addSnapshotListener((snap, err) -> {
+                    if (snap != null) tvPending.setText(String.valueOf(snap.size()));
                 });
     }
 }

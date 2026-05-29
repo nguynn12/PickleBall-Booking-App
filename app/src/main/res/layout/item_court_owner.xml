@@ -116,7 +116,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:text="✏️ Chỉnh sửa"
+                    android:text="Chỉnh sửa"
+                    app:icon="@drawable/ic_edit"
+                    app:iconTint="@color/green_primary"
+                    app:iconGravity="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/green_primary"
                     android:textSize="13sp"
@@ -128,9 +131,9 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="40dp"
-                    android:text="⏸ Tạm đóng"
+                    android:text="Tạm đóng"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@android:color/white"
                     android:textSize="13sp"
                     style="@style/Widget.PickleBall.Button.Primary"/>
             </LinearLayout>

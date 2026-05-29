@@ -26,7 +26,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@android:drawable/ic_media_previous"
+                android:src="@drawable/ic_back"
                 android:padding="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"/>
 
@@ -107,10 +107,12 @@
                         android:id="@+id/btnPickImage"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
-                        android:text="📷  Chọn ảnh sân"
+                        android:text="Ch&#x1ECD;n &#x1EA3;nh s&#xE2;n"
                         android:textAllCaps="false"
                         android:textColor="@color/green_primary"
                         android:textSize="14sp"
+                        app:icon="@drawable/ic_camera"
+                        app:iconTint="@color/green_primary"
                         style="@style/Widget.PickleBall.Button.Outline"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

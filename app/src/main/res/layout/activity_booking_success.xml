@@ -122,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="10dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.PickleBall.Button.Outline"
             android:text="Về trang chủ"
             android:textAllCaps="false"
             android:textSize="15sp"

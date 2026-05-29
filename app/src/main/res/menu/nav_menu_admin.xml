@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_nav_users"
         android:title="Người dùng" />
     <item
+        android:id="@+id/nav_finance"
+        android:icon="@drawable/ic_nav_booking"
+        android:title="Tài chính" />
+    <item
         android:id="@+id/nav_courts"
         android:icon="@drawable/ic_nav_court"
         android:title="Sân" />

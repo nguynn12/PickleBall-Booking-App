@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E8F5E9">
+    android:background="@color/bg_primary">
 
     <!-- ===== HEADER ===== -->
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:id="@+id/btnBack"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@android:drawable/ic_media_previous"
+                android:src="@drawable/ic_back"
                 android:padding="6dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:tint="@color/white"/>
@@ -171,7 +171,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/text_primary"
+        android:background="@color/bottom_panel_bg"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <!-- Toggle expand/collapse -->
@@ -188,7 +188,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@android:drawable/arrow_up_float"
-                app:tint="@color/white"/>
+                app:tint="@color/text_secondary"/>
         </LinearLayout>
 
         <!-- Chi tiết các slot đã chọn (ẩn mặc định) -->
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng giờ: 0h"
                 android:textSize="13sp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"/>
 
             <TextView
@@ -233,7 +233,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng tiền: 0 đ"
                 android:textSize="13sp"
-                android:textColor="@color/white"
+                android:textColor="@color/text_primary"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -246,7 +246,7 @@
             android:layout_marginBottom="12dp"
             android:text="TIẾP THEO"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/text_primary"
             android:textSize="15sp"
             android:textStyle="bold"
             android:backgroundTint="@color/booking_yellow"

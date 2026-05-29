@@ -2,7 +2,6 @@ package com.example.pickleball.activity.booking;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -270,9 +270,9 @@ public class BookingScheduleActivity extends AppCompatActivity {
             tv.setLayoutParams(lp);
             tv.setText(isHour ? slot : "");
             tv.setTextSize(10f);
-            tv.setTextColor(Color.parseColor("#555555"));
+            tv.setTextColor(ContextCompat.getColor(this, R.color.text_secondary));
             tv.setGravity(Gravity.CENTER);
-            tv.setBackgroundColor(Color.parseColor("#E0F2E9"));
+            tv.setBackgroundColor(ContextCompat.getColor(this, R.color.schedule_header_bg));
 
             // Đường kẻ dọc
             tv.setPadding(0, 0, 1, 0);
@@ -283,7 +283,7 @@ public class BookingScheduleActivity extends AppCompatActivity {
         // Header rỗng đầu cột tên
         View headerEmpty = new View(this);
         headerEmpty.setLayoutParams(new LinearLayout.LayoutParams(nameW, dp(32)));
-        headerEmpty.setBackgroundColor(Color.parseColor("#E0F2E9"));
+        headerEmpty.setBackgroundColor(ContextCompat.getColor(this, R.color.schedule_header_bg));
         colSubCourtNames.addView(headerEmpty);
 
         for (int r = 0; r < subCourts.size(); r++) {
@@ -295,10 +295,10 @@ public class BookingScheduleActivity extends AppCompatActivity {
             tvName.setLayoutParams(nameLp);
             tvName.setText(sc.getName());
             tvName.setTextSize(11f);
-            tvName.setTextColor(Color.parseColor("#333333"));
+            tvName.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
             tvName.setGravity(Gravity.CENTER);
             tvName.setTypeface(null, Typeface.BOLD);
-            tvName.setBackgroundColor(r % 2 == 0 ? Color.WHITE : Color.parseColor("#F5FFF8"));
+            tvName.setBackgroundColor(r % 2 == 0 ? ContextCompat.getColor(this, R.color.bg_white) : ContextCompat.getColor(this, R.color.green_tint));
             tvName.setPadding(4, 0, 4, 0);
             colSubCourtNames.addView(tvName);
 
@@ -331,13 +331,13 @@ public class BookingScheduleActivity extends AppCompatActivity {
         cell.setLayoutParams(lp);
 
         if (isBooked) {
-            cell.setBackgroundColor(Color.parseColor("#FF6B6B")); // đỏ = đã đặt
+            cell.setBackgroundColor(ContextCompat.getColor(this, R.color.slot_booked)); // đỏ = đã đặt
             cell.setClickable(false);
         } else if (isSelected) {
-            cell.setBackgroundColor(Color.parseColor("#A8E6CF")); // xanh nhạt = đã chọn
+            cell.setBackgroundColor(ContextCompat.getColor(this, R.color.slot_selected)); // xanh nhạt = đã chọn
             cell.setClickable(true);
         } else {
-            cell.setBackgroundColor(Color.WHITE); // trắng = trống
+            cell.setBackgroundColor(ContextCompat.getColor(this, R.color.slot_empty)); // trắng = trống
             cell.setClickable(true);
         }
 
@@ -351,7 +351,7 @@ public class BookingScheduleActivity extends AppCompatActivity {
         if (selectedMap.containsKey(key)) {
             // Bỏ chọn
             selectedMap.remove(key);
-            cell.setBackgroundColor(Color.WHITE);
+            cell.setBackgroundColor(ContextCompat.getColor(this, R.color.slot_empty));
         } else {
             // Chọn
             String startTime = timeSlots.get(slotIdx);
@@ -365,7 +365,7 @@ public class BookingScheduleActivity extends AppCompatActivity {
                     sc.getSubCourtId(), sc.getName(),
                     slotIdx, startTime, endTime, pricePerSlot);
             selectedMap.put(key, slot);
-            cell.setBackgroundColor(Color.parseColor("#A8E6CF"));
+            cell.setBackgroundColor(ContextCompat.getColor(this, R.color.slot_selected));
         }
         updateBottomPanel();
     }

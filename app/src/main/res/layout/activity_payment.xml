@@ -42,8 +42,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="120dp"
-        android:clipToPadding="false"
+        android:paddingBottom="160dp"
+        android:clipToPadding="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="#FFF3CD"
+                app:cardBackgroundColor="@color/warning_bg"
                 android:layout_marginBottom="12dp">
 
                 <LinearLayout
@@ -72,9 +72,9 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="⏱️ Thời gian còn lại"
+                        android:text="Thời gian còn lại"
                         android:textSize="14sp"
-                        android:textColor="#856404"/>
+                        android:textColor="@color/warning_text"/>
 
                     <TextView
                         android:id="@+id/tvCountdown"
@@ -83,7 +83,7 @@
                         android:text="15:00"
                         android:textSize="20sp"
                         android:textStyle="bold"
-                        android:textColor="#856404"/>
+                        android:textColor="@color/warning_text"/>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -301,7 +301,7 @@
         android:text="Hủy đặt sân"
         android:textAllCaps="false"
         android:textColor="@color/error_red"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.PickleBall.Button.Outline"
         app:strokeColor="@color/error_red"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

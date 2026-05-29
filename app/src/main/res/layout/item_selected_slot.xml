@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Pickleball 1: 17h00 - 17h30"
         android:textSize="14sp"
-        android:textColor="@color/white"
+        android:textColor="@color/text_primary"
         android:textStyle="bold"/>
 
     <TextView
