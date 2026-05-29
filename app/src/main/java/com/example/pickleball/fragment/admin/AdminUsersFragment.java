@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,8 +25,11 @@ public class AdminUsersFragment extends Fragment {
 
     private RecyclerView rvUsers;
     private UserAdapter adapter;
-    private final List<User> userList = new ArrayList<>();
+    private final List<User> allUsers = new ArrayList<>();
+    private final List<User> displayList = new ArrayList<>();
     private TextView tvUserCount;
+    private TextView tabAll, tabCustomer, tabOwner;
+    private String currentFilter = "all";
 
     @Nullable
     @Override
@@ -41,10 +45,22 @@ public class AdminUsersFragment extends Fragment {
 
         rvUsers     = view.findViewById(R.id.rvUserList);
         tvUserCount = view.findViewById(R.id.tvUserCount);
+        tabAll      = view.findViewById(R.id.tabAll);
+        tabCustomer = view.findViewById(R.id.tabCustomer);
+        tabOwner    = view.findViewById(R.id.tabOwner);
 
         rvUsers.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new UserAdapter(requireContext(), userList);
+        adapter = new UserAdapter(requireContext(), displayList);
         rvUsers.setAdapter(adapter);
+
+        tabAll.setOnClickListener(v -> applyFilter("all", tabAll, tabCustomer, tabOwner));
+        tabCustomer.setOnClickListener(v -> applyFilter("user", tabCustomer, tabAll, tabOwner));
+        tabOwner.setOnClickListener(v -> applyFilter("owner", tabOwner, tabAll, tabCustomer));
+
+        // Set initial tab style
+        setTabSelected(tabAll);
+        setTabUnselected(tabCustomer);
+        setTabUnselected(tabOwner);
 
         loadUsers();
     }
@@ -53,16 +69,48 @@ public class AdminUsersFragment extends Fragment {
         FirebaseFirestore.getInstance().collection("Users")
                 .addSnapshotListener((snap, err) -> {
                     if (snap == null) return;
-                    userList.clear();
+                    allUsers.clear();
                     for (var doc : snap) {
                         User u = doc.toObject(User.class);
-                        if (u.getUserId() == null) u.setUserId(doc.getId());
-                        userList.add(u);
+                        if (u != null) {
+                            if (u.getUserId() == null) u.setUserId(doc.getId());
+                            allUsers.add(u);
+                        }
                     }
-                    adapter.notifyDataSetChanged();
-                    if (tvUserCount != null) {
-                        tvUserCount.setText("Tổng số: " + userList.size() + " người dùng");
-                    }
+                    filterAndShow();
                 });
+    }
+
+    private void applyFilter(String filter, TextView selected, TextView u1, TextView u2) {
+        currentFilter = filter;
+        setTabSelected(selected);
+        setTabUnselected(u1);
+        setTabUnselected(u2);
+        filterAndShow();
+    }
+
+    private void filterAndShow() {
+        displayList.clear();
+        for (User u : allUsers) {
+            if ("all".equals(currentFilter)) {
+                displayList.add(u);
+            } else if (currentFilter.equals(u.getRole())) {
+                displayList.add(u);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        if (tvUserCount != null) {
+            tvUserCount.setText("Tổng số: " + displayList.size() + " người dùng");
+        }
+    }
+
+    private void setTabSelected(TextView tab) {
+        tab.setBackgroundResource(R.drawable.bg_chip_selected);
+        tab.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_primary));
+    }
+
+    private void setTabUnselected(TextView tab) {
+        tab.setBackgroundResource(R.drawable.bg_chip_unselected);
+        tab.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white));
     }
 }
