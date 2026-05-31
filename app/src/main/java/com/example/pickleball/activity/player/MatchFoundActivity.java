@@ -37,7 +37,10 @@ public class MatchFoundActivity extends AppCompatActivity {
         setContentView(R.layout.activity_match_found);
 
         String matchedUserId = getIntent().getStringExtra(EXTRA_MATCHED_USER_ID);
-        if (matchedUserId == null) { finish(); return; }
+        if (matchedUserId == null) {
+            finish();
+            return;
+        }
 
         bindViews();
         loadMatchedUser(matchedUserId);
@@ -45,7 +48,7 @@ public class MatchFoundActivity extends AppCompatActivity {
 
         btnBookCourt.setOnClickListener(v -> {
             Intent intent = new Intent(this, CustomerMainActivity.class);
-            intent.putExtra("openTab", 2); // tab bản đồ để tìm sân gần
+            intent.putExtra("openTab", 2);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
@@ -58,13 +61,13 @@ public class MatchFoundActivity extends AppCompatActivity {
     }
 
     private void bindViews() {
-        tvMatchedName    = findViewById(R.id.tvMatchedName);
-        tvMatchedSkill   = findViewById(R.id.tvMatchedSkill);
+        tvMatchedName = findViewById(R.id.tvMatchedName);
+        tvMatchedSkill = findViewById(R.id.tvMatchedSkill);
         tvMatchedInitial = findViewById(R.id.tvMatchedInitial);
-        tvCountdown      = findViewById(R.id.tvCountdown);
+        tvCountdown = findViewById(R.id.tvCountdown);
         imgMatchedAvatar = findViewById(R.id.imgMatchedAvatar);
-        btnBookCourt     = findViewById(R.id.btnBookCourt);
-        btnSearchAgain   = findViewById(R.id.btnSearchAgain);
+        btnBookCourt = findViewById(R.id.btnBookCourt);
+        btnSearchAgain = findViewById(R.id.btnSearchAgain);
     }
 
     private void loadMatchedUser(String uid) {
@@ -72,7 +75,7 @@ public class MatchFoundActivity extends AppCompatActivity {
                 .addOnSuccessListener(doc -> {
                     if (!doc.exists()) return;
 
-                    String name  = doc.getString("fullName");
+                    String name = doc.getString("fullName");
                     String skill = doc.getString("skillLevel");
                     String avatar = doc.getString("avatarUrl");
 

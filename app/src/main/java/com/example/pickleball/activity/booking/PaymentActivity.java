@@ -130,6 +130,10 @@ public class PaymentActivity extends AppCompatActivity {
                     try {
                         JSONObject obj = new JSONObject(responseBody);
                         if (obj.optBoolean("success")) {
+                            if (obj.optBoolean("alreadyPaid")) {
+                                openSuccessScreen();
+                                return;
+                            }
                             String qrCode = obj.optString("qrCode");
                             displayQR(qrCode);
                         } else {
@@ -180,8 +184,7 @@ public class PaymentActivity extends AppCompatActivity {
                     String status        = snap.getString("status");
                     String paymentStatus = snap.getString("paymentStatus");
 
-                    if (Constants.BOOKING_STATUS_CONFIRMED.equals(status)
-                            && Constants.PAYMENT_STATUS_PAID.equals(paymentStatus)) {
+                    if (Constants.PAYMENT_STATUS_PAID.equals(paymentStatus)) {
                         openSuccessScreen();
                     } else if (status != null && status.startsWith("cancelled")) {
                         runOnUiThread(() ->

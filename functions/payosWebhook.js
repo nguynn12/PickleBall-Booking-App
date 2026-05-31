@@ -1,15 +1,31 @@
 const crypto = require('crypto');
-const admin  = require('firebase-admin');
+const admin = require('firebase-admin');
 
 exports.payosWebhook = async (req, res) => {
-    const PAYOS_CHECKSUM = process.env.PAYOS_CHECKSUM_KEY;
+    res.set('Access-Control-Allow-Origin', '*');
 
-    // 1. Verify chữ ký từ PayOS
-    const { code, data, signature } = req.body;
+    if (req.method === 'OPTIONS') {
+        res.set('Access-Control-Allow-Methods', 'GET, POST');
+        res.set('Access-Control-Allow-Headers', 'Content-Type');
+        return res.status(204).send('');
+    }
+
+    // PayOS dashboard may ping this URL before saving it.
+    if (req.method === 'GET') {
+        return res.status(200).json({ success: true, message: 'PayOS webhook is active' });
+    }
+
+    const PAYOS_CHECKSUM = process.env.PAYOS_CHECKSUM_KEY;
+    const { code, data, signature } = req.body || {};
+
+    // Treat an empty dashboard validation POST as a health check.
+    if (!data || !signature) {
+        return res.status(200).json({ success: true, message: 'Webhook endpoint is ready' });
+    }
 
     const dataStr = Object.keys(data)
         .sort()
-        .map(k => `${k}=${data[k]}`)
+        .map((key) => `${key}=${data[key]}`)
         .join('&');
 
     const expectedSig = crypto
@@ -22,74 +38,78 @@ exports.payosWebhook = async (req, res) => {
         return res.status(400).json({ error: 'Invalid signature' });
     }
 
-    // 2. Chỉ xử lý khi thanh toán thành công (code = "00")
     if (code !== '00') {
-        return res.json({ success: true, note: 'Non-success event, ignored' });
+        return res.json({ success: true, note: 'Non-success event ignored' });
     }
 
-    const orderCode = data.orderCode;
-
-    // 3. Tìm booking theo payosOrderCode
-    const snap = await admin.firestore()
+    const rawOrderCode = data.orderCode;
+    const numericOrderCode = Number(rawOrderCode);
+    let snap = await admin.firestore()
         .collection('Bookings')
-        .where('payosOrderCode', '==', orderCode)
+        .where('payosOrderCode', '==', Number.isFinite(numericOrderCode) ? numericOrderCode : rawOrderCode)
         .limit(1)
         .get();
 
     if (snap.empty) {
-        console.error('Booking not found for orderCode:', orderCode);
-        return res.status(404).json({ error: 'Booking not found' });
+        snap = await admin.firestore()
+            .collection('Bookings')
+            .where('payosOrderCode', '==', String(rawOrderCode))
+            .limit(1)
+            .get();
+    }
+
+    if (snap.empty) {
+        console.error('Booking not found for orderCode:', rawOrderCode);
+        return res.status(200).json({ success: true, note: 'Booking not found, event acknowledged' });
     }
 
     const bookingDoc = snap.docs[0];
-    const booking    = bookingDoc.data();
+    const booking = bookingDoc.data();
 
-    // 4. Kiểm tra conflict (slot bị người khác đặt confirmed trong lúc chờ)
     const conflictSnap = await admin.firestore()
         .collection('Bookings')
-        .where('courtId',   '==', booking.courtId)
-        .where('date',      '==', booking.date)
-        .where('status',    '==', 'confirmed')
-        .where('subCourtId','==', booking.subCourtId || '')
+        .where('courtId', '==', booking.courtId)
+        .where('date', '==', booking.date)
+        .where('status', '==', 'confirmed')
+        .where('subCourtId', '==', booking.subCourtId || '')
         .get();
 
-    // Loại bỏ chính booking hiện tại khỏi conflict check
-    const realConflicts = conflictSnap.docs.filter(d => d.id !== bookingDoc.id);
+    const realConflicts = conflictSnap.docs.filter((doc) => doc.id !== bookingDoc.id);
 
     if (realConflicts.length > 0) {
-        // Conflict → hủy, cần hoàn tiền
         await bookingDoc.ref.update({
-            status:       'cancelled_conflict',
+            status: 'cancelled_conflict',
             refundStatus: 'refund_pending',
-            refundAmount:  booking.depositAmount || 0
+            refundAmount: booking.depositAmount || 0,
+            paymentStatus: 'paid',
+            paidAt: admin.firestore.FieldValue.serverTimestamp(),
+            payosTransactionId: data.id || ''
         });
         await sendNotification(
             booking.userId,
-            '⚠️ Lịch đặt bị hủy do trùng slot',
-            `Rất tiếc, slot bạn đặt tại sân ${booking.courtName} ngày ${booking.date} đã bị người khác đặt trước. Tiền cọc sẽ được hoàn lại.`
+            'Lich dat bi huy do trung slot',
+            `Slot tai san ${booking.courtName} ngay ${booking.date} da bi dat truoc. Tien coc se duoc hoan lai.`
         );
-        return res.json({ success: true, note: 'Conflict — cancelled and refund queued' });
+        return res.json({ success: true, note: 'Conflict cancelled and refund queued' });
     }
 
-    // 5. Xác nhận booking thành công
     await bookingDoc.ref.update({
-        status:             'confirmed',
-        paymentStatus:      'paid',
-        paidAt:             admin.firestore.FieldValue.serverTimestamp(),
+        status: 'confirmed',
+        paymentStatus: 'paid',
+        paidAt: admin.firestore.FieldValue.serverTimestamp(),
         payosTransactionId: data.id || ''
     });
 
-    // 6. Gửi thông báo
     await sendNotification(
         booking.userId,
-        '✅ Đặt sân thành công!',
-        `Bạn đã cọc thành công cho sân ${booking.courtName} vào ngày ${booking.date} lúc ${booking.startTime}.`
+        'Dat san thanh cong!',
+        `Ban da coc thanh cong cho san ${booking.courtName} vao ngay ${booking.date} luc ${booking.startTime}.`
     );
     if (booking.ownerId) {
         await sendNotification(
             booking.ownerId,
-            '🏓 Có lịch đặt mới!',
-            `Khách đã đặt sân ${booking.courtName} ngày ${booking.date} lúc ${booking.startTime}.`
+            'Co lich dat moi!',
+            `Khach da dat san ${booking.courtName} ngay ${booking.date} luc ${booking.startTime}.`
         );
     }
 
@@ -102,7 +122,7 @@ async function sendNotification(userId, title, message) {
         userId,
         title,
         message,
-        isRead:    false,
+        isRead: false,
         createdAt: admin.firestore.FieldValue.serverTimestamp()
     });
 }
